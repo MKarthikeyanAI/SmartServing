@@ -241,3 +241,29 @@ p {
     background-color: #218838;
   }
   
+
+  .qr-codes-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .qr-codes-table th,
+  .qr-codes-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .qr-codes-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .success-message {
+    color: green;
+    margin-top: 10px;
+  }
+  
+  .qr-code-container {
+    margin-bottom: 20px;
+  }
+  

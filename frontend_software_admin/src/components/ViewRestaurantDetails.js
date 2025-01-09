@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getRestaurantDetails, addMenuItem, updateMenuItem, deleteMenuItem, createQRCodeScanner, getQRCodeScanners } from '../api';
+import { getRestaurantDetails, addMenuItem, updateMenuItem, deleteMenuItem, createQRCodeScanner, getQRCodeScanners, deleteQRCodeByTableName } from '../api';
 import '../styles/ViewRestaurantDetails.css';
 import { QRCodeCanvas } from 'qrcode.react';  // Correct import
 
@@ -163,6 +163,26 @@ const ViewRestaurantDetails = () => {
     setShowAddForm(true);
   };
 
+  const handleDeleteQRCode = async (tableName) => {
+    try {
+      await deleteQRCodeByTableName(restaurantName, tableName);
+      setQrCodes(qrCodes.filter(qrCode => qrCode.tableName !== tableName));
+    } catch (error) {
+      console.error('Error deleting QR code:', error);
+    }
+  };
+
+
+  const handleDownloadQRCode = (base64String, tableName) => {
+    const link = document.createElement('a');
+    link.href = `data:image/png;base64,${base64String}`;
+    link.download = `${tableName}-QRCode.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+
   if (!details) return <p>Loading...</p>;
 
   return (
@@ -205,6 +225,8 @@ const ViewRestaurantDetails = () => {
         </div>
       )}
 
+
+
 {/* <div className="qr-codes-list">
           <h3>QR Codes</h3>
           {qrCodes.map((qrCode) => (
@@ -218,6 +240,34 @@ const ViewRestaurantDetails = () => {
             </div>
           ))}
         </div> */}
+<div className="qr-codes-list">
+        <h3>QR Codes</h3>
+        <table className="qr-codes-table">
+          <thead>
+            <tr>
+              <th>SI.NO</th>
+              <th>QR Code Name</th>
+              <th>QR Code</th>
+              <th>Operations</th>
+            </tr>
+          </thead>
+          <tbody>
+            {qrCodes.map((qrCode, index) => (
+              <tr key={qrCode._id}>
+                <td>{index + 1}</td>
+                <td>{qrCode.table_name}</td>
+                <td><img src={`data:image/png;base64,${qrCode.qr_code_image}`} alt="QR Code" style={{ width: '100px', height: '100px' }} /></td>
+                
+                <td>
+                  <button onClick={() => handleDeleteQRCode(qrCode.table_name)}>Delete</button>
+                  <button onClick={() => handleDownloadQRCode(qrCode.qr_code_image, qrCode.table_name)}>Download</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
 
 <div className="qr-codes-list">
         <h3>QR Codes</h3>

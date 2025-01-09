@@ -51,28 +51,14 @@ export const getQRCodeScanners = async (restaurantName) => {
     throw error;
   }
 };
-// // API function to get all QR codes for a restaurant
-// export const getQRCodeScanners = async (restaurantName) => {
-//   try {
-//     const response = await axios.get(`${API_URL}/get-qrcode-scanners/${restaurantName}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error fetching QR codes:', error);
-//     throw error;
-//   }
-// };
-
-// // API function to get food items by table
-// export const getFoodItemsByTable = async (restaurantName, tableName) => {
-//   try {
-//     const response = await axios.get(`${API_URL}/get-food-items-by-table/${restaurantName}/${tableName}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error fetching food items for table:', error);
-//     throw error;
-//   }
-// };
 
 
-
-
+export const deleteQRCodeByTableName = async (restaurantName, tableName) => {
+  try {
+    const response = await axios.delete(`${API_URL}/qrcodes/${restaurantName}/${tableName}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting QR code:', error);
+    throw error;
+  }
+};

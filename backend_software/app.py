@@ -18,6 +18,15 @@ mongo = PyMongo(app)
 # Register routes
 # app.register_blueprint(qr_code_routes, url_prefix='/api/qrcodes')
 
+@app.route('/qrcodes/<restaurant_name>/<table_name>', methods=['DELETE'])
+def delete_qr_code_by_table_name(restaurant_name, table_name):
+    db = mongo.cx[restaurant_name]
+    result = db.qrcodescanner.delete_one({'table_name': table_name})
+    if result.deleted_count == 1:
+        return jsonify({'message': 'QR code deleted successfully'}), 200
+    else:
+        return jsonify({'message': 'QR code not found'}), 404
+
 
 @app.route('/qrcodes/<restaurant_name>', methods=['GET'])
 def get_qr_codes(restaurant_name):
