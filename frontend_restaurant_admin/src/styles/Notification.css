@@ -1,0 +1,37 @@
+.notification {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease, fadeOut 1s ease 2.5s forwards; /* FadeIn and FadeOut combined */
+    z-index: 9999;
+    border-radius: 4px; /* Slightly rounded rectangle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-50%); /* Centers horizontally */
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      visibility: hidden; /* Hides the element completely after fading out */
+    }
+  }
+  

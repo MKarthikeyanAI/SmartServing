@@ -1,0 +1,16 @@
+.orders {
+    padding: 20px;
+  }
+  
+  .orders h2 {
+    color: #2c3e50;
+  }
+  
+  .orders ul {
+    list-style-type: none;
+  }
+  
+  .orders li {
+    padding: 10px 0;
+  }
+  

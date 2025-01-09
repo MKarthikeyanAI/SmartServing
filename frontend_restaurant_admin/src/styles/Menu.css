@@ -1,0 +1,165 @@
+.menu-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100%; /* Ensures it takes the full height of its parent */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f6f8; /* Softer background for better contrast */
+  border-radius: 10px; /* Rounds the edges of the container */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #ffffff; /* Stands out against the container */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 1px solid #e0e0e0; /* Subtle border for separation */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-header h2 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #333; /* Darker color for emphasis */
+  margin: 0;
+}
+
+.add-button {
+  padding: 12px 25px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.menu-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between menu items */
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-3px); /* Lift effect on hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.menu-details {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px; /* Slightly rounded edges for a modern look */
+  object-fit: cover;
+  border: 2px solid #ddd; /* Border for better visibility */
+}
+
+.menu-info h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.menu-info p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #777;
+}
+
+.menu-price {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu-price span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.menu-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.menu-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.menu-actions button:hover {
+  transform: scale(1.2); /* Zoom effect on hover */
+}
+
+.edit-button {
+  color: #4CAF50;
+}
+
+.edit-button:hover {
+  color: #388E3C;
+}
+
+.delete-button {
+  color: #f44336;
+}
+
+.delete-button:hover {
+  color: #d32f2f;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
