@@ -1,0 +1,108 @@
+/* Dashboard Container */
+.dashboard-container {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background-color: #f4f7fc;
+  }
+  
+  /* Header Section */
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .dashboard-actions {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .create-restaurant-btn,
+  .logout-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-restaurant-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+  }
+  
+  .create-restaurant-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .logout-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+  }
+  
+  .logout-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Restaurants Table Section */
+  .restaurants-table-container {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  .restaurants-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+  }
+  
+  .restaurants-table th,
+  .restaurants-table td {
+    padding: 12px 20px;
+    text-align: left;
+  }
+  
+  .restaurants-table th {
+    background-color: #4caf50;
+    color: white;
+    font-size: 1.2rem;
+  }
+  
+  .restaurants-table td {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .restaurants-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .restaurants-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .view-details-btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .view-details-btn:hover {
+    background-color: #1976d2;
+  }
+  

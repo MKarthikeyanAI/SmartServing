@@ -1,0 +1,92 @@
+/* Login Container to center the box */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f7fc;
+  }
+  
+  /* Box container for the login form */
+  .login-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Heading style */
+  .login-box h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Input group for better spacing and alignment */
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-group label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .input-group input {
+    width: 93%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+    transition: border 0.3s ease;
+  }
+  
+  .input-group input:focus {
+    border: 1px solid #4caf50;
+    outline: none;
+  }
+  
+  /* Button Style */
+  .login-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #4caf50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 480px) {
+    .login-box {
+      padding: 20px;
+    }
+  
+    .login-box h2 {
+      font-size: 1.5rem;
+    }
+  
+    .input-group input {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  
+    .login-btn {
+      padding: 12px;
+      font-size: 1rem;
+    }
+  }
+  
