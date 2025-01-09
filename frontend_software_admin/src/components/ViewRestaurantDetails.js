@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getRestaurantDetails, addMenuItem, updateMenuItem, deleteMenuItem, createQRCodeScanner, getQRCodeScanners, deleteQRCodeByTableName } from '../api';
 import '../styles/ViewRestaurantDetails.css';
-import { QRCodeCanvas } from 'qrcode.react';  // Correct import
+// import { QRCodeCanvas } from 'qrcode.react';  // Correct import
 
 const ViewRestaurantDetails = () => {
   const { restaurantName } = useParams();
@@ -20,6 +20,8 @@ const ViewRestaurantDetails = () => {
   const [tableName, setTableName] = useState('');
   const [qrCode, setQrCode] = useState('');
   const [qrCodes, setQrCodes] = useState([]); // State to store QR codes
+
+  console.log(qrCode);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -49,19 +51,6 @@ const ViewRestaurantDetails = () => {
   }, [restaurantName]);
 
   
- 
-  const Base64Image = ({ base64String }) => {
-    // Construct the data URL for the image
-    const imageSrc = `data:image/png;base64,${base64String}`;
-  
-    return (
-      <div className="qr-code-item">
-        <img src={imageSrc} alt="QR Code" style={{ width: '200px', height: '200px' }} />
-      </div>
-    );
-  };
-
-  
   // Handle QR code creation
   const handleCreateQRCode = async (e) => {
     e.preventDefault();
@@ -81,7 +70,11 @@ const ViewRestaurantDetails = () => {
 
       setQrCode(`Table: ${tableName}, Restaurant: ${restaurantName}`);
       setSuccessMessage('QR code created successfully!');
-      
+
+      // Fetch updated QR codes list
+      const updatedQRCodes = await getQRCodeScanners(restaurantName);
+      setQrCodes(updatedQRCodes);
+        
       // Hide success message after 3 seconds
       setTimeout(() => {
         setSuccessMessage('');
@@ -166,7 +159,8 @@ const ViewRestaurantDetails = () => {
   const handleDeleteQRCode = async (tableName) => {
     try {
       await deleteQRCodeByTableName(restaurantName, tableName);
-      setQrCodes(qrCodes.filter(qrCode => qrCode.tableName !== tableName));
+      // setQrCodes(qrCodes.filter(qrCode => qrCode.tableName !== tableName));
+      setQrCodes(prevQRCodes => prevQRCodes.filter(qrCode => qrCode.table_name !== tableName));
     } catch (error) {
       console.error('Error deleting QR code:', error);
     }
@@ -214,7 +208,7 @@ const ViewRestaurantDetails = () => {
           />
           <button type="submit">Create QR Code</button>
         </form>
-        {qrCode && <QRCodeCanvas value={qrCode} />}
+        {/* {qrCode && <QRCodeCanvas value={qrCode} />} */}
       </div>
 
 
@@ -225,21 +219,6 @@ const ViewRestaurantDetails = () => {
         </div>
       )}
 
-
-
-{/* <div className="qr-codes-list">
-          <h3>QR Codes</h3>
-          {qrCodes.map((qrCode) => (
-            <div key={qrCode._id} className="qr-code-item">
-              <p>Table: {qrCode.table_name}</p>
-              <QRCodeCanvas 
-        value={`data:image/png;base64,${qrCode.qr_code_image}`} 
-      />
-
-              <QRCodeCanvas value={`data:image/png;base64,${qrCode.qr_code_image}`} />
-            </div>
-          ))}
-        </div> */}
 <div className="qr-codes-list">
         <h3>QR Codes</h3>
         <table className="qr-codes-table">
@@ -268,20 +247,6 @@ const ViewRestaurantDetails = () => {
         </table>
       </div>
 
-
-<div className="qr-codes-list">
-        <h3>QR Codes</h3>
-        {qrCodes.map((qrCode) => (
-          <Base64Image key={qrCode._id} base64String={qrCode.qr_code_image} />
-        ))}
-      </div>
-      
-      <div className="menu-items-header-container">
-        <h3>Menu Items</h3>
-        <div className="add-food-item-btn-container">
-          <button onClick={() => setShowAddForm(true)}>Add Food Item</button>
-        </div>
-      </div>
 
       <table className="center-table">
         <thead>
