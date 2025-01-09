@@ -1,0 +1,29 @@
+.order-confirmation {
+    padding: 20px;
+  }
+  
+  .order-items {
+    margin-bottom: 20px;
+  }
+  
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .order-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .error {
+    color: red;
+  }
+  
