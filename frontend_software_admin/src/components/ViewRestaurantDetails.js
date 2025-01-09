@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getRestaurantDetails, addMenuItem, updateMenuItem, deleteMenuItem, createQRCodeScanner, getQRCodeScanners, deleteQRCodeByTableName } from '../api';
+import { getRestaurantDetails, addMenuItem, updateMenuItem, deleteMenuItem, createQRCodeScanner, getQRCodeScanners, deleteQRCodeByTableName ,createRestaurantDetails,checkRestaurantDetails} from '../api';
 import '../styles/ViewRestaurantDetails.css';
 // import { QRCodeCanvas } from 'qrcode.react';  // Correct import
 
@@ -15,11 +15,22 @@ const ViewRestaurantDetails = () => {
     category: '',
     subcategory: '',
   });
+
   const [isUpdating, setIsUpdating] = useState(false);
   const [successMessage, setSuccessMessage] = useState(''); // State for success message
   const [tableName, setTableName] = useState('');
   const [qrCode, setQrCode] = useState('');
   const [qrCodes, setQrCodes] = useState([]); // State to store QR codes
+
+  
+  const [restaurantInfo, setRestaurantInfo] = useState({
+    restaurant_name: '',
+    contact: '',
+    location: '',
+    timing: '',
+  });
+  const [showModal, setShowModal] = useState(false);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
 
   console.log(qrCode);
 
@@ -50,6 +61,44 @@ const ViewRestaurantDetails = () => {
     fetchDetails();
   }, [restaurantName]);
 
+
+
+  //View Restaurant Details:
+
+  const handleViewDetails = async () => {
+    setIsButtonClicked(true);  // Set to true when the button is clicked
+    try {
+      const response = await checkRestaurantDetails(restaurantName);
+      if (response) {
+        if (response.message === 'no_collection') {
+          setShowModal(true);  // Open modal to add restaurant details if collection doesn't exist
+          setRestaurantInfo({});  // Set restaurantInfo to an empty object, not null
+        } else {
+          setRestaurantInfo(response);  // Set restaurant details if they exist
+          setShowModal(false); // Close the modal if details are found
+        }
+      } else {
+        setShowModal(true);  // Open modal if no response or error occurs
+        setRestaurantInfo({}); // Set restaurantInfo to an empty object
+      }
+    } catch (error) {
+      console.error('Error checking restaurant details:', error);
+    }
+  };
+  
+  const handleSubmitDetails = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await createRestaurantDetails(restaurantName, restaurantInfo);
+      if (response) {
+        setShowModal(false);  // Close the modal after successful submission
+        setRestaurantInfo(response);  // Set the newly submitted restaurant details
+      }
+    } catch (error) {
+      console.error('Error creating restaurant details:', error);
+    }
+  };
+  
   
   // Handle QR code creation
   const handleCreateQRCode = async (e) => {
@@ -194,7 +243,61 @@ const ViewRestaurantDetails = () => {
           </div>
         </div>
       </div>
+{/* View Restaurant Details Button */}
+<button onClick={handleViewDetails} className="view-details-button">
+  View Restaurant Details
+</button>
 
+{/* Display Restaurant Details */}
+{isButtonClicked && restaurantInfo && !showModal && (
+  <div className="restaurant-details">
+    <h3>Restaurant Details</h3>
+    <p><strong>Name:</strong> {restaurantInfo.restaurant_name}</p>
+    <p><strong>Contact:</strong> {restaurantInfo.contact}</p>
+    <p><strong>Location:</strong> {restaurantInfo.location}</p>
+    <p><strong>Timing:</strong> {restaurantInfo.timing}</p>
+    <button onClick={() => setRestaurantInfo(null)}>Close</button>    
+  </div>
+)}
+
+{/* Modal for Adding Details */}
+{showModal && (
+  <div className="modal">
+    <form onSubmit={handleSubmitDetails}>
+      <h3>Add Restaurant Details</h3>
+      <input
+        type="text"
+        placeholder="Restaurant Name"
+        value={restaurantInfo.restaurant_name || ''}
+        onChange={(e) => setRestaurantInfo({ ...restaurantInfo, restaurant_name: e.target.value })}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Contact"
+        value={restaurantInfo.contact || ''}
+        onChange={(e) => setRestaurantInfo({ ...restaurantInfo, contact: e.target.value })}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Location"
+        value={restaurantInfo.location || ''}
+        onChange={(e) => setRestaurantInfo({ ...restaurantInfo, location: e.target.value })}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Timing"
+        value={restaurantInfo.timing || ''}
+        onChange={(e) => setRestaurantInfo({ ...restaurantInfo, timing: e.target.value })}
+        required
+      />
+      <button type="submit">Submit</button>
+      <button type="button" onClick={() => setShowModal(false)} className="close-button">Close</button>
+    </form>
+  </div>
+)}
       {/* QR Code Section */}
       <div className="qr-code-container">
         <h3>Create QR Code for Table</h3>
@@ -247,6 +350,12 @@ const ViewRestaurantDetails = () => {
         </table>
       </div>
 
+      <div className="menu-items-header-container">
+        <h3>Menu Items</h3>
+        <div className="add-food-item-btn-container">
+          <button onClick={() => setShowAddForm(true)}>Add Food Item</button>
+        </div>
+      </div>
 
       <table className="center-table">
         <thead>

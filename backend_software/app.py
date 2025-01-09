@@ -17,6 +17,44 @@ mongo = PyMongo(app)
 
 # Register routes
 # app.register_blueprint(qr_code_routes, url_prefix='/api/qrcodes')
+@app.route('/restaurant-details/<restaurant_name>', methods=['GET'])
+def check_restaurant_details(restaurant_name):
+    db = mongo.cx[restaurant_name]  # Access the specific database by name
+
+    # Check if 'restaurantdetails' collection exists in the database
+    if 'restaurantdetails' in db.list_collection_names():  
+        # Fetch the first document in the collection
+        details = db.restaurantdetails.find_one()  # Returns the first document found
+
+        if details:
+            details['_id'] = str(details['_id'])  # Convert ObjectId to string for JSON response
+            return jsonify(details), 200  # Return the document
+        else:
+            return jsonify({'message': 'No restaurant details found'}), 404  # No document found in the collection
+    else:
+        return jsonify({'message': 'no_collection'}), 404  # Return 'no_collection' if the collection does not exist
+
+
+@app.route('/restaurant-details/<restaurant_name>', methods=['POST'])
+def create_restaurant_details(restaurant_name):
+    db = mongo.cx[restaurant_name]  # Access the specific database by name
+
+    # Check if the 'restaurantdetails' collection exists
+    if 'restaurantdetails' not in db.list_collection_names():
+        # Create the collection if it doesn't exist
+        db.create_collection('restaurantdetails')
+
+    # Get the details from the request body
+    details = request.get_json()
+
+    # Insert the new restaurant details into the collection
+    result = db.restaurantdetails.insert_one(details)
+
+    # Return the inserted document with the new ObjectId
+    details['_id'] = str(result.inserted_id)  # Convert ObjectId to string for response
+    return jsonify(details), 201  # Return the details with 201 Created status
+
+
 
 @app.route('/qrcodes/<restaurant_name>/<table_name>', methods=['DELETE'])
 def delete_qr_code_by_table_name(restaurant_name, table_name):
@@ -37,43 +75,6 @@ def get_qr_codes(restaurant_name):
         qr_code['_id'] = str(qr_code['_id'])  # Convert ObjectId to string
     return jsonify(qr_codes_list)
 
-# @app.route('/get-qrcode-scanners/<restaurant_name>', methods=['GET'])
-# def get_qr_codes(restaurant_name):
-#     qr_codes = mongo.db.qr_codes.find({"restaurant_name": restaurant_name})
-#     qr_codes_list = [{"table_name": qr["table_name"], "restaurant_name": qr["restaurant_name"]} for qr in qr_codes]
-#     return jsonify({"qrcodes": qr_codes_list}), 200
-
-# @app.route('/get-food-items-by-table/<restaurant_name>/<table_name>', methods=['GET'])
-# def get_food_items_by_table(restaurant_name, table_name):
-#     db = mongo.cx[restaurant_name]
-#     # Get the list of menu items associated with the restaurant
-#     menu_items = list(db.menuitems.find({}, {'_id': 0}))  # Exclude _id from response
-#     return jsonify({"menu_items": menu_items})
-
-
-# @app.route('/create-qrcode-scanner/<restaurant_name>', methods=['POST'])
-# def create_qrcode_scanner(restaurant_name):
-#     data = request.json
-#     table_name = data.get('tableName')
-#     restaurant_name = data.get('restaurantName')
-
-#     if not table_name:
-#         return jsonify({"error": "Table name is required!"}), 400
-
-#     db = mongo.cx[restaurant_name]
-
-#     # Insert the QR code data into the qrcodescanner collection
-#     qr_code_data = {
-#         "table_name": table_name,
-#         "restaurant_name": restaurant_name,
-#     }
-
-#     result = db.qrcodescanner.insert_one(qr_code_data)
-    
-#     # Converting ObjectId to string for JSON serialization
-#     qr_code_data["_id"] = str(result.inserted_id)
-
-#     return jsonify({"message": "QR code scanner created successfully!", "qr_code_data": qr_code_data}), 201
 
 @app.route('/create-qrcode-scanner/<restaurant_name>', methods=['POST'])
 def create_qrcode_scanner(restaurant_name):

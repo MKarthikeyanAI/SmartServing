@@ -62,3 +62,31 @@ export const deleteQRCodeByTableName = async (restaurantName, tableName) => {
     throw error;
   }
 };
+
+// Function to check if restaurant details exist
+export const checkRestaurantDetails = async (restaurantName) => {
+  try {
+    const response = await fetch(`${API_URL}/restaurant-details/${restaurantName}`);
+    if (response.ok) {
+      return response.json();  // Return the full response, including 'message'
+    }
+    return null;  // Return null if no valid response
+  } catch (error) {
+    console.error('Error checking restaurant details:', error);
+    return null;  // Return null in case of any error
+  }
+};
+
+// Function to create restaurant details
+export const createRestaurantDetails = async (restaurantName, details) => {
+  try {
+    const response = await fetch(`${API_URL}/restaurant-details/${restaurantName}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(details),
+    });
+    return response.json();
+  } catch (error) {
+    console.error('Error creating restaurant details:', error);
+  }
+};

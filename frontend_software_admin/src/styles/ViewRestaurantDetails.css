@@ -266,4 +266,178 @@ p {
   .qr-code-container {
     margin-bottom: 20px;
   }
+
+
+  /* Base styles for the page */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+
+/* Restaurant Details Section */
+.restaurant-details {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.restaurant-details h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.restaurant-details p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.restaurant-details strong {
+  color: #333;
+}
+
+.restaurant-details button {
+  background-color: #FF5733;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.restaurant-details button:hover {
+  background-color: #ff3b00;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal h3 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.modal input:focus {
+  border-color: #FF5733;
+  outline: none;
+}
+
+.modal button {
+  background-color: #FF5733;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.modal button:hover {
+  background-color: #ff3b00;
+}
+
+.modal .close-button {
+  background-color: #ddd;
+  color: #333;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.modal .close-button:hover {
+  background-color: #ccc;
+}
+
+/* For small screens */
+@media (max-width: 768px) {
+  .restaurant-details {
+    width: 90%;
+  }
+
+  .modal form {
+    width: 95%;
+  }
+}
+
+/* restaurant view details button */
+
+/* Button Styles */
+.view-details-button {
+  background-color: #FF5733;  /* Bright color */
+  color: white;
+  border: none;
+  padding: 10px 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.view-details-button:hover {
+  background-color: #ff3b00;  /* Darker shade on hover */
+  transform: scale(1.05);  /* Slightly larger on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.view-details-button:active {
+  transform: scale(1);  /* Reset scale on click */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Reset shadow on click */
+}
+
+.view-details-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #FF5733;  /* Outline on focus for accessibility */
+}
+
+
+
   
