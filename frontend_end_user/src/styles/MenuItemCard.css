@@ -43,6 +43,8 @@
     background-color: #007bff;
     color: #fff;
     border: none;
+    height: 45px;
+    width: 180px;
     padding: 8px 12px;
     font-size: 0.9rem;
     border-radius: 4px;
@@ -58,21 +60,54 @@
     display: flex;
     align-items: center;
     gap: 10px;
-  }
+    height: 26px;
+    border: 2px solid #007bff; /* Adding border similar to Add to Cart button */
+    border-radius: 4px; /* Matching the Add to Cart button's border radius */
+    padding: 8px; /* Adding padding for better spacing */
+    background-color: #fff; /* Keeping it white to match the card */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adding a subtle shadow */
+    width: fit-content; /* Ensuring the width adjusts to content */
+    margin-top: 10px; /* Adding some space above the controls */
+
+    
+}
   
-  .decrement-btn,
-  .increment-btn {
-    background-color: #ff6b6b;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 18px;
-  }
+  
   
   .item-count {
     font-size: 18px;
     font-weight: bold;
   }
+
+  .decrement-btn, .increment-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 2em;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0px;
+    margin-top: 5px; /* Adjust the value as needed */
+  }
+  
+  .decrement-btn:hover, .increment-btn:hover {
+    color: #0056b3;
+  }
+.item-count-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 28px;
+    margin: 0 10px;
+    text-align: center;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background-color: #dfefff; /* Light blue background */
+    font-size: 1em;
+    color: #333;
+}
+
+
+  
   

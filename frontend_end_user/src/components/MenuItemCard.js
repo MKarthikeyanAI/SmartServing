@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import "../styles/MenuItemCard.css";
+import { MdAddCircle, MdRemoveCircle } from "react-icons/md"; // Importing Material Design Icons
+
 
 const MenuItemCard = ({ item, addToCart, incrementItem, decrementItem, cartItem }) => {
-  const [isAdded, setIsAdded] = useState(false); // Local state for each card
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleIncrement = () => {
+    incrementItem(item);
+  };
 
   const handleAddToCart = () => {
     addToCart(item);
-    setIsAdded(true); // Show increment/decrement controls
+    setIsAdded(true);
   };
 
   const handleDecrement = () => {
     decrementItem(item);
     if (cartItem && cartItem.quantity <= 1) {
-      setIsAdded(false); // Hide increment/decrement controls when quantity is 0
+      setIsAdded(false);
     }
   };
 
@@ -26,11 +32,13 @@ const MenuItemCard = ({ item, addToCart, incrementItem, decrementItem, cartItem 
       {isAdded && cartItem ? (
         <div className="cart-controls">
           <button className="decrement-btn" onClick={handleDecrement}>
-            -
+            <MdRemoveCircle />
           </button>
-          <span className="item-count">{cartItem.quantity}</span>
-          <button className="increment-btn" onClick={() => incrementItem(item)}>
-            +
+          <span className="item-count-box">
+            {cartItem.quantity}
+          </span>
+          <button className="increment-btn" onClick={handleIncrement}>
+            <MdAddCircle />
           </button>
         </div>
       ) : (

@@ -86,7 +86,10 @@ def create_qrcode_scanner(restaurant_name):
         return jsonify({"error": "Table name is required!"}), 400
 
     # Generate QR code
-    qr_data = f"{restaurant_name}_{table_name}"
+
+    # Generate the link to be embedded in the QR code
+    qr_data = f"http://www.smartserving.com/{restaurant_name}/menu_items/{table_name}"
+
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -107,7 +110,8 @@ def create_qrcode_scanner(restaurant_name):
     qr_code_data = {
         "table_name": table_name,
         "restaurant_name": restaurant_name,
-        "qr_code_image": img_base64
+        "qr_code_image": img_base64,
+        "qr_code_link": qr_data
     }
 
     result = db.qrcodescanner.insert_one(qr_code_data)
@@ -219,6 +223,19 @@ def get_menu_items(restaurant_name):
     db = mongo.cx[restaurant_name]
     items = list(db.menuitems.find({}, {'_id': 0}))
     return jsonify({"menu_items": items})
+
+@app.route('/place-order', methods=['POST'])
+def place_order():
+    data = request.json
+    restaurant_name = data['restaurant_name']
+    table_name = data['table_name']
+    order = data['order']
+
+    db = mongo.cx[restaurant_name]
+    order_entry = {"table_name": table_name, "order": order, "status": "Pending"}
+    db.orders.insert_one(order_entry)
+    return jsonify({"success": True, "message": "Order placed successfully!"})
+
 
 
 if __name__ == '__main__':

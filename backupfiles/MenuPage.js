@@ -1,16 +1,27 @@
+// // Extract restaurantName and tableName from the URL
+// //   const { restaurantName, tableName } = useParams();
+// const restaurantName = "WafflePondy"; // Static test value
+// const tableName = "table1"; // Static test value
+// // Inside your component
+// const navigate = useNavigate();
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMenuItems } from "../api/api";
 import MenuItemCard from "../components/MenuItemCard";
 import "../styles/MenuPage.css";
 
-const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
+const MenuPage = () => {
+
+  // // Extract restaurantName and tableName from the URL
+// //   const { restaurantName, tableName } = useParams();
+
   const restaurantName = "WafflePondy"; // Static test value
   const tableName = "table1"; // Static test value
   const navigate = useNavigate();
 
   const [menuItems, setMenuItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
+  const [cart, setCart] = useState([]);
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,9 +58,44 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
     );
   };
 
-  const navigateToCart = () => {
-    navigate(`/order-confirmation/${restaurantName}/${tableName}`);
+  const addToCart = (item) => {
+    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
+    if (existingItem) {
+      setCart(
+        cart.map((cartItem) =>
+          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+        )
+      );
+    } else {
+      setCart([...cart, { ...item, quantity: 1 }]);
+    }
   };
+
+  const incrementItem = (item) => {
+    setCart(
+      cart.map((cartItem) =>
+        cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+      )
+    );
+  };
+
+  const decrementItem = (item) => {
+    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
+    if (existingItem.quantity === 1) {
+      setCart(cart.filter((cartItem) => cartItem.id !== item.id));
+    } else {
+      setCart(
+        cart.map((cartItem) =>
+          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+        )
+      );
+    }
+  };
+
+  const navigateToCart = () => {
+    navigate(`/order-confirmation/${restaurantName}/${tableName}`, { state: { cart } });
+  };
+
 
   const calculateTotal = () => cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -85,9 +131,9 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
         <div className="menu-container">
           {filteredItems.map((item) => (
             <MenuItemCard
-              key={item.unique_id}
+              key={item.id}
               item={item}
-              cartItem={cart.find((cartItem) => cartItem.unique_id === item.unique_id)}
+              cartItem={cart.find((cartItem) => cartItem.id === item.id)} // Pass specific cart item
               addToCart={addToCart}
               incrementItem={incrementItem}
               decrementItem={decrementItem}

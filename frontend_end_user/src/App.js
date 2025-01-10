@@ -7,11 +7,11 @@ function App() {
   const [cart, setCart] = useState([]);
 
   const addToCart = (item) => {
-    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
+    const existingItem = cart.find((cartItem) => cartItem.unique_id === item.unique_id);
     if (existingItem) {
       setCart(
         cart.map((cartItem) =>
-          cartItem.id === item.id
+          cartItem.unique_id === item.unique_id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         )
@@ -24,7 +24,7 @@ function App() {
   const incrementItem = (item) => {
     setCart(
       cart.map((cartItem) =>
-        cartItem.id === item.id
+        cartItem.unique_id === item.unique_id
           ? { ...cartItem, quantity: cartItem.quantity + 1 }
           : cartItem
       )
@@ -32,13 +32,13 @@ function App() {
   };
 
   const decrementItem = (item) => {
-    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
+    const existingItem = cart.find((cartItem) => cartItem.unique_id === item.unique_id);
     if (existingItem.quantity === 1) {
-      setCart(cart.filter((cartItem) => cartItem.id !== item.id));
+      setCart(cart.filter((cartItem) => cartItem.unique_id !== item.unique_id));
     } else {
       setCart(
         cart.map((cartItem) =>
-          cartItem.id === item.id
+          cartItem.unique_id === item.unique_id
             ? { ...cartItem, quantity: cartItem.quantity - 1 }
             : cartItem
         )
@@ -46,18 +46,24 @@ function App() {
     }
   };
 
+
   const removeItem = (itemId) => {
-    setCart(cart.filter((cartItem) => cartItem.id !== itemId));
+    setCart(cart.filter((cartItem) => cartItem.unique_id !== itemId));
   };
 
   return (
     <Router>
       <Routes>
-
-         {/* <Route path="/:restaurantName/menu_items/:tableName" element={<MenuPage />} /> */}
         <Route
           path="/WafflePondy/menu_items/table1"
-          element={<MenuPage addToCart={addToCart} cart={cart} />}
+          element={
+            <MenuPage 
+              addToCart={addToCart} 
+              cart={cart} 
+              incrementItem={incrementItem} 
+              decrementItem={decrementItem} 
+            />
+          }
         />
         <Route
           path="/order-confirmation/:restaurantName/:tableName"
