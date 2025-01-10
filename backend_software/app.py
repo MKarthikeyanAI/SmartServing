@@ -5,6 +5,7 @@ import uuid  # Import the uuid module for generating unique IDs
 import io
 import base64
 import qrcode
+from datetime import datetime
 
 # Initialize app
 app = Flask(__name__)
@@ -217,6 +218,7 @@ def delete_menu_item(restaurant_name, unique_id):
         return jsonify({"message": "Menu item deleted successfully!"})
     return jsonify({"error": "Menu item not found"}), 404
 
+# End User Frontend files:
 
 @app.route('/get-menu-items/<restaurant_name>', methods=['GET'])
 def get_menu_items(restaurant_name):
@@ -224,18 +226,130 @@ def get_menu_items(restaurant_name):
     items = list(db.menuitems.find({}, {'_id': 0}))
     return jsonify({"menu_items": items})
 
-@app.route('/place-order', methods=['POST'])
-def place_order():
+@app.route('/<string:restaurant_name>/place-order', methods=['POST'])
+def place_order(restaurant_name):
     data = request.json
-    restaurant_name = data['restaurant_name']
     table_name = data['table_name']
-    order = data['order']
+    order_details = data['order_details']  # Corrected from 'order' to 'order_details'
+    username = data['username']  # New field for username
+    mobile_number = data['mobile_number']  # New field for mobile number
 
+    # Access the correct database using the restaurant name from the URL
     db = mongo.cx[restaurant_name]
-    order_entry = {"table_name": table_name, "order": order, "status": "Pending"}
+
+    # Ensure 'users' collection exists
+    if 'users' not in db.list_collection_names():
+        db.create_collection('users')  # Create the 'users' collection if it does not exist
+
+    # Check if the user exists in the 'users' collection
+    existing_user = db.users.find_one({"username": username, "mobile_number": mobile_number})
+
+    if existing_user:
+        # If user exists, retrieve the existing unique_user_id
+        unique_user_id = existing_user['unique_user_id']
+
+    else:
+        # If user does not exist, create a new user document with a unique_user_id
+        unique_user_id = str(uuid.uuid4())
+        new_user = {
+            "username": username,
+            "mobile_number": mobile_number,
+            "unique_user_id": unique_user_id
+        }
+        db.users.insert_one(new_user)  # Insert the new user into the 'users' collection
+
+    # Add the current date and time
+    timestamp = datetime.utcnow().isoformat()
+    # Prepare the order entry to be inserted into the database
+    order_entry = {
+        "table_name": table_name,
+        "order": order_details,  # Insert 'order_details' into the database
+        "status": "Pending",
+        "username": username,  # Store username
+        "mobile_number": mobile_number, # Store mobile number
+        "unique_user_id": unique_user_id,  # Store the unique user ID
+        "timestamp": timestamp
+    }
+    
+    # Insert the order into the orders collection
     db.orders.insert_one(order_entry)
+    
+    # Return a success message
     return jsonify({"success": True, "message": "Order placed successfully!"})
 
+@app.route('/<string:restaurant_name>/user-id', methods=['POST'])
+def get_user_id(restaurant_name):
+    data = request.json
+
+    # print("Received payload:", data)  # Log the payload for debugging
+
+    username = data.get('username')
+    mobile_number = data.get('mobileNumber')
+
+    if not username or not mobile_number:
+        return jsonify({"success": False, "message": "Username or Mobile Number missing"}), 400
+
+    db = mongo.cx[restaurant_name]  # Access the restaurant's database
+    user = db.users.find_one({"username": username, "mobile_number": mobile_number})
+
+    if user:
+        return jsonify({"success": True, "user_id": user['unique_user_id']})
+    else:
+        unique_user_id = str(uuid.uuid4())
+        db.users.insert_one({"username": username, "mobile_number": mobile_number, "unique_user_id": unique_user_id})
+        return jsonify({"success": True, "user_id": unique_user_id})
+    
+
+@app.route('/<string:restaurant_name>/orders/<unique_user_id>', methods=['GET'])
+def get_user_orders(restaurant_name, unique_user_id):
+    db = mongo.cx[restaurant_name]  # Access the restaurant's database
+    orders = db.orders.find({"unique_user_id": unique_user_id})
+
+    orders_list = []
+    for order in orders:
+        orders_list.append({
+            "orderId": str(order["_id"]),  # Convert MongoDB ObjectId to string
+            "table_name": order["table_name"],
+            "order": [
+                {
+                    "name": item["name"],
+                    "quantity": item["quantity"],
+                    "price": item["price"]
+                }
+                for item in order["order"]
+            ],
+            "status": order["status"],
+            "username": order["username"],
+            "mobile_number": order["mobile_number"],
+            "timestamp": order["timestamp"]
+        })
+
+    # print("Orders List:", orders_list)
+    return jsonify({"success": True, "orders": orders_list})
+
+@app.route("/<restaurant_name>/add-user", methods=["POST"])
+def add_user(restaurant_name):
+    data = request.json
+    username = data.get("username")
+    mobile_number = data.get("mobileNumber")
+    
+    # Ensure required fields are provided
+    if not username or not mobile_number:
+        return jsonify({"success": False, "message": "Username and mobile number are required"}), 400
+    
+    # Access the restaurant's database
+    db = mongo.cx[restaurant_name]  # Use `mongo.cx` to access the client
+
+    # Access the users collection
+    users = db.users
+    
+    # Generate a unique user ID
+    unique_user_id = str(uuid.uuid4())
+    
+    # Insert the new user into the collection
+    users.insert_one({"username": username, "mobile_number": mobile_number, "unique_user_id": unique_user_id})
+    
+    return jsonify({"success": True, "unique_user_id": unique_user_id}), 201
 
 
 if __name__ == '__main__':

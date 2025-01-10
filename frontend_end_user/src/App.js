@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MenuPage from "./pages/MenuPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
+import MyOrdersPage from "./pages/MyOrdersPage";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -51,9 +52,13 @@ function App() {
     setCart(cart.filter((cartItem) => cartItem.unique_id !== itemId));
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
   return (
     <Router>
       <Routes>
+        {/* <Route path="/:restaurantName/menu_items/:tableName" element={<MenuPage />} /> */}
         <Route
           path="/WafflePondy/menu_items/table1"
           element={
@@ -73,9 +78,12 @@ function App() {
               incrementItem={incrementItem}
               decrementItem={decrementItem}
               removeItem={removeItem}
+              clearCart={clearCart}
             />
           }
         />
+        <Route path="/:restaurantName/my-orders/:userId" element={<MyOrdersPage />} />
+        {/* <Route path="/:restaurantName/my-orders/:userId/:tableName" element={<MyOrdersPage />} /> */}
       </Routes>
     </Router>
   );

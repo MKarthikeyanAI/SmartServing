@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMenuItems } from "../api/api";
+import { getMenuItems,getUserId,addUser } from "../api/api";
 import MenuItemCard from "../components/MenuItemCard";
+import { RiFileList2Line } from 'react-icons/ri';
+import ModalUserDetailslogin from "../components/ModalUserDetailslogin";
 import "../styles/MenuPage.css";
 
 const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
+
+  // const { restaurantName, tableName } = useParams(); for dynamic
+
   const restaurantName = "WafflePondy"; // Static test value
   const tableName = "table1"; // Static test value
+
   const navigate = useNavigate();
 
   const [menuItems, setMenuItems] = useState([]);
@@ -14,6 +20,8 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -51,6 +59,43 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
     navigate(`/order-confirmation/${restaurantName}/${tableName}`);
   };
 
+  const navigateToOrders = async () => {
+    const username = localStorage.getItem("username");
+    const mobileNumber = localStorage.getItem("mobileNumber");
+
+    if (!username || !mobileNumber) {
+      setModalOpen(true);
+      return;
+    }
+
+     try {
+    const userId = await getUserId(restaurantName, username, mobileNumber);
+    console.log("After successful login: ",userId);
+    console.log(userId);
+    if (userId) {
+      navigate(`/${restaurantName}/my-orders/${userId}`);
+    }
+    } catch (error) {
+      console.error("Error navigating to orders:", error.message);
+      alert("Failed to retrieve user ID.");
+    }
+  };
+
+  const handleModalSubmit = async (formData) => {
+    try {
+      const { username, mobileNumber } = formData;
+      await addUser(restaurantName, username, mobileNumber);
+      localStorage.setItem("username", username);
+      localStorage.setItem("mobileNumber", mobileNumber);
+      setModalOpen(false);
+      navigateToOrders();
+    } catch (error) {
+      console.error("Error adding user:", error.message);
+      alert("Failed to add user.");
+    }
+  };
+
+
   const calculateTotal = () => cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
@@ -63,9 +108,24 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
           onChange={handleSearch}
         />
         <div className="cart-summary">
+
+        {modalOpen && (
+        <ModalUserDetailslogin
+          onClose={() => setModalOpen(false)}
+          onSubmit={handleModalSubmit}
+        />
+      )}
           <span>Total: ₹{calculateTotal().toFixed(2)}</span>
           <span>Items: {cart.length}</span>
+
+          {/* My Orders button with icon */}
+          <button onClick={navigateToOrders} className="orders-button">
+          <RiFileList2Line /> My Orders
+          </button>
+
+
           <button onClick={navigateToCart}>Go to Cart</button>
+
         </div>
       </div>
 

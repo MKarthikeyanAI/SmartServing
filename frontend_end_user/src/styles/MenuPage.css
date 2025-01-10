@@ -72,3 +72,26 @@
   .cart-summary button:hover {
     background-color: #ff4500;
   }
+
+  .orders-button {
+    display: flex;
+    align-items: center;
+    background-color: #ff6347; /* Tomato red for a pop of color */
+    color: white;
+    padding: 12px 18px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px; /* Rounded corners for a softer look */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern effect */
+  }
+  
+  .orders-button .react-icons {
+    margin-right: 8px;
+    font-size: 20px; /* Slightly larger icon for more impact */
+  }
+  
+
+  
+  
