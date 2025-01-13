@@ -116,34 +116,37 @@ const OrderConfirmationPage = ({ cart, incrementItem, decrementItem, removeItem,
           <p>Your cart is empty</p>
         </div>
       ) : (
-        <>
-          <div className="cart-items">
-            {filteredCart.map((item) => (
-              <div key={item.unique_id} className="cart-item">
-                <img src={item.image_url} alt={item.name} className="cart-item-image" />
-                <div className="cart-item-info">
-                  <h3>{item.name}</h3>
-                  <span>₹{item.price}</span>
-                  <div className="cart-item-controls">
-                    <button onClick={() => decrementItem(item)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => incrementItem(item)}>+</button>
-                  </div>
+        <div className="cart-items">
+          {filteredCart.map((item) => (
+            <div key={item.unique_id} className="cart-item">
+              {/* Image on the left */}
+              <img src={item.image_url} alt={item.name} className="cart-item-image" />
+
+              {/* Item details in the center */}
+              <div className="cart-item-info">
+                <h3>{item.name}</h3>
+                <div className="cart-item-controls">
+                  <button onClick={() => decrementItem(item)}>-</button>
+                  <span>{item.quantity}</span>
+                  <button onClick={() => incrementItem(item)}>+</button>
                 </div>
+                <span>₹{item.price}</span> {/* Price below quantity */}
                 <button
                   className="remove-item-btn"
                   onClick={() => removeItem(item.unique_id)}
                 >
-                  🗑️
+                  Remove
                 </button>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+
+          {/* Cart summary at the bottom */}
           <div className="cart-summary">
             <h2>Total: ₹{calculateTotal().toFixed(2)}</h2>
             <button onClick={handlePlaceOrder}>Place Order</button>
           </div>
-        </>
+        </div>
       )}
 
       {showModal && (
