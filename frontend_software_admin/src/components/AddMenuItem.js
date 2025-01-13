@@ -6,13 +6,14 @@ const AddMenuItem = ({ restaurantName, onItemAdded, itemToUpdate }) => {
   const [name, setName] = useState(itemToUpdate ? itemToUpdate.name : '');
   const [price, setPrice] = useState(itemToUpdate ? itemToUpdate.price : '');
   const [category, setCategory] = useState(itemToUpdate ? itemToUpdate.category : '');
-  const [subcategory, setSubcategory] = useState(itemToUpdate ? itemToUpdate.subcategory : '');
+  // const [subcategory, setSubcategory] = useState(itemToUpdate ? itemToUpdate.subcategory : '');
+  const [imageUrl, setImageUrl] = useState(itemToUpdate ? itemToUpdate.image_url : '');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Form validation
-    if (!name || !price || !category || !subcategory) {
+    if (!name || !price || !category || !imageUrl) {
       alert("Please fill in all fields!");
       return;
     }
@@ -27,7 +28,7 @@ const AddMenuItem = ({ restaurantName, onItemAdded, itemToUpdate }) => {
       name,
       price: parseFloat(price),
       category,
-      subcategory,
+      image_url: imageUrl,
     };
 
     try {
@@ -42,7 +43,7 @@ const AddMenuItem = ({ restaurantName, onItemAdded, itemToUpdate }) => {
       setName('');
       setPrice('');
       setCategory('');
-      setSubcategory('');
+      setImageUrl('');
       onItemAdded(); // Callback to refresh the menu items list in the parent component
     } catch (error) {
       alert('Error adding/updating menu item');
@@ -83,12 +84,12 @@ const AddMenuItem = ({ restaurantName, onItemAdded, itemToUpdate }) => {
             />
           </div>
           <div className="input-group">
-            <label>Subcategory</label>
+          <label>Image URL</label>
             <input
               type="text"
-              placeholder="Enter subcategory"
-              value={subcategory}
-              onChange={(e) => setSubcategory(e.target.value)}
+              placeholder="Enter image URL"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
             />
           </div>
           <button type="submit">{itemToUpdate ? 'Update' : 'Add'} Item</button>

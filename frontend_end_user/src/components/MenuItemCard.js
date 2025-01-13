@@ -24,7 +24,8 @@ const MenuItemCard = ({ item, addToCart, incrementItem, decrementItem, cartItem 
 
   return (
     <div className="menu-item-card">
-      <img src={item.image} alt={item.name} className="food-image" />
+      {/* <img src={item.image} alt={item.name} className="food-image" /> */}
+      <img src={item.image_url} alt={item.name} className="food-image" />
       <div className="menu-item-info">
         <h3 className="food-name">{item.name}</h3>
         <p className="food-price">₹{item.price}</p>

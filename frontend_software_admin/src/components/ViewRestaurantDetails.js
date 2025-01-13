@@ -13,7 +13,7 @@ const ViewRestaurantDetails = () => {
     name: '',
     price: '',
     category: '',
-    subcategory: '',
+    image_url: '',
   });
 
   const [isUpdating, setIsUpdating] = useState(false);
@@ -200,7 +200,7 @@ const ViewRestaurantDetails = () => {
       name: item.name,
       price: item.price,
       category: item.category,
-      subcategory: item.subcategory,
+      image_url: item.image_url,
     });
     setShowAddForm(true);
   };
@@ -364,7 +364,7 @@ const ViewRestaurantDetails = () => {
             <th>Food Item Name</th>
             <th>Price</th>
             <th>Category</th>
-            <th>Sub-Category</th>
+            <th>Image</th>
             <th>Operations</th>
           </tr>
         </thead>
@@ -375,7 +375,9 @@ const ViewRestaurantDetails = () => {
               <td>{item.name}</td>
               <td>${item.price}</td>
               <td>{item.category}</td>
-              <td>{item.subcategory}</td>
+              <td>
+        {item.image_url && <img src={item.image_url} alt={item.name} style={{ width: '50px', height: '50px' }} />}
+      </td>
               <td>
                 <button onClick={() => handleEditClick(item)}>Update</button>
                 <button onClick={() => handleDeleteFoodItem(item.unique_id)}>Delete</button>
@@ -410,12 +412,12 @@ const ViewRestaurantDetails = () => {
             required
           />
           <input
-            type="text"
-            placeholder="Subcategory"
-            value={foodItem.subcategory}
-            onChange={(e) => setFoodItem({ ...foodItem, subcategory: e.target.value })}
-            required
-          />
+      type="text"
+      placeholder="Image URL"
+      value={foodItem.image_url}
+      onChange={(e) => setFoodItem({ ...foodItem, image_url: e.target.value })}
+      required
+    />
           <button type="submit">{isUpdating ? 'Update' : 'Add'}</button>
           <button type="button" onClick={() => setShowAddForm(false)}>
             Cancel

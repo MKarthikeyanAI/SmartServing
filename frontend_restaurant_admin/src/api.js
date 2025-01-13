@@ -11,7 +11,7 @@ export const getMenuItems = async () => {
     name: item.name,
     price: item.price,
     category: item.category,
-    subcategory: item.subcategory,
+    image_url: item.image_url,  // Include the image_url
   }));
 };
 
@@ -34,6 +34,14 @@ export const deleteMenuItem = (restaurantName, itemId) => {
   return axios.delete(`${API_URL}/delete-menu-item/${restaurantName}/${itemId}`);
 };
 
+// export const addMenuItem = async (restaurantName, menuItem) => {
+//   try {
+//     const response = await axios.post(`${API_URL}/add-menu-item/${restaurantName}`, menuItem);
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 export const addMenuItem = async (restaurantName, menuItem) => {
   try {
     const response = await axios.post(`${API_URL}/add-menu-item/${restaurantName}`, menuItem);

@@ -6,7 +6,7 @@ const ModalAdd = ({ item, onClose, onSubmit }) => {
     name: item.name || '',
     price: item.price || '',
     category: item.category || '',
-    subcategory: item.subcategory || '',
+    image_url: item.image_url || '',
   });
 
   const handleChange = (e) => {
@@ -17,6 +17,7 @@ const ModalAdd = ({ item, onClose, onSubmit }) => {
     e.preventDefault();
     onSubmit(formData);
   };
+
 
   return (
     <div className="modal-overlay">
@@ -56,11 +57,11 @@ const ModalAdd = ({ item, onClose, onSubmit }) => {
             />
           </div>
           <div className="input-group">
-            <label>Subcategory:</label>
+            <label>Image URL:</label>
             <input
               type="text"
-              name="subcategory"
-              value={formData.subcategory}
+              name="image_url"
+              value={formData.image_url}
               onChange={handleChange}
               className="input-field"
             />

@@ -4,7 +4,7 @@ import { getUserOrders } from "../api/api";
 import "../styles/MyOrdersPage.css";
 
 const MyOrdersPage = () => {
-  const { restaurantName, userId, tableName } = useParams();
+  const { restaurantName, userId } = useParams();
   const navigate = useNavigate(); // Initialize navigate
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ const MyOrdersPage = () => {
   return (
     <div className="my-orders-page">
       {/* Back Button */}
-      <button className="back-button" onClick={() => navigate(`/${restaurantName}/menu_items/${tableName}`)}>
+      <button className="back-button" onClick={() => navigate(`/${restaurantName}/menu_items`)}>
         Back to Menu
       </button>
       <h1>My Orders</h1>

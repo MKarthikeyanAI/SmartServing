@@ -20,7 +20,7 @@ const Menu = () => {
     name: '',
     price: '',
     category: '',
-    subcategory: '',
+    image_url: '',
   });
 
 
@@ -92,7 +92,8 @@ const Menu = () => {
           <div className="menu-item" key={item.unique_id}>
             <div className="menu-details">
               <img
-                src={`data:image/jpeg;base64,/9j/4AAQusrp08mtVlZXTpmKysrK6dP//Z`} // Placeholder for item image
+                // src={`data:image/jpeg;base64,/9j/4AAQusrp08mtVlZXTpmKysrK6dP//Z`} // Placeholder for item image
+                src={item.image_url} 
                 alt={item.name}
                 className="menu-image"
               />

@@ -151,10 +151,11 @@ def create_restaurant():
     db.credentials.insert_one({"username": username, "password": password})
     return jsonify({"message": f"Restaurant '{restaurant_name}' created successfully!"})
 
+
 @app.route('/add-menu-item/<restaurant_name>', methods=['POST'])
 def add_menu_item(restaurant_name):
     data = request.json
-    required_fields = ['name', 'price', 'category', 'subcategory']
+    required_fields = ['name', 'price', 'category', 'image_url']
 
     # Validate required fields
     if not all(field in data for field in required_fields):
@@ -165,12 +166,13 @@ def add_menu_item(restaurant_name):
     # Generate a unique UUID for the menu item
     unique_id = str(uuid.uuid4())
 
+    # Create the menu item dictionary
     menu_item = {
         "unique_id": unique_id,
         "name": data['name'],
         "price": data['price'],
         "category": data['category'],
-        "subcategory": data['subcategory']
+        "image_url": data['image_url']
     }
 
     # Insert the new menu item
@@ -179,10 +181,39 @@ def add_menu_item(restaurant_name):
 
     return jsonify({"message": "Menu item added successfully!", "item": menu_item}), 201
 
+# @app.route('/add-menu-item/<restaurant_name>', methods=['POST'])
+# def add_menu_item(restaurant_name):
+#     data = request.json
+#     required_fields = ['name', 'price', 'category', 'subcategory']
+
+#     # Validate required fields
+#     if not all(field in data for field in required_fields):
+#         return jsonify({"error": "Missing required fields"}), 400
+
+#     db = mongo.cx[restaurant_name]
+
+#     # Generate a unique UUID for the menu item
+#     unique_id = str(uuid.uuid4())
+
+#     menu_item = {
+#         "unique_id": unique_id,
+#         "name": data['name'],
+#         "price": data['price'],
+#         "category": data['category'],
+#         "subcategory": data['subcategory']
+#     }
+
+#     # Insert the new menu item
+#     result = db.menuitems.insert_one(menu_item)
+#     menu_item['_id'] = str(result.inserted_id)  # Convert ObjectId to string
+
+#     return jsonify({"message": "Menu item added successfully!", "item": menu_item}), 201
+
+
 @app.route('/update-menu-item/<restaurant_name>/<unique_id>', methods=['PUT'])
 def update_menu_item(restaurant_name, unique_id):
     data = request.json
-    required_fields = ['name', 'price', 'category', 'subcategory']
+    required_fields = ['name', 'price', 'category', 'image_url']
 
     # Validate required fields
     if not all(field in data for field in required_fields):
@@ -193,7 +224,7 @@ def update_menu_item(restaurant_name, unique_id):
         "name": data['name'],
         "price": data['price'],
         "category": data['category'],
-        "subcategory": data['subcategory']
+        "image_url": data['image_url']
     }
 
     # Update the menu item in the database using unique_id
@@ -205,6 +236,33 @@ def update_menu_item(restaurant_name, unique_id):
     if result.matched_count > 0:
         return jsonify({"message": "Menu item updated successfully!"})
     return jsonify({"error": "Menu item not found"}), 404
+
+# @app.route('/update-menu-item/<restaurant_name>/<unique_id>', methods=['PUT'])
+# def update_menu_item(restaurant_name, unique_id):
+#     data = request.json
+#     required_fields = ['name', 'price', 'category', 'subcategory']
+
+#     # Validate required fields
+#     if not all(field in data for field in required_fields):
+#         return jsonify({"error": "Missing required fields"}), 400
+
+#     db = mongo.cx[restaurant_name]
+#     menu_item = {
+#         "name": data['name'],
+#         "price": data['price'],
+#         "category": data['category'],
+#         "subcategory": data['subcategory']
+#     }
+
+#     # Update the menu item in the database using unique_id
+#     result = db.menuitems.update_one(
+#         {"unique_id": unique_id},
+#         {"$set": menu_item}
+#     )
+
+#     if result.matched_count > 0:
+#         return jsonify({"message": "Menu item updated successfully!"})
+#     return jsonify({"error": "Menu item not found"}), 404
 
 
 @app.route('/delete-menu-item/<restaurant_name>/<unique_id>', methods=['DELETE'])
