@@ -284,6 +284,14 @@ def get_menu_items(restaurant_name):
     items = list(db.menuitems.find({}, {'_id': 0}))
     return jsonify({"menu_items": items})
 
+@app.route('/get-menu-items/<restaurant_name>/12', methods=['GET'])
+def get_menu_itemss(restaurant_name):
+    db = mongo.cx[restaurant_name]
+    # items = list(db.menuitems.find({}, {'_id': 0}))
+    items = list(db.menu_items_final.find({}, {'_id': 0}))
+    # return jsonify({"menu_items": items})
+    return jsonify(items)
+
 @app.route('/<string:restaurant_name>/place-order', methods=['POST'])
 def place_order(restaurant_name):
     data = request.json

@@ -1,46 +1,60 @@
-import React, { useState } from "react";
-import { useParams,useNavigate } from "react-router-dom";
+// OrderConfirmationPage.js
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "../styles/OrderConfirmationPage.css";
 import { placeOrder, getUserId } from "../api/api";
-import ModalUserDetails from "../components/ModalUserDetails";  // Import the Modal component
+import ModalUserDetails from "../components/ModalUserDetails";
 
-const OrderConfirmationPage = ({ cart, incrementItem, decrementItem, removeItem,clearCart }) => {
-  const { restaurantName, tableName } = useParams(); // Extracting restaurantName and tableName from route parameters
+const OrderConfirmationPage = ({ cart, incrementItem, decrementItem, removeItem, clearCart }) => {
+  const { restaurantName, tableName } = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [mobileNumber, setMobileNumber] = useState(localStorage.getItem("mobileNumber") || "");
+  const [categories, setCategories] = useState([]); 
+  const [activeCategory, setActiveCategory] = useState("All"); 
+
+  useEffect(() => {
+    // Fetch categories from your API or data source
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`/api/categories/${restaurantName}`); // Replace with your API endpoint
+        const data = await response.json();
+        setCategories(["All", ...data]); // Add "All" category at the beginning
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, [restaurantName]);
 
   const calculateTotal = () =>
     cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   const handlePlaceOrder = async () => {
-
     if (!username || !mobileNumber) {
-      setShowModal(true); // Show modal if user details are missing
+      setShowModal(true);
       return;
     }
 
     const orderData = {
       restaurant_name: restaurantName,
-      table_name: tableName, // Include the table name in the order data
+      table_name: tableName,
       username,
       mobile_number: mobileNumber,
-      order_details: cart.map(item => ({
+      order_details: cart.map((item) => ({
         name: item.name,
         quantity: item.quantity,
         price: item.price,
       })),
     };
 
-
     try {
       const response = await placeOrder(restaurantName, orderData);
       alert(response.message);
-      clearCart(); // Clear the cart after order placement
+      clearCart();
 
-
-      // Retrieve the user ID
       const userId = await getUserId(restaurantName, username, mobileNumber);
       if (userId) {
         navigate(`/${restaurantName}/my-orders/${userId}`);
@@ -61,18 +75,41 @@ const OrderConfirmationPage = ({ cart, incrementItem, decrementItem, removeItem,
     localStorage.setItem("mobileNumber", formData.mobileNumber);
     setUsername(formData.username);
     setMobileNumber(formData.mobileNumber);
-    setShowModal(false); // Hide modal after collecting user details
-    handlePlaceOrder(); // Proceed to place the order
+    setShowModal(false);
+    handlePlaceOrder();
   };
+
+  const handleCategoryClick = (category) => {
+    setActiveCategory(category);
+  };
+
+  const filteredCart = activeCategory === "All"
+    ? cart
+    : cart.filter((item) => item.category === activeCategory);
 
   return (
     <div className="cart-page">
       <h1>Your Cart</h1>
-      
-      {cart.length === 0 ? (
+
+      {/* Categories Section */}
+      <div className="categories-container">
+        <ul className="categories-list">
+          {categories.map((category) => (
+            <li
+              key={category}
+              className={`category-item ${activeCategory === category ? "active" : ""}`}
+              onClick={() => handleCategoryClick(category)}
+            >
+              {category}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {filteredCart.length === 0 ? (
         <div className="empty-cart">
           <img
-            src="path_to_your_empty_cart_image.gif"
+            src="path_to_your_empty_cart_image.gif" 
             alt="Your cart is empty"
             className="empty-cart-image"
           />
@@ -81,9 +118,9 @@ const OrderConfirmationPage = ({ cart, incrementItem, decrementItem, removeItem,
       ) : (
         <>
           <div className="cart-items">
-            {cart.map((item) => (
+            {filteredCart.map((item) => (
               <div key={item.unique_id} className="cart-item">
-                <img src={item.image} alt={item.name} className="cart-item-image" />
+                <img src={item.image_url} alt={item.name} className="cart-item-image" />
                 <div className="cart-item-info">
                   <h3>{item.name}</h3>
                   <span>₹{item.price}</span>
@@ -109,7 +146,7 @@ const OrderConfirmationPage = ({ cart, incrementItem, decrementItem, removeItem,
         </>
       )}
 
-{showModal && (
+      {showModal && (
         <ModalUserDetails
           username={username}
           mobileNumber={mobileNumber}

@@ -20,7 +20,6 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
-
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -129,8 +128,8 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
         </div>
       </div>
 
-      <div className="main-content">
-        <div className="sidebar">
+      <div className="categories-container"> 
+        <div className="categories-scroll">
           {categories.map((category) => (
             <button
               key={category}
@@ -140,6 +139,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
               {category}
             </button>
           ))}
+</div>
         </div>
 
         <div className="menu-container">
@@ -155,7 +155,6 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
           ))}
         </div>
       </div>
-    </div>
   );
 };
 

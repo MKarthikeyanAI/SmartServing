@@ -1,9 +1,8 @@
 .menu-page {
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
   .navbar {
     display: flex;
     justify-content: space-between;
@@ -21,11 +20,7 @@
     border-radius: 4px;
   }
   
-  .cart-summary {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+
   
   .sidebar {
     display: flex;
@@ -34,15 +29,24 @@
     padding: 10px;
     background-color: #f1f1f1;
   }
+  .categories-container { 
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Keep categories in a single line */
+  }
+  
+  .categories-scroll {
+    display: flex; 
+  }
   
   .category-button {
-    padding: 10px;
-    margin-bottom: 5px;
-    text-align: left;
+    padding: 10px 20px; /* Increased padding for better touch target */
+    margin: 5px;
     background-color: #fff;
     border: none;
+    border-radius: 4px; /* Slightly rounded corners */
     cursor: pointer;
     transition: background-color 0.3s;
+    white-space: nowrap; /* Prevent category names from wrapping */
   }
   
   .category-button.active,
@@ -50,17 +54,19 @@
     background-color: #ddd;
   }
   
+  
   .main-content {
     display: flex;
   }
   
-  .menu-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+
+  .cart-summary {
+    display: flex;
+    align-items: center;
     gap: 10px;
-    padding: 10px;
-    flex: 1;
   }
+  
   .cart-summary button {
     background-color: #ff6347;
     color: white;
@@ -76,22 +82,35 @@
   .orders-button {
     display: flex;
     align-items: center;
-    background-color: #ff6347; /* Tomato red for a pop of color */
+    background-color: #ff6347; 
     color: white;
     padding: 12px 18px;
     margin-left: 10px;
     border: none;
     cursor: pointer;
     font-size: 16px;
-    border-radius: 8px; /* Rounded corners for a softer look */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern effect */
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   }
   
   .orders-button .react-icons {
     margin-right: 8px;
-    font-size: 20px; /* Slightly larger icon for more impact */
+    font-size: 20px; 
+  }
+
+  .menu-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjusted minmax for responsiveness */
+    gap: 10px;
+    padding: 10px;
   }
   
+  /* Responsiveness */
+  @media (max-width: 768px) { 
+    .menu-container {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    }
+  }
 
   
   

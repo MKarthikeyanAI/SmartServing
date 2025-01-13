@@ -1,115 +1,172 @@
 .menu-item-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column; 
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  width: 100%; /* Make cards take full width on smaller screens */
+  max-width: 250px; /* Limit maximum width for larger screens */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+  .menu-item-card {
+    margin-bottom: 15px; /* Add vertical spacing between cards on smaller screens */
   }
-  
-  .menu-item-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .food-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .menu-item-info {
-    text-align: center;
-    margin-top: 10px;
-  }
-  
+
   .food-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-size: 0.9rem; /* Slightly reduce font size */
   }
-  
+
   .food-price {
-    font-size: 1rem;
-    color: #28a745;
-    margin-bottom: 10px;
+    font-size: 0.9rem; /* Slightly reduce font size */
   }
-  
+
   .add-to-cart-btn {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    height: 45px;
-    width: 180px;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 6px 10px; /* Reduce padding */
+    font-size: 0.8rem; /* Reduce font size */
   }
-  
-  .add-to-cart-btn:hover {
-    background-color: #0056b3;
-  }
-  
+
   .cart-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    height: 26px;
-    border: 2px solid #007bff; /* Adding border similar to Add to Cart button */
-    border-radius: 4px; /* Matching the Add to Cart button's border radius */
-    padding: 8px; /* Adding padding for better spacing */
-    background-color: #fff; /* Keeping it white to match the card */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adding a subtle shadow */
-    width: fit-content; /* Ensuring the width adjusts to content */
-    margin-top: 10px; /* Adding some space above the controls */
+    height: 24px; /* Slightly reduce height */
+    padding: 2px; /* Reduce padding */
+  }
 
-    
+  .decrement-btn img,
+  .increment-btn img {
+    width: 18px; /* Slightly reduce icon size */
+    height: 18px;
+  }
+
+  .item-count-box {
+    width: 25px; /* Slightly reduce width */
+    height: 24px; /* Slightly reduce height */
+    font-size: 0.9rem; /* Slightly reduce font size */
+  }
 }
-  
-  
-  
-  .item-count {
-    font-size: 18px;
-    font-weight: bold;
+
+@media (max-width: 480px) { /* Further adjustments for smaller screens */
+  .menu-item-card {
+    max-width: 100%; /* Cards take full container width */
   }
 
-  .decrement-btn, .increment-btn {
-    background: none;
-    border: none;
-    color: #007bff;
-    font-size: 2em;
-    cursor: pointer;
-    transition: color 0.2s;
-    padding: 0px;
-    margin-top: 5px; /* Adjust the value as needed */
+  .food-image {
+    height: 120px; /* Reduce image height */
   }
-  
-  .decrement-btn:hover, .increment-btn:hover {
-    color: #0056b3;
+
+  .add-to-cart-btn {
+    width: auto; /* Button width adjusts to content */
+    padding: 4px 8px; /* Reduce padding further */
   }
+}
+
+.menu-item-card:hover {
+  transform: scale(1.05);
+}
+
+.food-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+
+.menu-item-info {
+  padding: 10px;
+}
+
+.food-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.price-add-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+}
+
+.food-price {
+  font-size: 1rem;
+  color: #f54748; /* Changed color to match the image */
+  font-weight: bold;
+}
+
+.add-to-cart-btn {
+  background-color: #ff7000; /* Orange color */
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  width: 80px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold; 
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #d45f00; /* Darker orange on hover */
+}
+
+.cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Reduced gap */
+  height: 26px;
+  border: 2px solid #ff7000;
+  border-radius: 20px; /* Increased border-radius */
+  padding: 2px; /* Reduced padding */
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* .decrement-btn, 
+.increment-btn {
+  background: none;
+  border: none;
+  color: #ff7000;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: color 0.2s;
+} */
+/* 
+.decrement-btn:hover, 
+.increment-btn:hover {
+  color: #d45f00; 
+} */
+
+.decrement-btn,
+.increment-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.decrement-btn img,
+.increment-btn img {
+  width: 20px; /* Adjust size as needed */
+  height: 20px;
+}
+
+
 .item-count-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 28px;
-    margin: 0 10px;
-    text-align: center;
-    border: 2px solid #007bff;
-    border-radius: 10px;
-    background-color: #dfefff; /* Light blue background */
-    font-size: 1em;
-    color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 28px;
+  text-align: center;
+  border: none; /* Removed border */
+  border-radius: 0; /* Removed border-radius */
+  background-color: transparent; /* Transparent background */
+  font-size: 1em;
+  color: #333;
+  font-weight: bold;
 }
 
-
-
-
-  
-  
