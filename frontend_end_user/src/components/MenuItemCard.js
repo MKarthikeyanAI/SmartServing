@@ -52,3 +52,5 @@ const MenuItemCard = ({ item, addToCart, incrementItem, decrementItem, cartItem 
 };
 
 export default MenuItemCard;
+
+
