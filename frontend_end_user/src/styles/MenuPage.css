@@ -176,7 +176,7 @@
   justify-content: space-around; /* Adjust alignment */
   gap: 30px;
   padding: 0 86px; /* Optional: Add horizontal padding for better alignment */
-  margin-left: -22px;
+  margin-left: -50px;
 }
 
 /* Responsive Navbar */
