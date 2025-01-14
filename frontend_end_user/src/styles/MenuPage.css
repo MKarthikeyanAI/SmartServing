@@ -134,6 +134,8 @@
 .letter-items {
   position: relative; /* Ensure the parent has position: relative if using absolute */
   top: -5px; /* Adjust the value as needed */
+  display: flex; /* Use flexbox for easy spacing */
+  gap: 20px;   /* Adjust the gap value as needed */
 }
 .orders-button {
   display: flex;
@@ -238,7 +240,6 @@
     display: flex; /* Ensure nav-links are in a flex container */
     gap: 5px; /* Reduce gap between links */
     margin-right: 5px; /* Add some margin to the right */
-    padding-left: 80px;
   }
 
   .nav-link {
@@ -279,6 +280,7 @@
     margin-left: 0; /* Reset left margin */
     position: relative;
     margin-top: 10px; /* Add space above links */
+    margin-left: 80px;
   }
 
   .nav-link {
