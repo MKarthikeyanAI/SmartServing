@@ -41,7 +41,7 @@ const Footer = React.forwardRef((props, ref) => (
       </a>
     </div>
     <div className="footer-bottom">
-      <p>&copy; 2025 smartserve.com - All Rights Reserved.</p>
+      <p>&copy; 2025 smart-serve.com - All Rights Reserved.</p>
     </div>
   </footer>
 ));
