@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMenuItems,getUserId,addUser } from "../api/api";
 import MenuItemCard from "../components/MenuItemCard";
 import { RiFileList2Line } from 'react-icons/ri';
 import ModalUserDetailslogin from "../components/ModalUserDetailslogin";
 import "../styles/MenuPage.css";
+import { assets } from '../assets/assets.js'
+import Footer from "../components/Footer.js"; // Import the Footer component
+import LandingPage from '../components/LandingPage.js'; // Adjust the path based on your folder structure
+import { Link } from "react-scroll"; // Import Link from react-scroll
+
+
 
 const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
 
@@ -14,6 +20,14 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
   const tableName = "table1"; // Static test value
 
   const navigate = useNavigate();
+
+  const footerRef = useRef(null); // Create a ref for the footer
+
+  const navigateToContact = () => {
+    if (footerRef.current) {
+      footerRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const [menuItems, setMenuItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -98,14 +112,49 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
   const calculateTotal = () => cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <div className="menu-page">
+    <div className="menu-page" id="menu-page">
       <div className="navbar">
-        <input
-          type="text"
-          placeholder="Search your food"
-          value={searchTerm}
-          onChange={handleSearch}
-        />
+      <div className="logo-container"> {/* Add a container for the logo */}
+          <img src={assets.logo} alt="Logo" className="logo" /> 
+        
+        </div>
+        <div className="search-container">
+  <input
+    type="text"
+    placeholder="Search your food"
+    value={searchTerm}
+    onChange={handleSearch}
+    className="search-input"
+  />
+</div>
+<div className="nav-links"> {/* Add navigation links */}
+<Link
+            to="menu-page" // Scroll to the menu-page container
+            smooth={true}
+            duration={500}
+            className="nav-link"
+          >
+            Home
+          </Link>
+    <Link
+            to="categories-container"
+            smooth={true}
+            duration={500}
+            className="nav-link"
+          >
+            Menu
+          </Link>
+    <a
+  href="#contact"
+  onClick={(e) => {
+    e.preventDefault(); // Prevent default anchor behavior
+    navigateToContact();
+  }}
+  className="nav-link"
+>
+  Contact Us
+</a>
+  </div>
         <div className="cart-summary">
 
         {modalOpen && (
@@ -124,11 +173,12 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
 
 
           <button onClick={navigateToCart}>Go to Cart</button>
-
+          
         </div>
       </div>
+      <LandingPage /> {/* Add the LandingPage component here */}
 
-      <div className="categories-container"> 
+      <div className="categories-container" id="categories-container"> 
         <div className="categories-scroll">
           {categories.map((category) => (
             <button
@@ -154,6 +204,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
             />
           ))}
         </div>
+        <Footer ref={footerRef} /> {/* Attach the ref to the Footer component */}
       </div>
   );
 };

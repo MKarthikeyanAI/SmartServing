@@ -1,0 +1,93 @@
+/* General Styles */
+.landing-page {
+    background-size: cover;
+    background-position: center;
+    height: 89vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+    padding: 0 20px;
+    overflow: hidden;
+    padding-top: 70px; /* Adjust this value based on the height of your navbar */
+}
+
+/* Overlay for Better Text Contrast */
+.landing-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: 1;
+}
+
+/* Content Styles */
+.landing-page-content {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.1); /* Light transparent background */
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+/* Headline Styling */
+.landing-page h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* Button Styling */
+.landing-page button {
+    background-color: #ff7f50;
+    border: none;
+    padding: 12px 30px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 127, 80, 0.3);
+}
+
+.landing-page button:hover {
+    background-color: #ff4500;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 69, 0, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .landing-page h1 {
+        font-size: 2rem;
+    }
+
+    .landing-page button {
+        font-size: 0.9rem;
+        padding: 10px 25px;
+    }
+
+    .landing-page-content {
+        padding: 20px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-page h1 {
+        font-size: 1.5rem;
+    }
+
+    .landing-page button {
+        font-size: 0.8rem;
+        padding: 8px 20px;
+    }
+}

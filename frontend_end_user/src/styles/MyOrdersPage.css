@@ -1,71 +1,37 @@
-/* Improved CSS for a more attractive and modern look */
+/* MyOrdersPage.css */
 .my-orders-page {
     font-family: 'Arial', sans-serif;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.my-orders-page h1 {
+    background-color: #f9f9f9; 
+  }
+  
+  .my-orders-page h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
     font-size: 2.5rem;
-    font-weight: bold;
-}
-
-.my-orders-page ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.my-orders-page li {
-    background: #ffffff;
-    margin: 10px 0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.my-orders-page li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.my-orders-page div {
-    margin: 10px 0;
-    color: #555;
-    font-size: 1rem;
-}
-
-.my-orders-page ul ul {
-    padding-left: 20px;
-}
-
-.my-orders-page ul ul li {
-    background: #fafafa;
-    border: 1px solid #ddd;
-    margin-bottom: 8px;
-    padding: 15px;
-    border-radius: 5px;
-}
-
-.my-orders-page p {
+  }
+  
+  .loading {
     text-align: center;
-    color: #777;
-    font-size: 1.1rem;
-}
-
-.back-button {
+    font-size: 1.2rem;
+    color: #ff7f50; /* Orange theme color */
+  }
+  
+  .error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #dc143c; /* Red for error */
+  }
+  
+  .back-button {
     position: absolute;
     top: 10px;
     left: 10px;
     padding: 10px 15px;
-    background-color: #007bff;
+    background-color: #ff7f50; /* Orange theme color */
     color: white;
     border: none;
     border-radius: 5px;
@@ -73,31 +39,101 @@
   }
   
   .back-button:hover {
-    background-color: #0056b3;
+    background-color: #ff6347; /* Darker orange on hover */
   }
   
+  .orders-container {
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .my-orders-page {
-        padding: 15px;
+    display: flex; /* Add flex back */
+    flex-direction: column; /* Stack vertically */
+    align-items: center; /* Center horizontally */
+  }
+  
+  .order-card {
+    background: #ffffff;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Adjust width as needed */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .order-id {
+    font-weight: bold;
+    color: #ff7f50; /* Orange theme color */
+  }
+  
+  .order-table {
+    color: #555;
+  }
+  
+  .order-items h3 {
+    color: #ff7f50; /* Orange theme color */
+    margin-bottom: 5px;
+  }
+  
+  .order-items ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .order-items li {
+    margin-bottom: 8px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .item-name {
+    font-weight: bold;
+  }
+  
+  .order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .order-status {
+    color: #555;
+  }
+  
+  .order-timestamp {
+    color: #777;
+    font-size: 0.9rem;
+  }
+  
+  /* For larger screens (laptops) */
+@media (min-width: 992px) { 
+    .order-card {
+      width: 45%; /* Two cards per row */
     }
-
-    .my-orders-page h1 {
-        font-size: 2rem;
+  }
+  
+  /* For tablets */
+  @media (min-width: 768px) and (max-width: 991px) {
+    .order-card {
+      width: 70%; /* Adjust as needed */
     }
-
-    .my-orders-page li {
-        padding: 15px;
+  }
+  
+  /* For mobile phones */
+  @media (max-width: 767px) {
+    .order-card {
+      width: 90%; 
     }
-}
-
-@media (max-width: 480px) {
-    .my-orders-page h1 {
-        font-size: 1.5rem;
-    }
-
-    .my-orders-page li {
-        padding: 10px;
-    }
-}
+  }

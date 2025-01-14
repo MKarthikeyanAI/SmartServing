@@ -1,6 +1,9 @@
 import axios from 'axios';
+// For Local Run:
 
-const BASE_URL = "http://localhost:5000";
+// const BASE_URL = "http://localhost:5000";
+
+const BASE_URL = "3.111.57.60:8000"; 
 
 export const getMenuItems = async (restaurantName) => {
   try {

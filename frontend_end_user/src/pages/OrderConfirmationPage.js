@@ -120,17 +120,18 @@ const OrderConfirmationPage = ({ cart, incrementItem, decrementItem, removeItem,
           {filteredCart.map((item) => (
             <div key={item.unique_id} className="cart-item">
               {/* Image on the left */}
+              <div className="cart-item-info">
               <img src={item.image_url} alt={item.name} className="cart-item-image" />
 
               {/* Item details in the center */}
-              <div className="cart-item-info">
+              
                 <h3>{item.name}</h3>
                 <div className="cart-item-controls">
                   <button onClick={() => decrementItem(item)}>-</button>
                   <span>{item.quantity}</span>
                   <button onClick={() => incrementItem(item)}>+</button>
                 </div>
-                <span>₹{item.price}</span> {/* Price below quantity */}
+                <span>₹{item.price * item.quantity}</span> {/* Price below quantity */}
                 <button
                   className="remove-item-btn"
                   onClick={() => removeItem(item.unique_id)}
