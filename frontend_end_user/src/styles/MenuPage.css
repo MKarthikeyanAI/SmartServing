@@ -212,34 +212,56 @@
 .search-input::placeholder {
   color: #aaa;
 }
-
-@media (max-width: 768px) {
+@media (max-width: 768px) { 
   .navbar {
-    flex-direction: column; /* Stack navbar elements vertically */
-    align-items: flex-start; /* Align items to the left */
-  }
-
-  .navbar input {
-    margin-bottom: 10px; /* Add space below the search bar */
-    width: 100%; /* Make search bar take full width */
-  }
-
-  .cart-summary {
-    flex-wrap: wrap; /* Allow cart items to wrap */
-    justify-content: flex-start; /* Align cart items to the left */
-    margin-top: -100px;
-  }
-
-  .cart-summary span {
-    margin-bottom: 5px; /* Add space below each cart item */
+    flex-direction: row; /* Keep elements in a single row */
+    align-items: center;  /* Align items vertically in the center */
+    justify-content: space-between; /* Distribute space between items */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    flex-wrap: nowrap; /* Prevent items from wrapping */
   }
 
   .navbar .logo {
-    width: 120px; /* Reduce logo size on smaller screens */
-    margin-bottom: 10px; /* Add space below the logo */
+    width: 80px; /* Adjust logo size for smaller screens */
+  }
+
+  .search-container {
+    max-width: 150px; /* Reduce search bar width */
+    margin-right: 10px;
+  }
+
+  .search-input {
+    padding: 8px; /* Reduce padding in search input */
+  }
+
+  .nav-links {
+    display: flex; /* Ensure nav-links are in a flex container */
+    gap: 5px; /* Reduce gap between links */
+    margin-right: 10px; /* Add some margin to the right */
+  }
+
+  .nav-link {
+    font-size: 14px; /* Reduce font size of links */
+  }
+
+  .cart-summary {
+    flex-direction: row; /* Keep cart summary items in a row */
+    align-items: center;
+    gap: 5px; /* Reduce gap between cart summary items */
+    margin-top: 0; /* Remove extra margin */
+    white-space: nowrap; /* Prevent wrapping of cart summary items */
+  }
+
+  .cart-summary span {
+    font-size: 14px; /* Reduce font size of cart summary text */
+  }
+
+  .orders-button,
+  .cart-button {
+    padding: 8px 12px; /* Reduce padding in buttons */
+    font-size: 14px; /* Reduce font size of buttons */
   }
 }
-
 /* Responsive Menu Items */
 @media (max-width: 600px) {
   .menu-container {
