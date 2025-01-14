@@ -120,14 +120,14 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
         
         </div>
         <div className="search-container">
-  <input
-    type="text"
-    placeholder="Search your food"
-    value={searchTerm}
-    onChange={handleSearch}
-    className="search-input"
-  />
-</div>
+          <input
+            type="text"
+            placeholder="Search your food"
+            value={searchTerm}
+            onChange={handleSearch}
+            className="search-input"
+          />
+        </div>
 <div className="nav-links"> {/* Add navigation links */}
 <Link
             to="menu-page" // Scroll to the menu-page container
