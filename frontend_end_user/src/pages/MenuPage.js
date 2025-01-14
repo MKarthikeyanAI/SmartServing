@@ -36,6 +36,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
+
   useEffect(() => {
     const fetchMenuItems = async () => {
       const items = await getMenuItems(restaurantName);
@@ -163,8 +164,10 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
           onSubmit={handleModalSubmit}
         />
       )}
+      <div className="letter-items">
           <span>Total: ₹{calculateTotal().toFixed(2)}</span>
           <span>Items: {cart.length}</span>
+          </div>
 
           {/* My Orders button with icon */}
           <button onClick={navigateToOrders} className="orders-button">
@@ -172,7 +175,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
           </button>
 
 
-          <button onClick={navigateToCart}>Go to Cart</button>
+          <button onClick={navigateToCart} className="cart-button">Go to Cart</button>
           
         </div>
       </div>
