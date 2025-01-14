@@ -6,6 +6,7 @@ import io
 import base64
 import qrcode
 from datetime import datetime
+import os
 
 # Initialize app
 app = Flask(__name__)
@@ -418,5 +419,12 @@ def add_user(restaurant_name):
     return jsonify({"success": True, "unique_user_id": unique_user_id}), 201
 
 
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))  # Get the PORT from environment, default to 5000
+    app.run(host='0.0.0.0', port=port, debug=True)
+
