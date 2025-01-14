@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // const BASE_URL = "http://localhost:5000";
 
-const BASE_URL = "3.111.57.60:8000"; 
+const BASE_URL = "http://3.111.57.60:8000"; 
 
 export const getMenuItems = async (restaurantName) => {
   try {
