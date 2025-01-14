@@ -122,7 +122,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
         <div className="search-container">
           <input
             type="text"
-            placeholder="Search your food"
+            placeholder="Search"
             value={searchTerm}
             onChange={handleSearch}
             className="search-input"
