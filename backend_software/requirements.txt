@@ -1,0 +1,5 @@
+Flask==2.2.5
+Flask-PyMongo==2.3.0
+Flask-Cors==3.0.10
+qrcode==7.3
+pillow==9.3.0
