@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MenuPage from "./pages/MenuPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
+import LandingPage from "./pages/LandingPage"; // Import LandingPage
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -58,6 +59,7 @@ function App() {
   return (
     <Router>
       <Routes>
+      <Route path="/" element={<LandingPage />} /> {/* Default landing page route */}
         {/* <Route path="/:restaurantName/menu_items/:tableName" element={<MenuPage />} /> */}
         <Route
           path="/WafflePondy/menu_items/table1"

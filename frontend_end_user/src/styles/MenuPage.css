@@ -172,8 +172,11 @@
 .menu-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 10px;
-  padding: 10px;
+  flex-wrap: wrap; /* Allow wrapping for better layout on smaller screens */
+  justify-content: space-around; /* Adjust alignment */
+  gap: 30px;
+  padding: 0 86px; /* Optional: Add horizontal padding for better alignment */
+  margin-left: -22px;
 }
 
 /* Responsive Navbar */

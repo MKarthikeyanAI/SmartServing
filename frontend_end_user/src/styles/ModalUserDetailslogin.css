@@ -1,154 +1,142 @@
 /* Basic Modal Overlay */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  /* Modal Content Styling */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content Styling */
+.modal-content {
+  background-color: #edecec;
+  border-radius: 10px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-30px); /* Add some smooth entrance effect */
+  transition: transform 0.3s ease-out;
+}
+
+/* Modal Title */
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif; 
+}
+
+/* Form Input Group */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block; /* Makes the label appear above the input */
+  margin-bottom: 5px; 
+}
+
+/* Input Fields */
+.input-field {
+  width: 100%;
+  padding: 8px 18px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  margin-left:-150px;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  border-color: #f54748; /* Red color when input is focused (matching your design) */
+}
+
+/* Buttons for Submit and Cancel */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; 
+}
+
+.submit-btn, 
+.cancel-btn {
+  padding: 12px 25px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 48%; /* Ensures buttons take up roughly equal space */
+  font-weight: bold;
+}
+
+.submit-btn {
+  background-color: #f54748; /* Red color to match your design */
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #d43c3c; /* Slightly darker red on hover */
+}
+
+.cancel-btn {
+  background-color: #ccc; /* Light gray color for cancel */
+  color: #333; /* Darker text color for better contrast */
+  transition: background-color 0.3s;
+}
+
+.cancel-btn:hover {
+  background-color: #bbb; /* Slightly darker gray on hover */
+}
+
+
+/* Responsiveness for different screen sizes */
+@media (max-width: 768px) {
   .modal-content {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 30px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    transform: translateY(-30px); /* Add some smooth entrance effect */
-    transition: transform 0.3s ease-out;
+    padding: 20px;
+    width: 95%;
   }
-  
-  /* Modal Title */
+
   .modal-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Form Input Group */
-  .input-group {
-    margin-bottom: 20px;
-  }
-  
-  /* Input Fields */
-  .input-field {
-    width: 100%;
-    padding: 8px 18px;
-    margin-top: 8px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    box-sizing: border-box;
-  }
-  
-  .input-field:focus {
-    border-color: #4CAF50; /* Green color when input is focused */
-  }
-  
-  /* Buttons for Submit and Cancel */
-  .modal-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  .submit-btn, .cancel-btn {
-    padding: 12px 25px;
-    border-radius: 8px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    width: 48%;
-    font-weight: bold;
-  }
-  
-  .submit-btn {
-    background-color: #4CAF50;
-    color: white;
-    transition: background-color 0.3s;
-  }
-  
-  .submit-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .cancel-btn {
-    background-color: var(--cancel-btn-color, #f44336);
-    color: white;
-    transition: background-color 0.3s;
-  }
-  
-  
-  .cancel-btn:hover {
-    background-color: #e53935;
-  }
-  
-  /* Modal Close Button Styling (optional) */
-  .modal-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     font-size: 20px;
-    color: #aaa;
-    cursor: pointer;
-    transition: color 0.3s;
   }
-  
-  .modal-close-btn:hover {
-    color: #333;
+
+  .input-field {
+    padding: 10px 15px;
+    font-size: 14px;
   }
-  
-  /* Responsiveness for different screen sizes */
-  @media (max-width: 768px) {
-    .modal-content {
-      padding: 20px;
-      width: 95%;
-      max-width: 400px;
-    }
-  
-    .modal-title {
-      font-size: 20px;
-    }
-  
-    .input-field {
-      padding: 10px 15px;
-      font-size: 14px;
-    }
-  
-    .submit-btn, .cancel-btn {
-      font-size: 14px;
-    }
+
+  .submit-btn, .cancel-btn {
+    font-size: 14px;
   }
-  
-  @media (max-width: 480px) {
-    .modal-content {
-      width: 90%;
-      max-width: 320px;
-      padding: 15px;
-    }
-  
-    .modal-title {
-      font-size: 18px;
-    }
-  
-    .input-field {
-      padding: 8px 12px;
-      font-size: 14px;
-    }
-  
-    .submit-btn, .cancel-btn {
-      font-size: 14px;
-      padding: 10px 20px;
-    }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 90%;
+    padding: 15px;
   }
-  
+
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .input-field {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .submit-btn, .cancel-btn {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}

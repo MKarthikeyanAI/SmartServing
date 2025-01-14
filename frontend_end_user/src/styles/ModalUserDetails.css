@@ -40,18 +40,19 @@
   }
   
   /* Input Fields */
-  .input-field {
+  .input-field-details {
     width: 100%;
     padding: 8px 18px;
     margin-top: 8px;
     border: 2px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
+    margin-left: 0px;
     outline: none;
     box-sizing: border-box;
   }
   
-  .input-field:focus {
+  .input-field-details:focus {
     border-color: #4CAF50; /* Green color when input is focused */
   }
   
@@ -62,7 +63,7 @@
     gap: 10px;
   }
   
-  .submit-btn, .cancel-btn {
+  .submit-btn-details, .cancel-btn-details {
     padding: 12px 25px;
     border-radius: 8px;
     border: none;
@@ -72,23 +73,23 @@
     font-weight: bold;
   }
   
-  .submit-btn {
+  .submit-btn-details {
     background-color: #4CAF50;
     color: white;
     transition: background-color 0.3s;
   }
   
-  .submit-btn:hover {
+  .submit-btn-details:hover {
     background-color: #45a049;
   }
   
-  .cancel-btn {
+  .cancel-btn-details {
     background-color: #f44336;
     color: white;
     transition: background-color 0.3s;
   }
   
-  .cancel-btn:hover {
+  .cancel-btn-details:hover {
     background-color: #e53935;
   }
   
@@ -124,7 +125,7 @@
       font-size: 14px;
     }
   
-    .submit-btn, .cancel-btn {
+    .submit-btn-details, .cancel-btn-details {
       font-size: 14px;
     }
   }
@@ -145,7 +146,7 @@
       font-size: 14px;
     }
   
-    .submit-btn, .cancel-btn {
+    .submit-btn-details, .cancel-btn-details {
       font-size: 14px;
       padding: 10px 20px;
     }

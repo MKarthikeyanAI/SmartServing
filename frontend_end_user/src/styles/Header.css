@@ -1,0 +1,77 @@
+/* src/styles/Header.css */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures logo is on the left and title is centered */
+  background: linear-gradient(90deg, #ff6600, #ff7700); /* Modern gradient */
+  color: #fff;
+  padding: 10px 20px;
+  border-bottom: 3px solid #e65c00;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.header-logo-container {
+  position: absolute;
+  left: 20px; /* Adjust to desired spacing */
+  top: 50%; 
+  transform: translateY(-50%);
+}
+
+.header-logo {
+  width: 150px;
+  height:65px;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.header-logo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header-title {
+  text-align: center;
+  width: 100%; /* Ensures title takes up the center space */
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header-logo {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .header-logo {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-logo {
+    width: 30px;
+    height: 30px;
+  }
+}

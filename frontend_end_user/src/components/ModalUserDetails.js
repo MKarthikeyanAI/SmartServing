@@ -36,7 +36,7 @@ const ModalUserDetails = ({ username, mobileNumber, onClose, onSubmit }) => {
               value={formData.username}
               onChange={handleChange}
               required
-              className="input-field"
+              className="input-field-details"
             />
           </div>
           <div className="input-group">
@@ -47,12 +47,12 @@ const ModalUserDetails = ({ username, mobileNumber, onClose, onSubmit }) => {
               value={formData.mobileNumber}
               onChange={handleChange}
               required
-              className="input-field"
+              className="input-field-details"
             />
           </div>
           <div className="modal-actions">
-            <button type="submit" className="submit-btn">Submit Order</button>
-            <button type="button" onClick={onClose} className="cancel-btn">Cancel</button>
+            <button type="submit" className="submit-btn-details">Submit Order</button>
+            <button type="button" onClick={onClose} className="cancel-btn-details">Cancel</button>
           </div>
         </form>
       </div>
