@@ -1,6 +1,8 @@
 import axios from 'axios';
 const API_URL = 'http://localhost:5000';
 
+// const API_URL = 'https://sx935z96s4.execute-api.ap-south-1.amazonaws.com';
+
 export const getMenuItems = async () => {
   const response = await fetch(`${API_URL}/get-menu-items/WafflePondy`);
   const data = await response.json();
@@ -13,6 +15,38 @@ export const getMenuItems = async () => {
     category: item.category,
     image_url: item.image_url,  // Include the image_url
   }));
+};
+
+export const getOrders = async (restaurantName) => {
+  try {
+    const response = await axios.get(`${API_URL}/get-orders/${restaurantName}`);
+    console.log(response);
+    console.log(response.data.orders);
+    return response.data.orders;
+
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    return [];
+  }
+};
+
+export const updateOrderStatus = async (restaurantName, orderId, status) => {
+  try {
+    const response = await axios.post(`${API_URL}/update-order-status/${restaurantName}/${orderId}`, { status });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating order status:", error);
+  }
+};
+
+export const getProcessingOrders = async (restaurantName) => {
+  try {
+    const response = await axios.get(`${API_URL}/get-processing-orders/${restaurantName}`);
+    return response.data.orders;
+  } catch (error) {
+    console.error("Error fetching processing orders:", error);
+    return [];
+  }
 };
 
 
@@ -51,8 +85,4 @@ export const addMenuItem = async (restaurantName, menuItem) => {
   }
 };
 
-export const getOrders = async () => {
-  const response = await fetch(`${API_URL}/get-orders/WafflePondy`);
-  const data = await response.json();
-  return data.orders;
-};
+

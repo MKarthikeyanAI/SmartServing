@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/Orders.css';
 import { getOrders } from '../api';
+import OrderCard from '../components/OrderCard.js';
+import MenuSidebar from '../components/MenuSidebar.js';
+import '../styles/Orders.css';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const fetchOrders = async () => {
+    const fetchedOrders = await getOrders('WafflePondy');
+    setOrders(fetchedOrders);
+  };
 
   useEffect(() => {
-    getOrders().then((orderList) => {
-      setOrders(orderList);
-    });
+    fetchOrders();
   }, []);
 
+  const handleDetailsClick = (order) => {
+    setSelectedOrder(order);
+  };
+
   return (
-    <div className="orders">
-      <h2>Orders</h2>
-      <ul>
-        {orders.map((order) => (
-          <li key={order.id}>
-            <span>Table {order.table}</span> - <span>{order.status}</span>
-          </li>
+    <div className="orders-container">
+      <div className="orders-list">
+        {orders.map((order, index) => (
+          <OrderCard key={index} order={order} onDetailsClick={handleDetailsClick} refreshOrders={fetchOrders} />
         ))}
-      </ul>
+      </div>
+      <MenuSidebar order={selectedOrder} />
     </div>
   );
 };

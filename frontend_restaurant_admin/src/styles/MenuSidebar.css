@@ -1,0 +1,43 @@
+.menu-sidebar {
+    width: 30%;
+    background-color: #f4f6f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    max-height: 800px; /* Set a maximum height for the sidebar */
+    overflow-y: auto;  /* Add vertical scrollbar when content overflows */
+  }
+  
+  .menu-sidebar h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .menu-sidebar table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .menu-sidebar th, .menu-sidebar td {
+    text-align: left;
+    padding: 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .menu-sidebar th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+  }
+  
+  .menu-sidebar td {
+    color: #555;
+  }
+  
+  .menu-sidebar tr:hover {
+    background-color: #f1f1f1;
+  }
+  

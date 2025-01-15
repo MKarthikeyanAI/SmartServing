@@ -1,0 +1,85 @@
+/* Main container for the card */
+.order-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  
+  .order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .order-card p {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #0d0d0d;
+  }
+  
+  /* Heading styles */
+  .order-card p strong {
+    color: #141415;
+    font-weight: 600;
+  }
+  
+  /* Styling for the order status */
+  .order-card .status {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e67e22; /* Orange color for status */
+    background-color: #f0edea;
+    padding: 5px 10px;
+    border-radius: 20px;
+    text-transform: capitalize;
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+  
+  /* Styling for the action buttons */
+  .order-card-buttons {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .order-card-buttons button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  /* Styling for the 'Food Delivered' button */
+  .order-card-buttons button.food-delivered {
+    background-color: #f39c12; /* Yellow for food delivered */
+  }
+  
+  .order-card-buttons button.food-delivered:hover {
+    background-color: #e67e22;
+  }
+  
+  /* Styling for the 'Completed Payment' button */
+  .order-card-buttons button.completed-payment {
+    background-color: #3498db; /* Blue for completed payment */
+  }
+  
+  .order-card-buttons button.completed-payment:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Styling for 'Details' button */
+  .order-card-buttons button.details {
+    background-color: #2ecc71; /* Green for details */
+  }
+  
+  .order-card-buttons button.details:hover {
+    background-color: #27ae60;
+  }
+  
