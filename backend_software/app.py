@@ -7,6 +7,7 @@ import base64
 import qrcode
 from datetime import datetime
 import os
+from bson.objectid import ObjectId  # Import ObjectId for MongoDB operations
 
 # Initialize app
 app = Flask(__name__)
@@ -327,22 +328,32 @@ def place_order(restaurant_name):
 
     # Add the current date and time
     timestamp = datetime.utcnow().isoformat()
+    order_id = str(uuid.uuid4())
     # Prepare the order entry to be inserted into the database
+    # Prepare the order entry without the order_id initially
     order_entry = {
         "table_name": table_name,
-        "order": order_details,  # Insert 'order_details' into the database
+        "order": order_details,
         "status": "Pending",
-        "username": username,  # Store username
-        "mobile_number": mobile_number, # Store mobile number
-        "unique_user_id": unique_user_id,  # Store the unique user ID
+        "username": username,
+        "mobile_number": mobile_number,
+        "unique_user_id": unique_user_id,
         "timestamp": timestamp
     }
-    
-    # Insert the order into the orders collection
-    db.orders.insert_one(order_entry)
-    
-    # Return a success message
-    return jsonify({"success": True, "message": "Order placed successfully!"})
+
+     # Insert the order into the orders collection
+    result = db.orders.insert_one(order_entry)
+    # Get the `_id` of the inserted document and use it as `order_id`
+    order_id = str(result.inserted_id)
+
+    print(order_id)
+
+    # Update the document to include the `order_id` field
+    db.orders.update_one({"_id": result.inserted_id}, {"$set": {"order_id": order_id}})
+
+    # Return a success message along with the `order_id`
+    return jsonify({"success": True, "message": "Order placed successfully!", "order_id": order_id})
+
 
 @app.route('/<string:restaurant_name>/user-id', methods=['POST'])
 def get_user_id(restaurant_name):
@@ -418,13 +429,50 @@ def add_user(restaurant_name):
     
     return jsonify({"success": True, "unique_user_id": unique_user_id}), 201
 
+# Restaurant admin files
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+@app.route('/get-orders/<restaurant_name>', methods=['GET'])
+def get_orders(restaurant_name):
+    db = mongo.cx[restaurant_name]
+    # orders = list(db.orders.find({}, {'_id': 0}))  # Exclude MongoDB internal ID
+    # return jsonify({"orders": orders})
+    pending_orders = list(db.orders.find({"status": "Pending"}, {'_id': 0}))  # Exclude MongoDB internal ID
+    return jsonify({"orders": pending_orders})
 
 
+@app.route('/update-order-status/<restaurant_name>/<order_id>', methods=['POST'])
+def update_order_status(restaurant_name, order_id):
+    try:
+        new_status = request.json.get('status')
+        db = mongo.cx[restaurant_name]
+        db.orders.update_one({'_id': ObjectId(order_id)}, {'$set': {'status': new_status}})
+        return jsonify({"message": "Order status updated successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/get-processing-orders/<restaurant_name>', methods=['GET'])
+def get_processing_orders(restaurant_name):
+    db = mongo.cx[restaurant_name]
+    orders = list(db.orders.find({"status": {"$ne": "Pending"}}, {'_id': 0}))
+    return jsonify({"orders": orders})
+
+
+@app.route('/delete-order/<restaurant_name>/<order_id>', methods=['DELETE'])
+def delete_order(restaurant_name, order_id):
+    try:
+        db = mongo.cx[restaurant_name]
+        db.orders.delete_one({'_id': ObjectId(order_id)})
+        return jsonify({"message": "Order deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Get the PORT from environment, default to 5000
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(debug=True)
+
+
+
+# if __name__ == '__main__':
+#     port = int(os.environ.get('PORT', 5000))  # Get the PORT from environment, default to 5000
+#     app.run(host='0.0.0.0', port=port, debug=True)
 
