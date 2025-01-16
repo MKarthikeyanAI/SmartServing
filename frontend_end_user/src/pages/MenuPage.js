@@ -14,7 +14,7 @@ import { Link } from "react-scroll"; // Import Link from react-scroll
 
 const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
 
-  // const { restaurantName, tableName } = useParams(); for dynamic
+  // const { restaurantName, tableName } = useParams();
 
   const restaurantName = "WafflePondy"; // Static test value
   const tableName = "table1"; // Static test value

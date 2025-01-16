@@ -12,6 +12,8 @@
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
+
+
 @media (max-width: 768px) { /* Adjust breakpoint as needed */
   .menu-item-card {
     max-width: 400px; /* Limit maximum width for larger screens */

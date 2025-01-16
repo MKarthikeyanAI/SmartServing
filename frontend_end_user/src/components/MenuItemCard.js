@@ -29,22 +29,26 @@ const MenuItemCard = ({ item, addToCart, incrementItem, decrementItem, cartItem 
         <h3 className="food-name">{item.name}</h3>
         <div className="price-add-wrapper"> 
           <p className="food-price">₹{item.price}</p>
-          {isAdded && cartItem ? (
-            <div className="cart-controls">
-              <button className="decrement-btn" onClick={handleDecrement}>
-      <img src={assets.remove_icon_red} alt="Remove" /> 
-    </button>
-              <span className="item-count-box">
-                {cartItem.quantity}
-              </span>
-              <button className="increment-btn" onClick={handleIncrement}>
-      <img src={assets.add_icon_green} alt="Add" /> 
-    </button>
-            </div>
+          {item.stock === 'no' ? ( // Check if the item is out of stock
+            <p className="out-of-stock-box">Out of Stock</p>
           ) : (
-            <button className="add-to-cart-btn" onClick={handleAddToCart}>
-              ADD +
-            </button>
+            isAdded && cartItem ? (
+              <div className="cart-controls">
+                <button className="decrement-btn" onClick={handleDecrement}>
+                  <img src={assets.remove_icon_red} alt="Remove" /> 
+                </button>
+                <span className="item-count-box">
+                  {cartItem.quantity}
+                </span>
+                <button className="increment-btn" onClick={handleIncrement}>
+                  <img src={assets.add_icon_green} alt="Add" /> 
+                </button>
+              </div>
+            ) : (
+              <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                ADD +
+              </button>
+            )
           )}
         </div>
       </div>

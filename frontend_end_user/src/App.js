@@ -61,7 +61,7 @@ function App() {
       <Routes>
       <Route path="/" element={<LandingPage />} /> {/* Default landing page route */}
         {/* <Route path="/:restaurantName/menu_items/:tableName" element={<MenuPage />} /> */}
-        <Route
+        {/* <Route
           path="/WafflePondy/menu_items/table1"
           element={
             <MenuPage 
@@ -69,6 +69,17 @@ function App() {
               cart={cart} 
               incrementItem={incrementItem} 
               decrementItem={decrementItem} 
+            />
+          }
+        /> */}
+        <Route
+          path="/:restaurantName/menu_items/:tableName"
+          element={
+            <MenuPage
+              addToCart={addToCart}
+              cart={cart}
+              incrementItem={incrementItem}
+              decrementItem={decrementItem}
             />
           }
         />
