@@ -1,0 +1,46 @@
+
+/* src/components/Hero/Hero.css */
+.hero {
+    background-color: #00bcd4; /* Use your accent color */
+    padding: 8rem 2rem; /* More padding */
+    text-align: center;
+    color: #fff; /* White text */
+  }
+  
+  .hero .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .hero-content {
+    text-align: center;
+  }
+  
+  .hero-content h1 {
+    font-size: 3.5rem; /* Larger heading */
+    margin-bottom: 1.5rem;
+    color: #fff;
+    line-height: 1.2;
+  }
+  
+  .hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    color: #f8f8f8; /* Slightly off-white */
+  }
+  .btn {
+    display: inline-block;
+    background-color: #fff; /* Changed button background to white */
+    color: #00bcd4; /* Changed button text color */
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Added transition for color */
+  }
+  
+  .btn:hover {
+    background-color: #0097a7;
+    color: #fff; /* Changed button text color on hover */
+  }

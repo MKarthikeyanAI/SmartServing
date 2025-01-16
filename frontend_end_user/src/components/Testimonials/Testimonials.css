@@ -1,0 +1,38 @@
+/* src/components/Testimonials/Testimonials.css */
+.testimonials {
+    padding: 6rem 2rem;
+    background-color: #00bcd4; /* Your accent color */
+    color: #fff;
+}
+
+.testimonials .container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.testimonials h2 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.testimonial {
+    background-color: #fff;
+    color: #555;
+    padding: 3rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial .author {
+    font-weight: 600;
+    color: #222;
+    font-style: italic;
+}

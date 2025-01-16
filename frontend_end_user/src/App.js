@@ -5,6 +5,7 @@ import MenuPages from "./pages/MenuPages";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import LandingPage from "./pages/LandingPage"; // Import LandingPage
+import TemplatePage from './pages/TemplatePage'; // Import the new template page
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -108,6 +109,7 @@ function App() {
           }
         />
         <Route path="/:restaurantName/my-orders/:userId" element={<MyOrdersPage />} />
+        <Route path="/template" element={<TemplatePage />} /> 
         {/* <Route path="/:restaurantName/my-orders/:userId/:tableName" element={<MyOrdersPage />} /> */}
       </Routes>
     </Router>
