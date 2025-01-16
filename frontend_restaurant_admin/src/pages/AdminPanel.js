@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import Dashboard from '../components/Dashboard';
 import Menu from '../components/Menu';
 import Orders from '../components/Orders';
 import '../styles/AdminPanel.css';
 import ProcessingOrders from '../components/ProcessingOrders'; 
 
-const AdminPanel = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const restaurantName = 'WafflePondy'; // Example restaurant name
+const AdminPanel = ({ restaurantName }) => {
+  const [activeTab, setActiveTab] = useState('orders');
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -18,9 +16,8 @@ const AdminPanel = () => {
     <div className="admin-panel">
       <Sidebar onTabChange={handleTabChange} activeTab={activeTab} />
       <div className="content">
-        {/* {activeTab === 'dashboard' && <Dashboard />} */}
-        {activeTab === 'menu' && <Menu />}
-        {activeTab === 'orders' && <Orders />}
+        {activeTab === 'menu' && <Menu restaurantName={restaurantName} />}
+        {activeTab === 'orders' && <Orders restaurantName={restaurantName} />}
         {activeTab === 'processingOrders' && <ProcessingOrders restaurantName={restaurantName} />}
       </div>
     </div>

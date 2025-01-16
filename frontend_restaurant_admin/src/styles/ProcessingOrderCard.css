@@ -1,34 +1,35 @@
 /* Main container for the card */
-.order-card {
-    background-color: #fff;
+.order-card-1 {
+    background-color: #fbfbfb;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     padding: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    
   }
   
   
-  .order-card:hover {
+  .order-card-1:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
   
-  .order-card p {
+  .order-card-1 p {
     font-size: 14px;
     margin: 5px 0;
     color: #0d0d0d;
   }
   
   /* Heading styles */
-  .order-card p strong {
+  .order-card-1 p strong {
     color: #141415;
     font-weight: 600;
   }
   
   /* Styling for the order status */
-  .order-card .status {
+  .order-card-1 .status {
     font-size: 16px;
     font-weight: bold;
     color: #e67e22; /* Orange color for status */

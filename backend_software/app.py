@@ -157,7 +157,7 @@ def create_restaurant():
 @app.route('/add-menu-item/<restaurant_name>', methods=['POST'])
 def add_menu_item(restaurant_name):
     data = request.json
-    required_fields = ['name', 'price', 'category', 'image_url']
+    required_fields = ['name', 'price', 'category', 'image_url', 'stock']  # Add 'stock'
 
     # Validate required fields
     if not all(field in data for field in required_fields):
@@ -174,7 +174,8 @@ def add_menu_item(restaurant_name):
         "name": data['name'],
         "price": data['price'],
         "category": data['category'],
-        "image_url": data['image_url']
+        "image_url": data['image_url'],
+        "stock": data['stock'],  # Add the stock field
     }
 
     # Insert the new menu item
@@ -465,6 +466,52 @@ def delete_order(restaurant_name, order_id):
         return jsonify({"message": "Order deleted successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/menu_item/<restaurant_name>/<menu_id>/stock', methods=['PUT'])
+def update_stock_status(restaurant_name, menu_id):
+    data = request.json
+    stock_status = data.get('stock')
+
+    if stock_status not in ['yes', 'no']:
+        return jsonify({"error": "Invalid stock status"}), 400
+
+    db = mongo.cx[restaurant_name]
+    collection = db['menuitems']  # Specify the 'menuitems' collection
+
+    # Find the menu item
+    menu_item = collection.find_one({'unique_id': menu_id})
+
+    if not menu_item:
+        return jsonify({"error": "Menu item not found"}), 404
+
+    # If stock key does not exist, create it with the appropriate value
+    if 'stock' not in menu_item:
+        collection.update_one(
+            {'unique_id': menu_id},
+            {'$set': {'stock': stock_status}}
+        )
+    else:
+        # Update the stock status if the key already exists
+        collection.update_one(
+            {'unique_id': menu_id},
+            {'$set': {'stock': stock_status}}
+        )
+
+    return jsonify({"message": "Stock status updated successfully"}), 200
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+    db = mongo.cx['Restaurants_Admin_Database']
+    restaurant = db.restaurants.find_one({'username': username, 'password': password})
+    
+    if restaurant:
+        return jsonify({'success': True, 'restaurantName': restaurant['username']}), 200
+    else:
+        return jsonify({'success': False}), 401
+
     
 
 if __name__ == '__main__':

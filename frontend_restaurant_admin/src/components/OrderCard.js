@@ -1,9 +1,9 @@
 import React from 'react';
 import '../styles/OrderCard.css';
-import { updateOrderStatus } from '../api';
+import { updateOrderStatus ,deleteOrder} from '../api';
 
-const OrderCard = ({ order, onDetailsClick, refreshOrders }) => {
-  const restaurantName = 'WafflePondy';
+const OrderCard = ({ order, onDetailsClick, refreshOrders, restaurantName }) => {
+  // const restaurantName = 'WafflePondy';
 
   const handleAccept = async () => {
     await updateOrderStatus(restaurantName, order.order_id, 'Processing');
@@ -11,8 +11,13 @@ const OrderCard = ({ order, onDetailsClick, refreshOrders }) => {
     refreshOrders(); // Refresh the orders after updating the status
   };
 
-  const handleReject = () => {
-    console.log('Reject button clicked');
+  const handleReject = async () => {
+    const confirmed = window.confirm('Do you confirm to reject this order?');
+    if (confirmed) {
+      await deleteOrder(restaurantName, order.order_id);
+      console.log('Order deleted successfully');
+      refreshOrders(); // Refresh the orders after deleting
+    }
   };
 
   return (

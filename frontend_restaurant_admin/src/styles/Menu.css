@@ -107,6 +107,15 @@
   gap: 20px;
 }
 
+.menu-item.in-stock {
+  background-color: #dff0d8; /* Light green for in stock */
+}
+
+.menu-item.out-of-stock {
+  background-color: #f2dede; /* Light red for out of stock */
+}
+
+
 .menu-price span {
   font-size: 18px;
   font-weight: bold;
@@ -162,4 +171,11 @@
 
 .icon-button:hover {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.spinner-container-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
 }

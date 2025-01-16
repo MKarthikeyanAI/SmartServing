@@ -7,6 +7,7 @@ const ModalAdd = ({ item, onClose, onSubmit }) => {
     price: item.price || '',
     category: item.category || '',
     image_url: item.image_url || '',
+    stock: item.stock || 'yes',
   });
 
   const handleChange = (e) => {
@@ -65,6 +66,18 @@ const ModalAdd = ({ item, onClose, onSubmit }) => {
               onChange={handleChange}
               className="input-field"
             />
+          </div>
+          <div className="input-group">
+            <label>Stock:</label>
+            <select
+              name="stock"
+              value={formData.stock}
+              onChange={handleChange}
+              className="input-field"
+            >
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
           </div>
           <div className="modal-actions">
             <button type="submit" className="submit-btn">Add</button>
