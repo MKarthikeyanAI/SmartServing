@@ -30,4 +30,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials;3
+export default Testimonials;
