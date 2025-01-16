@@ -1,32 +1,68 @@
 .menu-item-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 5px;
   background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
-  width: 100%; /* Make cards take full width */
-  max-width: 350px; /* Limit maximum width */
-  box-sizing: border-box;
+  width: 350px; /* Make cards take full width on smaller screens */
+  max-width: 400px; /* Limit maximum width for larger screens */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+
+
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
   .menu-item-card {
-    max-width: 300px; /* Adjust max-width for smaller screens */
+    max-width: 400px; /* Limit maximum width for larger screens */
   }
 
-  /* Other responsive adjustments for font sizes, padding, etc. */
+  .food-name {
+    font-size: 0.9rem; /* Slightly reduce font size */
+  }
+
+  .food-price {
+    font-size: 0.9rem; /* Slightly reduce font size */
+  }
+
+  .add-to-cart-btn {
+    padding: 6px 10px; /* Reduce padding */
+    font-size: 0.8rem; /* Reduce font size */
+  }
+
+  .cart-controls {
+    height: 24px; /* Slightly reduce height */
+    padding: 2px; /* Reduce padding */
+  }
+
+  .decrement-btn img,
+  .increment-btn img {
+    width: 18px; /* Slightly reduce icon size */
+    height: 18px;
+  }
+
+  .item-count-box {
+    width: 25px; /* Slightly reduce width */
+    height: 24px; /* Slightly reduce height */
+    font-size: 0.9rem; /* Slightly reduce font size */
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px) { /* Further adjustments for smaller screens */
   .menu-item-card {
-    max-width: 100%;
+    max-width: 400px; /* Limit maximum width for larger screens */
   }
 
-  /* Further adjustments for very small screens */
+  .food-image {
+    height: 120px; /* Reduce image height */
+  }
+
+  .add-to-cart-btn {
+    width: auto; /* Button width adjusts to content */
+    padding: 4px 8px; /* Reduce padding further */
+  }
 }
 
 .menu-item-card:hover {
@@ -53,7 +89,7 @@
 .price-add-wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
 }
 
 .food-price {
@@ -63,8 +99,7 @@
 }
 
 .add-to-cart-btn {
-  background-color: #ff7000;
-  /* Orange color */
+  background-color: #ff7000; /* Orange color */
   color: #fff;
   border: none;
   padding: 8px 12px;
@@ -73,30 +108,39 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-weight: bold;
-  white-space: nowrap;
-  /* Prevent text from wrapping */
+  font-weight: bold; 
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 .add-to-cart-btn:hover {
-  background-color: #d45f00;
-  /* Darker orange on hover */
+  background-color: #d45f00; /* Darker orange on hover */
 }
 
 .cart-controls {
   display: flex;
   align-items: center;
-  gap: 5px;
-  /* Reduced gap */
+  gap: 5px; /* Reduced gap */
   height: 26px;
   border: 2px solid #ff7000;
-  border-radius: 20px;
-  /* Increased border-radius */
-  padding: 2px;
-  /* Reduced padding */
+  border-radius: 20px; /* Increased border-radius */
+  padding: 2px; /* Reduced padding */
   background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
+/* .decrement-btn, 
+.increment-btn {
+  background: none;
+  border: none;
+  color: #ff7000;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: color 0.2s;
+} */
+/* 
+.decrement-btn:hover, 
+.increment-btn:hover {
+  color: #d45f00; 
+} */
 
 .decrement-btn,
 .increment-btn {
@@ -108,8 +152,7 @@
 
 .decrement-btn img,
 .increment-btn img {
-  width: 20px;
-  /* Adjust size as needed */
+  width: 20px; /* Adjust size as needed */
   height: 20px;
 }
 
@@ -121,12 +164,9 @@
   width: 30px;
   height: 28px;
   text-align: center;
-  border: none;
-  /* Removed border */
-  border-radius: 0;
-  /* Removed border-radius */
-  background-color: transparent;
-  /* Transparent background */
+  border: none; /* Removed border */
+  border-radius: 0; /* Removed border-radius */
+  background-color: transparent; /* Transparent background */
   font-size: 1em;
   color: #333;
   font-weight: bold;
