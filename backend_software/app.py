@@ -513,13 +513,10 @@ def login():
         return jsonify({'success': True, 'restaurantName': restaurant['username']}), 200
     else:
         return jsonify({'success': False}), 401
-
     
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
-
-
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))  # Get the PORT from environment, default to 5000
