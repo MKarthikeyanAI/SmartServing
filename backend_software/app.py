@@ -91,7 +91,7 @@ def create_qrcode_scanner(restaurant_name):
     # Generate QR code
 
     # Generate the link to be embedded in the QR code
-    qr_data = f"http://www.smartserving.com/{restaurant_name}/menu_items/{table_name}"
+    qr_data = f"https://www.smart-serving.com/{restaurant_name}/menu_items/{table_name}"
 
     qr = qrcode.QRCode(
         version=1,
