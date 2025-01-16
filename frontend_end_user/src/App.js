@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MenuPage from "./pages/MenuPage";
+import MenuPages from "./pages/MenuPages";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import LandingPage from "./pages/LandingPage"; // Import LandingPage
@@ -83,6 +84,17 @@ function App() {
             />
           }
         />
+        <Route
+        path="/:restaurantName/menu_items"
+        element={
+          <MenuPages
+            addToCart={addToCart}
+            cart={cart}
+            incrementItem={incrementItem}
+            decrementItem={decrementItem}
+          />
+        }
+      />
         <Route
           path="/order-confirmation/:restaurantName/:tableName"
           element={
