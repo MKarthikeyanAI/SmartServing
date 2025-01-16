@@ -16,11 +16,25 @@ const ProcessingOrders = ({ restaurantName }) => {
       setLoading(true); // Set loading to true before fetching
       const fetchedOrders = await getProcessingOrders(restaurantName);
       setOrders(fetchedOrders);
+      const sortedOrders = sortOrders(fetchedOrders);
+      setOrders(sortedOrders);
       setLoading(false); // Set loading to false after fetching
     };
 
     fetchProcessingOrders();
   }, [restaurantName]);
+
+  const sortOrders = (orders) => {
+    return orders.sort((a, b) => {
+      if (a.status === 'Completed Payment' && b.status !== 'Completed Payment') {
+        return 1;
+      }
+      if (a.status !== 'Completed Payment' && b.status === 'Completed Payment') {
+        return -1;
+      }
+      return 0;
+    });
+  };
 
   const refreshOrders = async () => {
     setLoading(true); // Set loading to true before fetching
@@ -42,10 +56,16 @@ const ProcessingOrders = ({ restaurantName }) => {
       ) : (
         <>
         <div className="orders-list">
-          {orders.map((order, index) => (
-            <ProcessingOrderCard key={index} order={order} onDetailsClick={handleDetailsClick} refreshOrders={refreshOrders} />
-          ))}
-        </div>
+  {orders.map((order, index) => (
+    <ProcessingOrderCard 
+      key={index} 
+      order={order} 
+      onDetailsClick={handleDetailsClick} 
+      refreshOrders={refreshOrders} 
+      restaurantName={restaurantName}
+    />
+  ))}
+</div>
       
       <MenuSidebar order={selectedOrder} />
       </>

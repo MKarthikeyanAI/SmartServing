@@ -447,6 +447,8 @@ def update_order_status(restaurant_name, order_id):
         new_status = request.json.get('status')
         db = mongo.cx[restaurant_name]
         db.orders.update_one({'_id': ObjectId(order_id)}, {'$set': {'status': new_status}})
+        print(f"Restaurant: {restaurant_name}, Order ID: {order_id}, Status: {new_status}")
+
         return jsonify({"message": "Order status updated successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

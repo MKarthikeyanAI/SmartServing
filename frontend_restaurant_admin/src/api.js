@@ -65,6 +65,7 @@ export const getOrders = async (restaurantName) => {
 
 export const updateOrderStatus = async (restaurantName, orderId, status) => {
   try {
+    console.log(orderId);
     const response = await axios.post(`${API_URL}/update-order-status/${restaurantName}/${orderId}`, { status });
     return response.data;
   } catch (error) {
