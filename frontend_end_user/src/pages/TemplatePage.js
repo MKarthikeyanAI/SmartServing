@@ -33,7 +33,6 @@ function TemplatePage() {
             <div data-aos="fade-up"><Contact /></div>
           </>
         } />
-        {/* Define other routes if needed */}
       </Routes>
       <Footer />
     </div>

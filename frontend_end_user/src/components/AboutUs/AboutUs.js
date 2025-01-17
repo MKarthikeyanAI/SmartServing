@@ -1,9 +1,9 @@
-import React from 'react';
-import './AboutUs.css';
+import React from "react";
+import "./AboutUs.css";
 
 const AboutUs = () => {
   return (
-    <section className="about-us" id="about-us" data-aos="fade-up">
+    <section className="about-us" data-aos="fade-up">
       <div className="container">
         <h2 data-aos="fade-up">About Lyka Software</h2>
         <p data-aos="fade-up" data-aos-delay="300">

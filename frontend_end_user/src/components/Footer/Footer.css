@@ -4,9 +4,16 @@
     color: #fff;
     text-align: center;
     padding: 3rem;
-}
-
-.footer p {
+  }
+  
+  .footer p {
     font-size: 1rem;
     color: #ccc;
-}
+  }
+  
+  /* Media Query for smaller screens */
+  @media (max-width: 768px) {
+    .footer {
+      padding: 2rem 1rem; /* Reduced padding */
+    }
+  }

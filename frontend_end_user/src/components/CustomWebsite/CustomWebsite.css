@@ -1,63 +1,62 @@
 /* src/components/CustomWebsite/CustomWebsite.css */
 .custom-website {
     padding: 6rem 2rem;
-    background-color: #e0f2f7; /* Light blueish background (same as About Us) */
-}
-
-.custom-website .container {
+    background-color: #e0f2f7;
+  }
+  
+  .custom-website .container {
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 4rem;
     max-width: 1200px;
     margin: 0 auto;
-}
-
-.custom-website .content {
+  }
+  
+  .custom-website .content {
     text-align: left;
-    background-color: #fff; /* White content box */
+    background-color: #fff;
     padding: 3rem;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.custom-website h2 {
+  }
+  
+  .custom-website h2 {
     font-size: 3rem;
     margin-bottom: 2rem;
     color: #222;
-}
-
-.custom-website p {
+  }
+  
+  .custom-website p {
     font-size: 1.2rem;
     color: #555;
     line-height: 1.8;
     margin-bottom: 2rem;
-}
-
-.custom-website ul {
+  }
+  
+  .custom-website ul {
     list-style: none;
     padding: 0;
     margin-bottom: 2rem;
-}
-
-.custom-website ul li {
+  }
+  
+  .custom-website ul li {
     font-size: 1.2rem;
     color: #555;
     margin-bottom: 1rem;
     padding-left: 1.5rem;
     position: relative;
-}
-
-.custom-website ul li::before {
+  }
+  
+  .custom-website ul li::before {
     content: '\2713';
     position: absolute;
     left: 0;
     color: #00bcd4;
     font-weight: 600;
-}
-
-.custom-website .btn {
-    /* Same button styling */
+  }
+  
+  .custom-website .btn {
     display: inline-block;
     background-color: #00bcd4;
     color: #fff;
@@ -68,9 +67,37 @@
     text-decoration: none;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-}
-
-.custom-website .btn:hover {
+  }
+  
+  .custom-website .btn:hover {
     background-color: #0097a7;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+  }
+  
+  /* Media Query for smaller screens */
+  @media (max-width: 768px) {
+    .custom-website {
+      padding: 4rem 1rem; /* Reduced padding */
+    }
+  
+    .custom-website .container {
+      flex-direction: column; /* Stack elements vertically */
+      gap: 2rem; /* Reduced gap */
+    }
+  
+    .custom-website .content {
+      padding: 2rem; /* Reduced padding */
+    }
+  
+    .custom-website h2 {
+      font-size: 2.2rem; /* Smaller heading */
+    }
+  
+    .custom-website p {
+      font-size: 1rem; /* Smaller paragraph */
+    }
+  
+    .custom-website ul li {
+      font-size: 1rem; /* Smaller list items */
+    }
+  }

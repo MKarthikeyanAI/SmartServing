@@ -3,7 +3,7 @@ import "./SmartServe.css";
 
 const SmartServe = () => {
   return (
-    <section className="smart-serve" id="smart-serve" data-aos="fade-right">
+    <section className="smart-serve" data-aos="fade-right">
       <div className="container">
         <div className="content" data-aos="fade-left">
           <h2 data-aos="zoom-in-up" data-aos-delay="200">

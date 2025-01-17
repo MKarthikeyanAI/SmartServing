@@ -1,63 +1,62 @@
 /* src/components/SmartServe/SmartServe.css */
 .smart-serve {
     padding: 6rem 2rem;
-    background-color: #f8f8f8; /* Light gray background */
-}
-
-.smart-serve .container {
+    background-color: #f8f8f8;
+  }
+  
+  .smart-serve .container {
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 4rem;
     max-width: 1200px;
     margin: 0 auto;
-}
-
-.smart-serve .content {
+  }
+  
+  .smart-serve .content {
     text-align: left;
-    background-color: #fff; /* White content box */
+    background-color: #fff;
     padding: 3rem;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.smart-serve h2 {
+  }
+  
+  .smart-serve h2 {
     font-size: 3rem;
     margin-bottom: 2rem;
     color: #222;
-}
-
-.smart-serve p {
+  }
+  
+  .smart-serve p {
     font-size: 1.2rem;
     color: #555;
     line-height: 1.8;
     margin-bottom: 2rem;
-}
-
-.smart-serve ul {
+  }
+  
+  .smart-serve ul {
     list-style: none;
     padding: 0;
     margin-bottom: 2rem;
-}
-
-.smart-serve ul li {
+  }
+  
+  .smart-serve ul li {
     font-size: 1.2rem;
     color: #555;
     margin-bottom: 1rem;
     padding-left: 1.5rem;
     position: relative;
-}
-
-.smart-serve ul li::before {
+  }
+  
+  .smart-serve ul li::before {
     content: '\2713';
     position: absolute;
     left: 0;
     color: #00bcd4;
     font-weight: 600;
-}
-
-.smart-serve .btn {
-    /* Same button styling */
+  }
+  
+  .smart-serve .btn {
     display: inline-block;
     background-color: #00bcd4;
     color: #fff;
@@ -68,9 +67,37 @@
     text-decoration: none;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-}
-
-.smart-serve .btn:hover {
+  }
+  
+  .smart-serve .btn:hover {
     background-color: #0097a7;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+  }
+  
+  /* Media Query for smaller screens */
+  @media (max-width: 768px) {
+    .smart-serve {
+      padding: 4rem 1rem; /* Reduced padding */
+    }
+  
+    .smart-serve .container {
+      flex-direction: column; /* Stack elements vertically */
+      gap: 2rem; /* Reduced gap */
+    }
+  
+    .smart-serve .content {
+      padding: 2rem; /* Reduced padding */
+    }
+  
+    .smart-serve h2 {
+      font-size: 2.2rem; /* Smaller heading */
+    }
+  
+    .smart-serve p {
+      font-size: 1rem; /* Smaller paragraph */
+    }
+  
+    .smart-serve ul li {
+      font-size: 1rem; /* Smaller list items */
+    }
+  }
