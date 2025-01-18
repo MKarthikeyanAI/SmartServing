@@ -18,7 +18,6 @@ const Navbar = () => {
         </Link>
 
         <div className="menu-icon" onClick={toggleMenu}>
-          {/* Hamburger menu icon (three horizontal lines) */}
           <div className="bar"></div>
           <div className="bar"></div>
           <div className="bar"></div>

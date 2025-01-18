@@ -119,6 +119,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
           <img src={assets.logo} alt="Logo" className="logo" /> 
         
         </div>
+        <div className="nav-elements">
         <div className="search-container">
           <input
             type="text"
@@ -156,6 +157,8 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
   Contact Us
 </a>
   </div>
+
+  </div>
         <div className="cart-summary">
 
         {modalOpen && (
@@ -164,10 +167,8 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
           onSubmit={handleModalSubmit}
         />
       )}
-      <div className="letter-items">
           <span>Total: ₹{calculateTotal().toFixed(2)}</span>
           <span>Items: {cart.length}</span>
-          </div>
 
           {/* My Orders button with icon */}
           <button onClick={navigateToOrders} className="orders-button">

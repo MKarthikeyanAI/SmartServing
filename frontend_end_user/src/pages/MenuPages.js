@@ -151,10 +151,10 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
               onSubmit={handleModalSubmit}
             />
           )}
-          <div className="letter-items">
+          {/* <div className="letter-items"> */}
             <span>Total: ₹{calculateTotal().toFixed(2)}</span>
             <span>Items: {cart.length}</span>
-          </div>
+          {/* </div> */}
           <button onClick={navigateToOrders} className="orders-button">
             <RiFileList2Line /> My Orders
           </button>

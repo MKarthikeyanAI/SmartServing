@@ -3,9 +3,9 @@ import axios from 'axios';
 
 // const BASE_URL = "http://localhost:5000";
 
-const BASE_URL = "https://smartserving.onrender.com";
+// const BASE_URL = "https://smartserving.onrender.com";
 
-// const BASE_URL = "https://sx935z96s4.execute-api.ap-south-1.amazonaws.com";
+const BASE_URL = "https://sx935z96s4.execute-api.ap-south-1.amazonaws.com";
 
 export const getMenuItems = async (restaurantName) => {
   try {

@@ -1,4 +1,3 @@
-/* src/components/AboutUs/AboutUs.css */
 .about-us {
   padding: 6rem 2rem;
   background-color: #e0f2f7;
@@ -23,17 +22,48 @@
   margin-bottom: 1.5rem;
 }
 
-/* Media Query for smaller screens */
-@media (max-width: 768px) {
+/* Media Query for tablets */
+@media (max-width: 1024px) {
   .about-us {
-    padding: 4rem 1rem; /* Reduced padding */
+    padding: 5rem 1.5rem;
   }
 
   .about-us h2 {
-    font-size: 2.2rem; /* Smaller heading */
+    font-size: 2.5rem;
   }
 
   .about-us p {
-    font-size: 1rem; /* Smaller paragraph */
+    font-size: 1.1rem;
+  }
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+  .about-us {
+    padding: 4rem 1rem;
+  }
+
+  .about-us h2 {
+    font-size: 2.2rem;
+  }
+
+  .about-us p {
+    font-size: 1rem;
+  }
+}
+
+/* Media Query for mobile phones */
+@media (max-width: 480px) {
+  .about-us {
+    padding: 3rem 1rem;
+  }
+
+  .about-us h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-us p {
+    font-size: 0.9rem;
   }
 }

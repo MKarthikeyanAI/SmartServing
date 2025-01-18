@@ -1,57 +1,95 @@
 /* src/components/Testimonials/Testimonials.css */
 .testimonials {
-    padding: 6rem 2rem;
-    background-color: #00bcd4;
-    color: #fff;
+  padding: 6rem 2rem;
+  background-color: #00bcd4;
+  color: #fff;
+}
+
+.testimonials .container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.testimonials h2 {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.testimonial {
+  background-color: #fff;
+  color: #555;
+  padding: 3rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial .author {
+  font-weight: 600;
+  color: #222;
+  font-style: italic;
+}
+
+/* Media Query for tablets */
+@media (max-width: 1024px) {
+  .testimonials {
+      padding: 5rem 1.5rem;
   }
-  
-  .testimonials .container {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  
+
   .testimonials h2 {
-    font-size: 3rem;
-    margin-bottom: 3rem;
-    text-align: center;
+      font-size: 2.5rem;
   }
-  
+
   .testimonial {
-    background-color: #fff;
-    color: #555;
-    padding: 3rem;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 2.5rem;
   }
-  
+
   .testimonial p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
+      font-size: 1.1rem;
   }
-  
-  .testimonial .author {
-    font-weight: 600;
-    color: #222;
-    font-style: italic;
+}
+
+/* Media Query for smaller screens (mobile phones) */
+@media (max-width: 768px) {
+  .testimonials {
+      padding: 4rem 1rem;
   }
-  
-  /* Media Query for smaller screens */
-  @media (max-width: 768px) {
-    .testimonials {
-      padding: 4rem 1rem; /* Reduced padding */
-    }
-  
-    .testimonials h2 {
-      font-size: 2.2rem; /* Smaller heading */
-    }
-  
-    .testimonial {
-      padding: 2rem; /* Reduced padding */
-    }
-  
-    .testimonial p {
-      font-size: 1rem; /* Smaller paragraph */
-    }
+
+  .testimonials h2 {
+      font-size: 2.2rem;
   }
+
+  .testimonial {
+      padding: 2rem;
+  }
+
+  .testimonial p {
+      font-size: 1rem;
+  }
+}
+
+/* Media Query for larger screens (desktops/laptops) */
+@media (min-width: 1200px) {
+  .testimonials {
+      padding: 8rem 3rem;
+  }
+
+  .testimonials h2 {
+      font-size: 3.5rem;
+  }
+
+  .testimonial {
+      padding: 3.5rem;
+  }
+
+  .testimonial p {
+      font-size: 1.3rem;
+  }
+}

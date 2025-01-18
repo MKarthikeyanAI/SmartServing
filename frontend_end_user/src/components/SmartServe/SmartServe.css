@@ -1,103 +1,129 @@
 /* src/components/SmartServe/SmartServe.css */
 .smart-serve {
-    padding: 6rem 2rem;
-    background-color: #f8f8f8;
+  padding: 6rem 2rem;
+  background-color: #f8f8f8;
+}
+
+.smart-serve .container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap; /* Ensure items wrap on smaller screens */
+}
+
+.smart-serve .content {
+  text-align: left;
+  background-color: #fff;
+  padding: 3rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Allow content to take available space */
+  min-width: 300px; /* Minimum width for smaller screens */
+}
+
+.smart-serve h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+.smart-serve p {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.smart-serve ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.smart-serve ul li {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.smart-serve ul li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: #00bcd4;
+  font-weight: 600;
+}
+
+.smart-serve .btn {
+  display: inline-block;
+  background-color: #00bcd4;
+  color: #fff;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.smart-serve .btn:hover {
+  background-color: #0097a7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Query for tablets and smaller laptops */
+@media (max-width: 1024px) {
+  .smart-serve {
+      padding: 5rem 1.5rem;
   }
-  
+
   .smart-serve .container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 4rem;
-    max-width: 1200px;
-    margin: 0 auto;
+      gap: 3rem;
   }
-  
-  .smart-serve .content {
-    text-align: left;
-    background-color: #fff;
-    padding: 3rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
+
   .smart-serve h2 {
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    color: #222;
+      font-size: 2.5rem;
   }
-  
+
   .smart-serve p {
-    font-size: 1.2rem;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 2rem;
+      font-size: 1.1rem;
   }
-  
-  .smart-serve ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 2rem;
-  }
-  
+
   .smart-serve ul li {
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
-    position: relative;
+      font-size: 1.1rem;
   }
-  
-  .smart-serve ul li::before {
-    content: '\2713';
-    position: absolute;
-    left: 0;
-    color: #00bcd4;
-    font-weight: 600;
+}
+
+/* Media Query for mobile phones */
+@media (max-width: 768px) {
+  .smart-serve {
+      padding: 4rem 1rem;
   }
-  
-  .smart-serve .btn {
-    display: inline-block;
-    background-color: #00bcd4;
-    color: #fff;
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    text-decoration: none;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+
+  .smart-serve .container {
+      flex-direction: column;
+      gap: 2rem;
   }
-  
-  .smart-serve .btn:hover {
-    background-color: #0097a7;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+  .smart-serve .content {
+      padding: 2rem;
   }
-  
-  /* Media Query for smaller screens */
-  @media (max-width: 768px) {
-    .smart-serve {
-      padding: 4rem 1rem; /* Reduced padding */
-    }
-  
-    .smart-serve .container {
-      flex-direction: column; /* Stack elements vertically */
-      gap: 2rem; /* Reduced gap */
-    }
-  
-    .smart-serve .content {
-      padding: 2rem; /* Reduced padding */
-    }
-  
-    .smart-serve h2 {
-      font-size: 2.2rem; /* Smaller heading */
-    }
-  
-    .smart-serve p {
-      font-size: 1rem; /* Smaller paragraph */
-    }
-  
-    .smart-serve ul li {
-      font-size: 1rem; /* Smaller list items */
-    }
+
+  .smart-serve h2 {
+      font-size: 2.2rem;
   }
+
+  .smart-serve p {
+      font-size: 1rem;
+  }
+
+  .smart-serve ul li {
+      font-size: 1rem;
+  }
+}
