@@ -4,7 +4,7 @@ import { getMenuItems, getUserId, addUser } from "../api/api";
 import MenuItemCard from "../components/MenuItemCard";
 import { RiFileList2Line } from 'react-icons/ri';
 import ModalUserDetailslogin from "../components/ModalUserDetailslogin";
-import "../styles/MenuPage.css";
+import "../styles/MenuPages.css";
 import { assets } from '../assets/assets.js'
 import Footer from "../components/Footer.js";
 import LandingPage from '../components/LandingPage.js';
@@ -103,33 +103,33 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
 
   return (
     <div className="menu-page" id="menu-page">
-      <div className="navbar">
-        <div className="logo-container">
-          <img src={assets.logo} alt="Logo" className="logo" />
+      <div className="navbar-1">
+        <div className="logo-container-1">
+          <img src={assets.logo} alt="Logo" className="logo-1" />
         </div>
-        <div className="search-container">
+        <div className="search-container-1">
           <input
             type="text"
             placeholder="Search"
             value={searchTerm}
             onChange={handleSearch}
-            className="search-input"
+            className="search-input-1"
           />
         </div>
-        <div className="nav-links">
+        <div className="nav-links-1">
           <Link
             to="menu-page"
             smooth={true}
             duration={500}
-            className="nav-link"
+            className="nav-link-1"
           >
             Home
           </Link>
           <Link
-            to="categories-container"
+            to="categories-container-1"
             smooth={true}
             duration={500}
-            className="nav-link"
+            className="nav-link-1"
           >
             Menu
           </Link>
@@ -139,29 +139,29 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
               e.preventDefault();
               navigateToContact();
             }}
-            className="nav-link"
+            className="nav-link-1"
           >
             Contact Us
           </a>
         </div>
-        <div className="cart-summary">
+        <div className="cart-summary-1">
           {modalOpen && (
             <ModalUserDetailslogin
               onClose={() => setModalOpen(false)}
               onSubmit={handleModalSubmit}
             />
           )}
-          {/* <div className="letter-items"> */}
             <span>Total: ₹{calculateTotal().toFixed(2)}</span>
             <span>Items: {cart.length}</span>
-          {/* </div> */}
-          <button onClick={navigateToOrders} className="orders-button">
+          <button onClick={navigateToOrders} className="orders-button-1">
             <RiFileList2Line /> My Orders
           </button>
-          <button onClick={navigateToCart} className="cart-button">Go to Cart</button>
+          <button onClick={navigateToCart} className="cart-button-1">Go to Cart</button>
         </div>
       </div>
+      
       <LandingPage />
+      
       <div className="categories-container" id="categories-container">
         <div className="categories-scroll">
           {categories.map((category) => (

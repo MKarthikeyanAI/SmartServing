@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getMenuItems,getUserId,addUser } from "../api/api";
 import MenuItemCard from "../components/MenuItemCard";
 import { RiFileList2Line } from 'react-icons/ri';
@@ -14,10 +14,10 @@ import { Link } from "react-scroll"; // Import Link from react-scroll
 
 const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
 
-  const { restaurantName, tableName } = useParams();
+  // const { restaurantName, tableName } = useParams(); for dynamic
 
-  // const restaurantName = "WafflePondy"; // Static test value
-  // const tableName = "table1"; // Static test value
+  const restaurantName = "WafflePondy"; // Static test value
+  const tableName = "table1"; // Static test value
 
   const navigate = useNavigate();
 
@@ -114,22 +114,21 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
 
   return (
     <div className="menu-page" id="menu-page">
-      <div className="navbar">
+      <div className="navbar-2">
       <div className="logo-container"> {/* Add a container for the logo */}
           <img src={assets.logo} alt="Logo" className="logo" /> 
         
         </div>
-        <div className="nav-elements">
         <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={handleSearch}
-            className="search-input"
-          />
-        </div>
-<div className="nav-links"> {/* Add navigation links */}
+  <input
+    type="text"
+    placeholder="Search your food"
+    value={searchTerm}
+    onChange={handleSearch}
+    className="search-input"
+  />
+</div>
+<div className="nav-links-2">
 <Link
             to="menu-page" // Scroll to the menu-page container
             smooth={true}
@@ -156,8 +155,6 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
 >
   Contact Us
 </a>
-  </div>
-
   </div>
         <div className="cart-summary">
 
