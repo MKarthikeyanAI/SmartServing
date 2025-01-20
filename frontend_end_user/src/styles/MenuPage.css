@@ -4,15 +4,17 @@
   font-family: Arial, sans-serif;
 }
 
-.navbar-2 {
+.navbar-3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #ffffff;
   border-bottom: 1px solid #ddd;
-  width: 410px;
+  width: 100%;
   overflow-x: auto; /* Enable horizontal scrolling */
   white-space: nowrap; /* Prevent items from wrapping */
+  position: fixed;
+  z-index: 5000;
 }
 
 
@@ -153,12 +155,13 @@
 
 
 @media (max-width: 768px) {
-  .navbar-2 {
+  .navbar-3 {
     display: flex;
     flex-wrap: nowrap; /* Prevent wrapping */
     overflow-x: auto; /* Enable horizontal scrolling */
     white-space: nowrap; /* Ensure content is in a single line */
     padding: 1px;
+    width: 420px;
   }
 
   .logo-container,

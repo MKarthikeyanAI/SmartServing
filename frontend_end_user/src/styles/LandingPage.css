@@ -9,7 +9,6 @@
     color: white;
     text-align: center;
     position: relative;
-    width: 350px;
     border-radius: 10px;
     padding: 0 30px;
     overflow: hidden;
@@ -68,6 +67,9 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .landing-page{
+        width: 380px;
+    }
     .landing-page h1 {
         font-size: 2rem;
     }

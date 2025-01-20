@@ -10,9 +10,11 @@
     justify-content: space-between;
     background-color: #ffffff;
     border-bottom: 1px solid #ddd;
-    width: 410px;
     overflow-x: auto; /* Enable horizontal scrolling */
     white-space: nowrap; /* Prevent items from wrapping */
+    position: fixed;
+    z-index: 4000;
+    width: 100%;
   }
   
   
@@ -21,7 +23,7 @@
     border-top: 2px solid #ddd; /* Top border */
     white-space: nowrap;
     padding: 10px 0;
-    width: 410px;
+    width: 100%;
     background-color: #f8f9fa;
     border-bottom: 2px solid #ddd;
     padding-top: 60px; /* Add padding to ensure content starts below the fixed navbar */
@@ -158,7 +160,12 @@
       overflow-x: auto; /* Enable horizontal scrolling */
       white-space: nowrap; /* Ensure content is in a single line */
       padding: 10px;
+      width: 420px;
     }
+
+    .categories-container-1 {
+        width: 440px;
+      }
   
     .logo-container-1,
     .search-container-1,

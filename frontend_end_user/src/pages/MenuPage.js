@@ -114,7 +114,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
 
   return (
     <div className="menu-page" id="menu-page">
-      <div className="navbar-2">
+      <div className="navbar-3">
       <div className="logo-container"> {/* Add a container for the logo */}
           <img src={assets.logo} alt="Logo" className="logo" /> 
         

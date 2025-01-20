@@ -162,7 +162,7 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
       
       <LandingPage />
       
-      <div className="categories-container" id="categories-container">
+      <div className="categories-container-1" id="categories-container-1">
         <div className="categories-scroll">
           {categories.map((category) => (
             <button
