@@ -11,8 +11,7 @@
     position: relative;
     border-radius: 10px;
     padding: 0 30px;
-    overflow: hidden;
-    padding-top: 70px; /* Adjust this value based on the height of your navbar */
+    padding-top: 70px;
 }
 
 /* Overlay for Better Text Contrast */

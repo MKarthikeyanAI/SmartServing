@@ -177,7 +177,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
           
         </div>
       </div>
-      <LandingPage /> {/* Add the LandingPage component here */}
+      <LandingPage />
 
       <div className="categories-container" id="categories-container"> 
         <div className="categories-scroll">

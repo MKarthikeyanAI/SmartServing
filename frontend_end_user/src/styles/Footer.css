@@ -4,13 +4,12 @@
   color: #ffffff;
   padding: 50px 0;
   font-family: 'Poppins', sans-serif;
-  width: 100%;
 }
 
 .footer-content {
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center;   /* Center items horizontally */
+  flex-direction: column;
+  align-items: center;  
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;

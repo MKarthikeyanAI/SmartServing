@@ -23,7 +23,6 @@
   border-top: 2px solid #ddd; /* Top border */
   white-space: nowrap;
   padding: 10px 0;
-  width: 410px;
   background-color: #f8f9fa;
   border-bottom: 2px solid #ddd;
   padding-top: 60px; /* Add padding to ensure content starts below the fixed navbar */
@@ -161,7 +160,10 @@
     overflow-x: auto; /* Enable horizontal scrolling */
     white-space: nowrap; /* Ensure content is in a single line */
     padding: 1px;
-    width: 420px;
+  }
+
+  .categories-container {
+    width: 440px;
   }
 
   .logo-container,
