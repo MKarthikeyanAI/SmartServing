@@ -157,11 +157,14 @@ def create_restaurant():
 @app.route('/add-menu-item/<restaurant_name>', methods=['POST'])
 def add_menu_item(restaurant_name):
     data = request.json
-    required_fields = ['name', 'price', 'category', 'image_url', 'stock']  # Add 'stock'
+    required_fields = ['name', 'price', 'category', 'image_url']
 
     # Validate required fields
     if not all(field in data for field in required_fields):
         return jsonify({"error": "Missing required fields"}), 400
+
+    # Set default stock value to 'yes' if not provided or empty
+    stock_value = data.get('stock', 'yes').strip() or 'yes'
 
     db = mongo.cx[restaurant_name]
 
@@ -175,7 +178,7 @@ def add_menu_item(restaurant_name):
         "price": data['price'],
         "category": data['category'],
         "image_url": data['image_url'],
-        "stock": data['stock'],  # Add the stock field
+        "stock": stock_value,
     }
 
     # Insert the new menu item
@@ -508,6 +511,7 @@ def login():
     password = data.get('password')
     db = mongo.cx['Restaurants_Admin_Database']
     restaurant = db.restaurants.find_one({'username': username, 'password': password})
+    print(restaurant)
     
     if restaurant:
         return jsonify({'success': True, 'restaurantName': restaurant['username']}), 200
