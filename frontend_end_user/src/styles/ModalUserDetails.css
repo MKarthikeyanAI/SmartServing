@@ -37,7 +37,7 @@
   /* Form Input Group */
   .input-group {
     margin-bottom: 20px;
-  }
+   }
   
   /* Input Fields */
   .input-field-details {
@@ -121,7 +121,7 @@
     }
   
     .input-field {
-      padding: 10px 15px;
+      padding: 1px 15px;
       font-size: 14px;
     }
   

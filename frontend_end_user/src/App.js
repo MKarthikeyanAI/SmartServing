@@ -6,6 +6,7 @@ import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import LandingPage from "./pages/LandingPage"; // Import LandingPage
 import TemplatePage from './pages/TemplatePage'; // Import the new template page
+import ServiceUnavailable from './pages/ServiceUnavailable';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -96,6 +97,7 @@ function App() {
           />
         }
       />
+      <Route path="/service-unavailable" element={<ServiceUnavailable />} />
         <Route
           path="/order-confirmation/:restaurantName/:tableName"
           element={

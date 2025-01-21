@@ -14,7 +14,7 @@
 
 /* Modal Content Styling */
 .modal-content {
-  background-color: #edecec;
+  background-color: #f2f2f2;
   border-radius: 10px;
   padding: 30px;
   width: 90%;
@@ -52,7 +52,6 @@
   border-radius: 8px;
   font-size: 16px;
   outline: none;
-  margin-left:-150px;
   box-sizing: border-box;
 }
 
@@ -79,7 +78,7 @@
 }
 
 .submit-btn {
-  background-color: #f54748; /* Red color to match your design */
+  background-color: #c33333; /* Red color to match your design */
   color: white;
   transition: background-color 0.3s;
 }
@@ -111,7 +110,8 @@
   }
 
   .input-field {
-    padding: 10px 15px;
+    width: 100px;
+    padding: 1px 15px;
     font-size: 14px;
   }
 

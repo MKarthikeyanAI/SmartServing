@@ -11,7 +11,7 @@ import LandingPage from '../components/LandingPage.js';
 import { Link } from "react-scroll";
 
 const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
-  const { restaurantName } = useParams();
+  const { restaurantName, tableName } = useParams();
 
   const navigate = useNavigate();
   const footerRef = useRef(null);
@@ -62,7 +62,11 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
   };
 
   const navigateToCart = () => {
-    navigate(`/order-confirmation/${restaurantName}`);
+    if (!tableName) {
+      navigate('/service-unavailable');
+    } else {
+      navigate(`/order-confirmation/${restaurantName}`);
+    }
   };
 
   const navigateToOrders = async () => {

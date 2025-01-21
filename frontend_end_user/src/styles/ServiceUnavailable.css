@@ -1,0 +1,49 @@
+/* src/styles/ServiceUnavailable.css */
+.service-unavailable {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    color: #fff;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .service-unavailable h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .service-unavailable p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .service-unavailable button {
+    padding: 0.75rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .service-unavailable button:hover {
+    background: linear-gradient(135deg, #feb47b 0%, #ff7e5f 100%);
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .service-unavailable button:focus {
+    outline: none;
+  }
+  
+  
