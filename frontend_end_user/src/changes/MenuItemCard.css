@@ -1,0 +1,133 @@
+.menu-item-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  width: 100%; /* Make cards take full width */
+  max-width: 350px; /* Limit maximum width */
+  box-sizing: border-box;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .menu-item-card {
+    max-width: 300px; /* Adjust max-width for smaller screens */
+  }
+
+  /* Other responsive adjustments for font sizes, padding, etc. */
+}
+
+@media (max-width: 480px) {
+  .menu-item-card {
+    max-width: 100%;
+  }
+
+  /* Further adjustments for very small screens */
+}
+
+.menu-item-card:hover {
+  transform: scale(1.05);
+}
+
+.food-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+
+.menu-item-info {
+  padding: 10px;
+}
+
+.food-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.price-add-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.food-price {
+  font-size: 1rem;
+  color: #f54748; /* Changed color to match the image */
+  font-weight: bold;
+}
+
+.add-to-cart-btn {
+  background-color: #ff7000;
+  /* Orange color */
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  width: 80px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  white-space: nowrap;
+  /* Prevent text from wrapping */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #d45f00;
+  /* Darker orange on hover */
+}
+
+.cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  /* Reduced gap */
+  height: 26px;
+  border: 2px solid #ff7000;
+  border-radius: 20px;
+  /* Increased border-radius */
+  padding: 2px;
+  /* Reduced padding */
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.decrement-btn,
+.increment-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.decrement-btn img,
+.increment-btn img {
+  width: 20px;
+  /* Adjust size as needed */
+  height: 20px;
+}
+
+
+.item-count-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 28px;
+  text-align: center;
+  border: none;
+  /* Removed border */
+  border-radius: 0;
+  /* Removed border-radius */
+  background-color: transparent;
+  /* Transparent background */
+  font-size: 1em;
+  color: #333;
+  font-weight: bold;
+}

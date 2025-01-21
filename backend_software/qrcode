@@ -1,0 +1,45 @@
+import qrcode
+import os
+
+# Function to generate QR Code
+def generate_qr_code(link,file_name,output_folder="qr_codes"):
+    """
+    Generates a QR code for a given link and saves it as an image file.
+
+    Args:
+        link (str): The URL to encode in the QR code.
+        output_folder (str): Folder to save the generated QR code image.
+    """
+    # Create the output directory if it doesn't exist
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+    
+    # Generate the QR Code
+    qr = qrcode.QRCode(
+        version=1,  # Controls the size of the QR Code (1 is the smallest)
+        error_correction=qrcode.constants.ERROR_CORRECT_H,  # High error correction
+        box_size=10,  # Size of each box in the QR code grid
+        border=4,  # Minimum border size
+    )
+    qr.add_data(link)
+    qr.make(fit=True)
+
+    # Create an image of the QR Code
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    # Save the image
+    file_path = os.path.join(output_folder, file_name)
+    img.save(file_path)
+
+    print(f"QR Code generated and saved to: {file_path}")
+
+    
+
+# for i in range(51,101):
+#     print("i value ",i)
+file_name = "DemoStore.png"
+
+link = "https://www.smart-serving.com/KFC_Demo_Store/menu_items"
+
+
+generate_qr_code(link=link,file_name=file_name)
