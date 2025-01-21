@@ -19,6 +19,8 @@ export const getMenuItems = async (restaurantName) => {
 
 export const placeOrder = async (restaurantName, orderData) => {
   try {
+    console.log("order data mk: ",orderData);
+    console.log("restaurantName: ",restaurantName);
     const response = await axios.post(`${BASE_URL}/${restaurantName}/place-order`, orderData);
     return response.data;
   } catch (error) {
