@@ -42,13 +42,15 @@ const Menu = ({restaurantName}) => {
 
 
   useEffect(() => {
-    getMenuItems()
-      .then((items) => {
-        setMenuItems(items);
-        setIsLoading(false); // Stop loading once items are fetched
-      })
-      .catch(() => setIsLoading(false)); // Stop loading even if there's an error
-  }, []);
+    if (restaurantName) {
+      getMenuItems(restaurantName)
+        .then((items) => {
+          setMenuItems(items);
+          setIsLoading(false); // Stop loading once items are fetched
+        })
+        .catch(() => setIsLoading(false)); // Stop loading even if there's an error
+    }
+  }, [restaurantName]); // Dependency on restaurantName
 
   const handleEditClick = (item) => {
     setSelectedItem(item);
@@ -152,7 +154,7 @@ const Menu = ({restaurantName}) => {
                   </div>
                 </div>
                 <div className="menu-price">
-                  <span>{item.price} USD</span>
+                  <span>{item.price} INR</span>
                   <Switch
                     checked={item.stock === 'yes'}
                     onChange={() => handleStockToggle(item)}
