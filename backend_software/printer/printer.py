@@ -12,7 +12,7 @@ ALIGN_LEFT = ESC + b'a\x00'
 
 def print_order(order_data):
     try:
-        backend = usb.backend.libusb1.get_backend(find_library=lambda x: r"C:\path\to\libusb-1.0.dll")
+        backend = usb.backend.libusb1.get_backend(find_library=lambda x: r"C:\Users\mkart\Dropbox\PC\Downloads\libusb-1.0.27\VS2017\MS32\dll\libusb-1.0.dll")
         idVendor = 0x0fe6  
         idProduct = 0x811e  
         device = usb.core.find(idVendor=idVendor, idProduct=idProduct, backend=backend)
