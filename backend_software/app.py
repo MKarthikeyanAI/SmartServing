@@ -382,9 +382,10 @@ def place_order(restaurant_name):
        "restaurant_name": restaurant_name,
         "order_id": order_id,
         "table_name": table_name,
-        "order_details": order_details,
+        "order": order_details,
         "username": username,
         "mobile_number": mobile_number,
+        "status": "Pending",
         "timestamp": timestamp
     })
 
