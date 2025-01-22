@@ -1,0 +1,4 @@
+Flask==2.3.2
+python-escpos==3.0a9
+requests==2.27.1
+pyusb==1.2.1

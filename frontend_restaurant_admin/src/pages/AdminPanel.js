@@ -7,17 +7,33 @@ import ProcessingOrders from '../components/ProcessingOrders';
 
 const AdminPanel = ({ restaurantName }) => {
   const [activeTab, setActiveTab] = useState('orders');
+  const [newOrderNotification, setNewOrderNotification] = useState(false);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    if (tab === 'orders') {
+      setNewOrderNotification(false); // Clear notification when viewing Orders tab
+    }
+  };
+
+  const handleNewOrder = () => {
+    if (activeTab !== 'orders') {
+      setNewOrderNotification(true); // Notify if not on Orders tab
+    }
   };
 
   return (
     <div className="admin-panel">
-      <Sidebar onTabChange={handleTabChange} activeTab={activeTab} />
+      <Sidebar
+        onTabChange={handleTabChange}
+        activeTab={activeTab}
+        newOrderNotification={newOrderNotification}
+      />
       <div className="content">
         {activeTab === 'menu' && <Menu restaurantName={restaurantName} />}
-        {activeTab === 'orders' && <Orders restaurantName={restaurantName} />}
+        {activeTab === 'orders' && (
+          <Orders restaurantName={restaurantName} onNewOrder={handleNewOrder} />
+        )}
         {activeTab === 'processingOrders' && <ProcessingOrders restaurantName={restaurantName} />}
       </div>
     </div>

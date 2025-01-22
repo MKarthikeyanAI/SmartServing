@@ -60,8 +60,16 @@ const MyOrdersPage = () => {
               <div className="order-footer">
                 <div className="order-status">Status: {order.status}</div>
                 <div className="order-timestamp">
-                  Ordered: {new Date(order.timestamp).toLocaleString()}
-                </div>
+                Ordered: {new Date(order.timestamp).toLocaleString('en-GB', {
+                  day: 'numeric',
+                  month: 'numeric',
+                  year: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric',
+                  second: 'numeric',
+                  hour12: true
+                })}
+              </div>
               </div>
             </div>
           ))}

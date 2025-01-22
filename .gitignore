@@ -1,3 +1,7 @@
 concept.txt
 databasedetails.txt
 project_structure.txt
+
+qr_codes/
+qr_code.py
+timecheking.py

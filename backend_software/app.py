@@ -1,18 +1,21 @@
 from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from flask_cors import CORS
-import uuid  # Import the uuid module for generating unique IDs
+import uuid 
 import io
 import base64
 import qrcode
+import pytz
 from datetime import datetime
 import os
-from bson.objectid import ObjectId  # Import ObjectId for MongoDB operations
+from bson.objectid import ObjectId 
+from flask_socketio import SocketIO
+
 
 # Initialize app
 app = Flask(__name__)
 CORS(app)
-
+socketio = SocketIO(app, cors_allowed_origins="*")
 # MongoDB configuration
 app.config["MONGO_URI"] = "mongodb+srv://7708307520karthi:7708307520karthi@cluster0.jtruf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
@@ -20,6 +23,8 @@ mongo = PyMongo(app)
 
 # Register routes
 # app.register_blueprint(qr_code_routes, url_prefix='/api/qrcodes')
+
+
 @app.route('/restaurant-details/<restaurant_name>', methods=['GET'])
 def check_restaurant_details(restaurant_name):
     db = mongo.cx[restaurant_name]  # Access the specific database by name
@@ -298,6 +303,22 @@ def get_menu_itemss(restaurant_name):
     # return jsonify({"menu_items": items})
     return jsonify(items)
 
+
+# Function to get the current time in IST in 12-hour format
+def get_current_ist_time():
+    # Get the current UTC time
+    utc_now = datetime.utcnow()
+
+    # Define the IST timezone
+    ist_timezone = pytz.timezone('Asia/Kolkata')
+
+    # Convert UTC time to IST
+    ist_now = utc_now.replace(tzinfo=pytz.utc).astimezone(ist_timezone)
+
+    # Format the IST time in 12-hour format with AM/PM
+    return ist_now.strftime('%Y-%m-%d %I:%M:%S %p')
+
+
 @app.route('/<string:restaurant_name>/place-order', methods=['POST'])
 def place_order(restaurant_name):
     data = request.json
@@ -330,8 +351,9 @@ def place_order(restaurant_name):
         }
         db.users.insert_one(new_user)  # Insert the new user into the 'users' collection
 
-    # Add the current date and time
-    timestamp = datetime.utcnow().isoformat()
+     # Add the current date and time in IST
+    timestamp = get_current_ist_time()
+
     order_id = str(uuid.uuid4())
     # Prepare the order entry to be inserted into the database
     # Prepare the order entry without the order_id initially
@@ -354,6 +376,18 @@ def place_order(restaurant_name):
 
     # Update the document to include the `order_id` field
     db.orders.update_one({"_id": result.inserted_id}, {"$set": {"order_id": order_id}})
+
+    # Emit a WebSocket event to notify admin panel
+    socketio.emit('new_order', {
+       "restaurant_name": restaurant_name,
+        "order_id": order_id,
+        "table_name": table_name,
+        "order": order_details,
+        "username": username,
+        "mobile_number": mobile_number,
+        "status": "Pending",
+        "timestamp": timestamp
+    })
 
     # Return a success message along with the `order_id`
     return jsonify({"success": True, "message": "Order placed successfully!", "order_id": order_id})
@@ -522,7 +556,14 @@ def login():
 # if __name__ == '__main__':
 #     app.run(debug=True)
 
+# if __name__ == '__main__':
+#     # port = int(os.environ.get('PORT', 5000))  # Get the PORT from environment, default to 5000
+#     # app.run(host='0.0.0.0', port=port, debug=True)
+#     socketio.run(app, debug=True)
+#     # socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+
+
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Get the PORT from environment, default to 5000
-    app.run(host='0.0.0.0', port=port, debug=True)
+    import eventlet
+    socketio.run(app, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/Sidebar.css';
 
-const Sidebar = ({ onTabChange, activeTab }) => {
+const Sidebar = ({ onTabChange, activeTab,newOrderNotification }) => {
   return (
     <div className="sidebar">
       <h2>Admin Panel</h2>
@@ -9,8 +9,14 @@ const Sidebar = ({ onTabChange, activeTab }) => {
         {/* <li className={activeTab === 'dashboard' ? 'active' : ''} onClick={() => onTabChange('dashboard')}>
           Dashboard
         </li> */}
-        <li className={activeTab === 'orders' ? 'active' : ''} onClick={() => onTabChange('orders')}>
+         <li
+          className={`${
+            activeTab === 'orders' ? 'active' : ''
+          } ${newOrderNotification ? 'notification' : ''}`}
+          onClick={() => onTabChange('orders')}
+        >
           Orders
+          {newOrderNotification && <span className="dot"></span>}
         </li>
         <li className={activeTab === 'menu' ? 'active' : ''} onClick={() => onTabChange('menu')}>
           Menu

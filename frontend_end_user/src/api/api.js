@@ -1,11 +1,11 @@
 import axios from 'axios';
 // For Local Run:
 
-// const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://localhost:5000";
 
 // const BASE_URL = "https://smartserving.onrender.com";
 
-const BASE_URL = "https://sx935z96s4.execute-api.ap-south-1.amazonaws.com";
+// const BASE_URL = "https://sx935z96s4.execute-api.ap-south-1.amazonaws.com";
 
 export const getMenuItems = async (restaurantName) => {
   try {
@@ -19,6 +19,8 @@ export const getMenuItems = async (restaurantName) => {
 
 export const placeOrder = async (restaurantName, orderData) => {
   try {
+    console.log("order data mk: ",orderData);
+    console.log("restaurantName: ",restaurantName);
     const response = await axios.post(`${BASE_URL}/${restaurantName}/place-order`, orderData);
     return response.data;
   } catch (error) {
