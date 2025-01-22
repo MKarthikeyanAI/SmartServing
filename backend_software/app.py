@@ -10,10 +10,6 @@ from datetime import datetime
 import os
 from bson.objectid import ObjectId 
 from flask_socketio import SocketIO
-import usb.core
-import usb.util
-import usb.backend.libusb1
-import time
 
 # Initialize app
 app = Flask(__name__)
@@ -22,79 +18,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 # MongoDB configuration
 app.config["MONGO_URI"] = "mongodb+srv://7708307520karthi:7708307520karthi@cluster0.jtruf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
-
-
-
-# ESC/POS Commands
-ESC = b'\x1B'
-RESET_PRINTER = ESC + b'@'  
-CUT_PAPER = ESC + b'\n\x1d\x56\x01'
-ALIGN_CENTER = ESC + b'a\x01'  
-ALIGN_LEFT = ESC + b'a\x00'  
-
-
-def print_order(order_data):
-    try:
-        # Initialize the USB backend
-        backend = usb.backend.libusb1.get_backend(find_library=lambda x: r"C:\Users\mkart\Dropbox\PC\Downloads\libusb-1.0.27\VS2017\MS32\dll\libusb-1.0.dll")
-        
-        # Printer's vendor and product ID (adjust accordingly)
-        idVendor = 0x0fe6  
-        idProduct = 0x811e  
-        
-        # Find the USB device
-        device = usb.core.find(idVendor=idVendor, idProduct=idProduct, backend=backend)
-
-        if device is None:
-            return {"error": "Printer not found"}, 404
-
-        # Detach kernel driver if necessary
-        try:
-            if device.is_kernel_driver_active(0):
-                device.detach_kernel_driver(0)
-        except NotImplementedError:
-            pass
-
-        # Set configuration
-        device.set_configuration()
-
-        # Endpoint to write data to printer
-        endpoint_out = 0x01  
-
-        # Prepare receipt data
-        receipt = RESET_PRINTER + ALIGN_CENTER + b"** My Shop **\n" + ALIGN_LEFT
-        receipt += f"Order ID: {order_data['order_id']}\n".encode()
-        receipt += f"Customer: {order_data['username']}\n".encode()
-        receipt += "-----------------------------\n".encode()
-
-        # Add order items
-        for item in order_data['order']:
-            receipt += f"{item['name']}  {item['quantity']}  ${item['price']:.2f}\n".encode()
-
-        # Add total price and thank you message
-        receipt += f"-----------------------------\nTotal: ${order_data['total']:.2f}\n".encode()
-        receipt += "Thank you!\n".encode()
-
-        # Send data to printer
-        device.write(endpoint_out, receipt)
-        time.sleep(1)  # Wait for printing to finish
-        device.write(endpoint_out, CUT_PAPER)  # Cut the paper
-
-        return {"message": "Receipt printed successfully"}, 200
-
-    except usb.core.USBError as e:
-        return {"error": f"USB Error: {str(e)}"}, 500
-    except Exception as e:
-        return {"error": f"Error: {str(e)}"}, 500
-
-@app.route('/print_receipt', methods=['POST'])
-def print_receipt():
-    # Get the order data from the POST request
-    data = request.get_json()
-
-    # Call print_order function and return its response
-    return jsonify(print_order(data))
-
 
 
 @app.route('/restaurant-details/<restaurant_name>', methods=['GET'])
@@ -630,4 +553,3 @@ if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=port, debug=True)
     # socketio.run(app, debug=True)
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
-
