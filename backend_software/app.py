@@ -379,10 +379,12 @@ def place_order(restaurant_name):
 
     # Emit a WebSocket event to notify admin panel
     socketio.emit('new_order', {
-        "restaurant_name": restaurant_name,
+       "restaurant_name": restaurant_name,
         "order_id": order_id,
         "table_name": table_name,
         "order_details": order_details,
+        "username": username,
+        "mobile_number": mobile_number,
         "timestamp": timestamp
     })
 
