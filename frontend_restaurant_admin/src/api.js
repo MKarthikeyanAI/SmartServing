@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const API_URL = 'http://localhost:5000';
-const API_URL = "https://sx935z96s4.execute-api.ap-south-1.amazonaws.com";
+const API_URL = 'http://localhost:5000';
+// const API_URL = "https://sx935z96s4.execute-api.ap-south-1.amazonaws.com";
 
 // const API_URL = "https://smartserving.onrender.com";
 
@@ -51,6 +51,17 @@ export const deleteOrder = async (restaurantName, orderId) => {
   }
 };
 
+export const printOrder = async (order) => {
+  try {
+    const response = await axios.post(`${API_URL}/print_receipt`, order);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error printing order:", error);
+  }
+};
+
+
 export const getOrders = async (restaurantName) => {
   try {
     const response = await axios.get(`${API_URL}/get-orders/${restaurantName}`);
@@ -77,6 +88,7 @@ export const updateOrderStatus = async (restaurantName, orderId, status) => {
 export const getProcessingOrders = async (restaurantName) => {
   try {
     const response = await axios.get(`${API_URL}/get-processing-orders/${restaurantName}`);
+    console.log(response.data);
     return response.data.orders;
   } catch (error) {
     console.error("Error fetching processing orders:", error);

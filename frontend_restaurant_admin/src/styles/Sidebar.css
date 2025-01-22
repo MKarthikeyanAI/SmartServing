@@ -10,6 +10,7 @@
 .sidebar h2 {
   color: #ecf0f1;
   text-align: center;
+  margin-top: 20px;
 }
 
 .sidebar ul {
@@ -25,6 +26,7 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative; /* For positioning the notification dot */
 }
 
 .sidebar ul li:hover {
@@ -34,4 +36,41 @@
 .sidebar ul li.active {
   background-color: #16a085;
   font-weight: bold;
+}
+
+/* Notification class for the Orders tab */
+.sidebar ul li.notification {
+  background-color: #e74c3c; /* Highlight the tab with a red color for new orders */
+  color: #ecf0f1;
+}
+
+.sidebar ul li.notification:hover {
+  background-color: #c0392b; /* Slightly darker red on hover */
+}
+
+/* Add a notification dot */
+.sidebar ul li.notification .dot {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #f1c40f;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(241, 196, 15, 0.7);
+  animation: pulse 1.5s infinite;
+}
+
+/* Pulse animation for the notification dot */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

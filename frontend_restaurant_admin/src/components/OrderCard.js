@@ -22,7 +22,15 @@ const OrderCard = ({ order, onDetailsClick, refreshOrders, restaurantName }) => 
 
   return (
     <div className="order-card">
-      <p><strong>Date:</strong> {new Date(order.timestamp).toLocaleString()}</p>
+      <p><strong>Date:</strong> {new Date(order.timestamp).toLocaleString('en-GB', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true
+      })}</p>
       <p><strong>Customer Name:</strong> {order.username}</p>
       <p><strong>Mobile Number:</strong> {order.mobile_number}</p>
       <p><strong>Table:</strong> {order.table_name}</p>

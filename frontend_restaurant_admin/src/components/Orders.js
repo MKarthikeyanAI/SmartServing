@@ -1,20 +1,51 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { getOrders } from '../api';
-import OrderCard from '../components/OrderCard.js';
-import MenuSidebar from '../components/MenuSidebar.js';
+import OrderCard from '../components/OrderCard';
+import MenuSidebar from '../components/MenuSidebar';
 import '../styles/Orders.css';
-import { ClipLoader } from 'react-spinners'; // Import spinner
+import { ClipLoader } from 'react-spinners';
+import io from 'socket.io-client';
 
-const Orders = ({ restaurantName }) => {
+const Orders = ({ restaurantName, onNewOrder }) => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
+  // Function to handle new orders
+  const handleNewOrder = useCallback(
+    (newOrder) => {
+      if (newOrder.restaurant_name === restaurantName) {
+        setOrders((prevOrders) => [...prevOrders, newOrder]);
+        if (onNewOrder) onNewOrder(); // Notify parent about the new order
+      }
+    },
+    [restaurantName, onNewOrder]
+  );
+
+  // Connect to WebSocket and listen for new orders
+  useEffect(() => {
+    const socket = io('http://localhost:5000'); // Backend WebSocket URL
+
+    // Listen for 'new_order' events
+    socket.on('new_order', handleNewOrder);
+
+    // Cleanup on component unmount
+    return () => {
+      socket.disconnect();
+    };
+  }, [handleNewOrder]);
+
+  // Fetch orders from the API
   const fetchOrders = useCallback(async () => {
-    setLoading(true); // Set loading to true before fetching
-    const fetchedOrders = await getOrders(restaurantName);
-    setOrders(fetchedOrders);
-    setLoading(false); // Set loading to false after fetching
+    setLoading(true);
+    try {
+      const fetchedOrders = await getOrders(restaurantName);
+      setOrders(fetchedOrders);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    } finally {
+      setLoading(false);
+    }
   }, [restaurantName]);
 
   useEffect(() => {
