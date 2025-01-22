@@ -11,6 +11,7 @@ import os
 from bson.objectid import ObjectId 
 from flask_socketio import SocketIO
 
+
 # Initialize app
 app = Flask(__name__)
 CORS(app)
@@ -18,6 +19,10 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 # MongoDB configuration
 app.config["MONGO_URI"] = "mongodb+srv://7708307520karthi:7708307520karthi@cluster0.jtruf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
+
+
+# Register routes
+# app.register_blueprint(qr_code_routes, url_prefix='/api/qrcodes')
 
 
 @app.route('/restaurant-details/<restaurant_name>', methods=['GET'])
@@ -551,5 +556,5 @@ def login():
 if __name__ == '__main__':
     # port = int(os.environ.get('PORT', 5000))  # Get the PORT from environment, default to 5000
     # app.run(host='0.0.0.0', port=port, debug=True)
-    # socketio.run(app, debug=True)
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    socketio.run(app, debug=True)
+    # socketio.run(app, host='0.0.0.0', port=5000, debug=True)
