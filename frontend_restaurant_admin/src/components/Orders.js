@@ -1,60 +1,51 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { getOrders } from '../api';
-import OrderCard from '../components/OrderCard';
-import MenuSidebar from '../components/MenuSidebar';
+import OrderCard from '../components/OrderCard.js';
+import MenuSidebar from '../components/MenuSidebar.js';
 import '../styles/Orders.css';
-import { ClipLoader } from 'react-spinners';
-import io from 'socket.io-client';
+import { ClipLoader } from 'react-spinners'; // Import spinner
+import { io } from 'socket.io-client'; // Import socket.io-client
 
-const Orders = ({ restaurantName, onNewOrder }) => {
+const Orders = ({ restaurantName }) => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Add loading state
 
-  // Function to handle new orders
-  const handleNewOrder = useCallback(
-    (newOrder) => {
-      if (newOrder.restaurant_name === restaurantName) {
-        setOrders((prevOrders) => [...prevOrders, newOrder]);
-        if (onNewOrder) onNewOrder(); // Notify parent about the new order
-      }
-    },
-    [restaurantName, onNewOrder]
-  );
-
-  // Connect to WebSocket and listen for new orders
-  useEffect(() => {
-    const socket = io('http://localhost:5000'); // Backend WebSocket URL
-
-    // Listen for 'new_order' events
-    socket.on('new_order', handleNewOrder);
-
-    // Cleanup on component unmount
-    return () => {
-      socket.disconnect();
-    };
-  }, [handleNewOrder]);
-
-  // Fetch orders from the API
   const fetchOrders = useCallback(async () => {
-    setLoading(true);
-    try {
-      const fetchedOrders = await getOrders(restaurantName);
-      setOrders(fetchedOrders);
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true); // Set loading to true before fetching
+    const fetchedOrders = await getOrders(restaurantName);
+    setOrders(fetchedOrders);
+    setLoading(false); // Set loading to false after fetching
   }, [restaurantName]);
 
   useEffect(() => {
     fetchOrders();
-  }, [fetchOrders]);
+
+    // Establish WebSocket connection
+    const socket = io('https://smartserving.onrender.com'); // Replace with your backend URL
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket server');
+    });
+
+    // Listen for the 'new_order' event
+    socket.on('new_order', (newOrder) => {
+      if (newOrder.restaurant_name === restaurantName) {
+        setOrders((prevOrders) => [...prevOrders, newOrder]);
+
+        setSelectedOrder((prevSelected) => (prevSelected ? prevSelected : newOrder));
+      }
+    });
+
+    // Clean up the connection on component unmount
+    return () => {
+      socket.disconnect();
+    };
+  }, [fetchOrders, restaurantName]);
 
   const handleDetailsClick = (order) => {
     setSelectedOrder(order);
   };
+
 
   return (
     <div className="orders-container">
@@ -70,6 +61,7 @@ const Orders = ({ restaurantName, onNewOrder }) => {
                 key={index}
                 order={order}
                 onDetailsClick={handleDetailsClick}
+                isSelected={selectedOrder && selectedOrder.order_id === order.order_id}
                 refreshOrders={fetchOrders}
                 restaurantName={restaurantName}
               />

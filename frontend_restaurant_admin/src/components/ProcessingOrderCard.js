@@ -3,7 +3,7 @@ import '../styles/ProcessingOrderCard.css';  // Import the new CSS file
 import { updateOrderStatus } from '../api';
 
 
-const ProcessingOrderCard = ({ order, onDetailsClick, refreshOrders, restaurantName }) => {
+const ProcessingOrderCard = ({ order, onDetailsClick, refreshOrders, restaurantName,isSelected }) => {
 
   const handleFoodDelivered = async () => {
     await updateOrderStatus(restaurantName, order.order_id, 'Food Delivered');
@@ -27,7 +27,7 @@ const ProcessingOrderCard = ({ order, onDetailsClick, refreshOrders, restaurantN
   };
 
   return (
-    <div className="order-card-1" style={cardStyle}>
+    <div className={`order-card-1 ${isSelected ? 'selected' : ''}`} style={cardStyle}>
       <p><strong>Date:</strong> {new Date(order.timestamp).toLocaleString('en-GB', {
   day: 'numeric',
   month: 'numeric',

@@ -472,9 +472,16 @@ def add_user(restaurant_name):
 @app.route('/get-orders/<restaurant_name>', methods=['GET'])
 def get_orders(restaurant_name):
     db = mongo.cx[restaurant_name]
-    # orders = list(db.orders.find({}, {'_id': 0}))  # Exclude MongoDB internal ID
-    # return jsonify({"orders": orders})
-    pending_orders = list(db.orders.find({"status": "Pending"}, {'_id': 0}))  # Exclude MongoDB internal ID
+    
+    # Fetch pending orders
+    pending_orders = list(db.orders.find({"status": "Pending"}, {'_id': 0}))
+    
+    # Sort orders by order_date (manual string-to-datetime conversion)
+    pending_orders.sort(
+        key=lambda order: datetime.strptime(order['timestamp'], '%Y-%m-%d %I:%M:%S %p'),
+        reverse=True  # Sort in descending order
+    )
+    
     return jsonify({"orders": pending_orders})
 
 

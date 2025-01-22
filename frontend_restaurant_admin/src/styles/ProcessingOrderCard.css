@@ -9,6 +9,11 @@
     cursor: pointer;
     
   }
+
+  .order-card-1.selected {
+    background-color: #add8e6 !important;
+    border: 2px solid #007bb5; /* Optional: add a border color */
+  }
   
   
   .order-card-1:hover {
@@ -84,3 +89,49 @@
     background-color: #27ae60;
   }
   
+  /* Button styling */
+.filter-button-1 {
+  background-color: #4caf50; /* Green background */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-button-1:hover {
+  background-color: #45a049; /* Slightly darker green */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Dropdown menu container */
+.dropdown-menu {
+  position: absolute;
+
+  background-color: white;
+  width: 180px;
+  border: 1px solid #ddd;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+  padding: 10px 0;
+}
+
+/* Each dropdown option styling */
+.dropdown-option {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-option:hover {
+  background-color: #f1f1f1;
+}
+
+
+

@@ -2,16 +2,24 @@ import React from 'react';
 import '../styles/OrderCard.css';
 import { updateOrderStatus ,deleteOrder} from '../api';
 
-const OrderCard = ({ order, onDetailsClick, refreshOrders, restaurantName }) => {
+const OrderCard = ({ order, onDetailsClick, refreshOrders, restaurantName, isSelected }) => {
   // const restaurantName = 'WafflePondy';
-
+  console.log("MK OF THE ORDER: ",order);
   const handleAccept = async () => {
+    if (!order.order_id) {
+      console.error('Order ID is missing');
+      return;
+    }
     await updateOrderStatus(restaurantName, order.order_id, 'Processing');
     console.log('Order status updated to processing');
     refreshOrders(); // Refresh the orders after updating the status
   };
 
   const handleReject = async () => {
+    if (!order.order_id) {
+      console.error('Order ID is missing');
+      return;
+    }
     const confirmed = window.confirm('Do you confirm to reject this order?');
     if (confirmed) {
       await deleteOrder(restaurantName, order.order_id);
@@ -21,7 +29,7 @@ const OrderCard = ({ order, onDetailsClick, refreshOrders, restaurantName }) => 
   };
 
   return (
-    <div className="order-card">
+    <div className={`order-card ${isSelected ? 'selected' : ''}`}>
       <p><strong>Date:</strong> {new Date(order.timestamp).toLocaleString('en-GB', {
         day: 'numeric',
         month: 'numeric',

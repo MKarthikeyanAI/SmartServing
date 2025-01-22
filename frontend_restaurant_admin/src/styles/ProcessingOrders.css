@@ -8,6 +8,8 @@
     box-sizing: border-box;
     justify-content: center; /* Center vertically */
   }
+
+ 
   
   .orders-list {
     width: 70%;
@@ -40,7 +42,6 @@
     height: 100%; /* Ensures the spinner container takes full height */
     min-height: 300px; /* Optionally set a minimum height for small content areas */
   }
-  
   
   @keyframes fadeIn {
     0%, 100% {
