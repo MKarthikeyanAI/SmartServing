@@ -17,7 +17,7 @@ import time
 
 
 # Replace with your libusb.dll path if required (for Windows)
-LIBUSB_DLL_PATH = r"C:\Users\mkart\Dropbox\PC\Downloads\libusb-1.0.27\VS2017\MS32\dll\libusb-1.0.dll"
+# LIBUSB_DLL_PATH = r"C:\Users\mkart\Dropbox\PC\Downloads\libusb-1.0.27\VS2017\MS32\dll\libusb-1.0.dll"
 
 
 # Initialize app
@@ -40,12 +40,39 @@ ALIGN_LEFT = ESC + b'a\x00'  # Align left
 
 
 def print_receipt(order_data):
-    """Print receipt for the given order using a USB thermal printer."""
+
+
+    restaurant_name = order_data.get("restaurant_name")
+    if not restaurant_name:
+        return {"status": "error", "message": "Restaurant name not provided"}
+    
+    # Access the specific database for the restaurant
+    db = mongo.cx[restaurant_name]  # Access the specific database by name
+    
+    # Fetch printer details from the specific restaurant's database
+    printer_details = db.printerdetails.find_one({"restaurant_name": restaurant_name})
+
+    if not printer_details:
+        return {"status": "error", "message": f"Printer details not found for restaurant: {restaurant_name}"}
+
+
+
+    # Extract printer details
+    LIBUSB_DLL_PATH = printer_details.get("path")
+    # Fetch printer details from the database (already done)
+    vendorid = printer_details.get("vendorid")
+    productid = printer_details.get("productid")
+
+    # Convert hexadecimal strings to integer values with the '0x' prefix
+    idVendor = f"0x{vendorid}"  # Add '0x' to make it a hexadecimal representation
+    idProduct = f"0x{productid}"  # Add '0x' to make it a hexadecimal representation
+
+    # Debug: Print fetched details
+    print(f"Using printer details: {LIBUSB_DLL_PATH}, Vendor ID: {idVendor}, Product ID: {idProduct}")
+
     backend = usb.backend.libusb1.get_backend(find_library=lambda x: LIBUSB_DLL_PATH)
 
-    # Replace with your printer's vendor ID and product ID
-    idVendor = 0x0fe6  # Vendor ID of the printer
-    idProduct = 0x811e  # Product ID of the printer
+    # Find the USB printer device
     device = usb.core.find(idVendor=idVendor, idProduct=idProduct, backend=backend)
 
     if device is None:
@@ -107,8 +134,8 @@ def print_receipt(order_data):
         usb.util.dispose_resources(device)
 
 
-@app.route('/print-receipt', methods=['POST'])
-def handle_print_receipt():
+@app.route('/<restaurant_name>/print-receipt', methods=['POST'])
+def handle_print_receipt(restaurant_name):
     """API endpoint to handle receipt printing."""
     data = request.get_json()
 
@@ -117,6 +144,9 @@ def handle_print_receipt():
         return jsonify({"status": "error", "message": "Invalid order data"}), 400
     
     print("INVALID OUT")
+
+    # Add restaurant name to the order data
+    data["restaurant_name"] = restaurant_name
 
     # Print the receipt
     result = print_receipt(data)
