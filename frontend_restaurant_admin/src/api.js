@@ -1,8 +1,8 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:5000';
+// const API_URL = 'http://localhost:5000';
 // const API_URL = "https://sx935z96s4.execute-api.ap-south-1.amazonaws.com";
 
-// const API_URL = "https://smartserving.onrender.com";
+const API_URL = "https://smartserving.onrender.com";
 
 export const updateMenuItemStock = async (restaurantName, menuId, updates) => {
 
@@ -51,14 +51,24 @@ export const deleteOrder = async (restaurantName, orderId) => {
   }
 };
 
-export const printOrder = async (order) => {
-  try {
-    const response = await axios.post(`${API_URL}/print_receipt`, order);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Error printing order:", error);
+
+export const printReceipt = async (order) => {
+  console.log(order);
+  const response = await fetch(`${API_URL}/print-receipt`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(order),
+  });
+
+  console.log("MK OF THE PRINTING OUTPUT: ");
+  console.log(response);
+  if (!response.ok) {
+    throw new Error('Failed to print the receipt');
   }
+
+  return response.json();
 };
 
 

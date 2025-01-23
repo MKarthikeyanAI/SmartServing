@@ -10,6 +10,14 @@ from datetime import datetime
 import os
 from bson.objectid import ObjectId 
 from flask_socketio import SocketIO
+import usb.core
+import usb.util
+import usb.backend.libusb1
+import time
+
+
+# Replace with your libusb.dll path if required (for Windows)
+LIBUSB_DLL_PATH = r"C:\Users\mkart\Dropbox\PC\Downloads\libusb-1.0.27\VS2017\MS32\dll\libusb-1.0.dll"
 
 
 # Initialize app
@@ -20,9 +28,103 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 app.config["MONGO_URI"] = "mongodb+srv://7708307520karthi:7708307520karthi@cluster0.jtruf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
 
+# ESC/POS Commands
+ESC = b'\x1B'
+RESET_PRINTER = ESC + b'@'  # Initialize printer
+CUT_PAPER = ESC + b'\n\x1d\x56\x01'
+ALIGN_CENTER = ESC + b'a\x01'  # Align center
+ALIGN_LEFT = ESC + b'a\x00'  # Align left
 
 # Register routes
 # app.register_blueprint(qr_code_routes, url_prefix='/api/qrcodes')
+
+
+def print_receipt(order_data):
+    """Print receipt for the given order using a USB thermal printer."""
+    backend = usb.backend.libusb1.get_backend(find_library=lambda x: LIBUSB_DLL_PATH)
+
+    # Replace with your printer's vendor ID and product ID
+    idVendor = 0x0fe6  # Vendor ID of the printer
+    idProduct = 0x811e  # Product ID of the printer
+    device = usb.core.find(idVendor=idVendor, idProduct=idProduct, backend=backend)
+
+    if device is None:
+        return {"status": "error", "message": "Printer not found"}
+
+    try:
+        # Detach kernel driver if necessary
+        try:
+            if device.is_kernel_driver_active(0):
+                device.detach_kernel_driver(0)
+        except (usb.core.USBError, NotImplementedError):
+            pass  # Ignore this error
+
+        # Set configuration
+        device.set_configuration()
+
+        # Format receipt data
+        receipt_data = (
+            RESET_PRINTER +
+            ALIGN_CENTER + f"** {order_data.get('username', 'Customer')} **\n".encode() +
+            ALIGN_LEFT +
+            f"Mobile: {order_data.get('mobile_number', 'N/A')}\n".encode() +
+            f"Table: {order_data.get('table_name', 'N/A')}\n".encode() +
+            f"Order ID: {order_data.get('order_id', 'N/A')}\n".encode() +
+            f"Date: {order_data.get('timestamp', 'N/A')}\n".encode() +
+            b"-----------------------------\n" +
+            b"Item                  Qty   Price\n"
+        )
+
+        print(receipt_data)
+
+        for item in order_data.get('order', []):
+            name = item.get('name', 'N/A')
+            qty = item.get('quantity', 0)
+            price = float(item.get('price', 0.00))
+            line = f"{name:<20} {qty:<5} ${price:.2f}\n"
+            receipt_data += line.encode()
+
+        total = sum(float(item.get('price', 0.00)) * item.get('quantity', 0) for item in order_data.get('order', []))
+        receipt_data += b"-----------------------------\n"
+        receipt_data += f"Total:                 ${total:.2f}\n".encode()
+        receipt_data += b"Thank you!\n"
+
+        # Send receipt data
+        endpoint_out = 0x01  # Modify this based on your printer's endpoint
+        device.write(endpoint_out, receipt_data)
+
+        # Wait for printing to complete
+        time.sleep(1)
+
+        # Cut paper
+        device.write(endpoint_out, CUT_PAPER)
+
+        return {"status": "success", "message": "Receipt printed successfully"}
+
+    except usb.core.USBError as e:
+        return {"status": "error", "message": f"USB Error: {str(e)}"}
+    finally:
+        usb.util.dispose_resources(device)
+
+
+@app.route('/print-receipt', methods=['POST'])
+def handle_print_receipt():
+    """API endpoint to handle receipt printing."""
+    data = request.get_json()
+
+    # Validate order data
+    if not data or not data.get('order'):
+        return jsonify({"status": "error", "message": "Invalid order data"}), 400
+    
+    print("INVALID OUT")
+
+    # Print the receipt
+    result = print_receipt(data)
+
+    print(result)
+
+    return jsonify(result), 200 if result["status"] == "success" else 500
+
 
 
 @app.route('/restaurant-details/<restaurant_name>', methods=['GET'])

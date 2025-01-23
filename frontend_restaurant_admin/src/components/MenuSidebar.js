@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/MenuSidebar.css';
+import { printReceipt } from '../api';
 
 const MenuSidebar = ({ order }) => {
  // Check if order or order.order is undefined
@@ -12,6 +13,17 @@ const MenuSidebar = ({ order }) => {
     return total + (item.price || 0) * (item.quantity || 0); // Default to 0 if price or quantity is missing
   }, 0).toFixed(2);
 
+
+  const handlePrint = async () => {
+    try {
+      const response = await printReceipt(order);
+      console.log("Print response:", response);
+      alert("Receipt sent to the printer!");
+    } catch (error) {
+      console.error("Error printing receipt:", error);
+      alert("Failed to print the receipt.");
+    }
+  };
 
   return (
     <div className="menu-sidebar">
@@ -48,6 +60,9 @@ const MenuSidebar = ({ order }) => {
       ) : (
         <p>No items in this order.</p>
       )}
+      <button className="print-button" onClick={handlePrint}>
+        Print Receipt
+      </button>
     </div>
   );
 };
