@@ -8,7 +8,10 @@ import "../styles/MenuPage.css";
 import { assets } from '../assets/assets.js'
 import Footer from "../components/Footer.js"; // Import the Footer component
 import LandingPage from '../components/LandingPage.js'; // Adjust the path based on your folder structure
-import { Link } from "react-scroll"; // Import Link from react-scroll
+import { Link } from "react-scroll"; 
+import { FiSearch } from "react-icons/fi";
+import { RiShoppingCartLine } from "react-icons/ri";
+import { FaHome, FaUtensils, FaEnvelope } from "react-icons/fa";
 
 
 
@@ -33,6 +36,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -119,42 +123,80 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
           <img src={assets.logo} alt="Logo" className="logo" /> 
         
         </div>
-        <div className="search-container">
-  <input
-    type="text"
-    placeholder="Search your food"
-    value={searchTerm}
-    onChange={handleSearch}
-    className="search-input"
-  />
-</div>
 <div className="nav-links-2">
-<Link
-            to="menu-page" // Scroll to the menu-page container
-            smooth={true}
-            duration={500}
-            className="nav-link"
-          >
-            Home
-          </Link>
-    <Link
-            to="categories-container"
-            smooth={true}
-            duration={500}
-            className="nav-link"
-          >
-            Menu
-          </Link>
-    <a
-  href="#contact"
-  onClick={(e) => {
-    e.preventDefault(); // Prevent default anchor behavior
-    navigateToContact();
-  }}
-  className="nav-link"
->
-  Contact Us
-</a>
+
+<div className="search-container"> 
+    {!isSearchOpen && (
+      <FiSearch
+        className="search-icon"
+        onClick={() => {
+          setIsSearchOpen(true); 
+          const categoriesContainer = document.getElementById("categories-container");
+          if (categoriesContainer) {
+            categoriesContainer.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
+      />
+    )}
+    {isSearchOpen && (
+      <input
+        type="text"
+        placeholder="Search your food"
+        value={searchTerm}
+        onChange={handleSearch}
+        onBlur={() => setIsSearchOpen(false)} 
+        className="search-input"
+      />
+    )}
+  </div>
+ {/* Home Icon */}
+ <Link
+    to="menu-page"
+    smooth={true}
+    duration={500}
+    className="nav-link"
+    title="Home" // Tooltip for accessibility
+  >
+    <FaHome className="nav-icon" />
+  </Link>
+
+  {/* Menu Icon */}
+  <Link
+    to="categories-container"
+    smooth={true}
+    duration={500}
+    className="nav-link"
+    title="Menu" // Tooltip for accessibility
+  >
+    <FaUtensils className="nav-icon" />
+  </Link>
+
+  {/* Contact Icon */}
+  <a
+    href="#contact"
+    onClick={(e) => {
+      e.preventDefault(); // Prevent default anchor behavior
+      navigateToContact();
+    }}
+    className="nav-link"
+    title="Contact Us" // Tooltip for accessibility
+  >
+    <FaEnvelope className="nav-icon" />
+  </a>
+    {/* My Orders Icon */}
+    <div className="nav-link" onClick={navigateToOrders} title="My Orders"> 
+    <RiFileList2Line className="nav-icon" />
+  </div>
+
+  {/* Go to Cart Icon */}
+  <div className="nav-link" onClick={navigateToCart} title="Go to Cart">
+    <RiShoppingCartLine className="nav-icon" />
+  </div>
+
+  <div className="nav-link"> 
+    <span>₹{calculateTotal().toFixed(2)}</span>
+  </div>
+  
   </div>
         <div className="cart-summary">
 
@@ -164,17 +206,6 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
           onSubmit={handleModalSubmit}
         />
       )}
-          <span>Total: ₹{calculateTotal().toFixed(2)}</span>
-          <span>Items: {cart.length}</span>
-
-          {/* My Orders button with icon */}
-          <button onClick={navigateToOrders} className="orders-button">
-          <RiFileList2Line /> My Orders
-          </button>
-
-
-          <button onClick={navigateToCart} className="cart-button">Go to Cart</button>
-          
         </div>
       </div>
       <LandingPage />

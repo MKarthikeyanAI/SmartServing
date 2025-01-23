@@ -21,27 +21,27 @@ const Footer = React.forwardRef((props, ref) => (
         </div>
         <div className="contact-section">
           <h3>GET IN TOUCH</h3>
-          <p>+1-212-456-7890</p>
-          <p>contact@smart-serve.com</p>
+          <p>+91 7708307520</p>
+          <p>smartserving.com@gmail.com</p>
         </div>
       </div>
     </div>
     <div className="footer-social">
-      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.smart-serving.com/" target="_blank" rel="noopener noreferrer">
         <FaFacebookF />
       </a>
-      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.smart-serving.com/" target="_blank" rel="noopener noreferrer">
         <FaTwitter />
       </a>
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.smart-serving.com/" target="_blank" rel="noopener noreferrer">
         <FaInstagram />
       </a>
-      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.smart-serving.com/" target="_blank" rel="noopener noreferrer">
         <FaLinkedinIn />
       </a>
     </div>
     <div className="footer-bottom">
-      <p>&copy; 2025 smart-serve.com - All Rights Reserved.</p>
+      <p>&copy; 2025 www.smart-serving - All Rights Reserved.</p>
     </div>
   </footer>
 ));

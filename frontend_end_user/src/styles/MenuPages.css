@@ -16,17 +16,27 @@
     z-index: 4000;
     width: 100%;
   }
+
+  .nav-links-21 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:10px;
+    margin-left:-20px;
+  }
   
-  
+  .nav-links-21 {
+    margin-right: -15px;
+    gap: -50px;
+  }
   .categories-container-1 {
     overflow-x: auto;
-    border-top: 2px solid #ddd; /* Top border */
+    border-top: 1px solid #ddd; /* Top border */
     white-space: nowrap;
     padding: 10px 0;
-    width: 100%;
     background-color: #f8f9fa;
     border-bottom: 2px solid #ddd;
-    padding-top: 60px; /* Add padding to ensure content starts below the fixed navbar */
+    padding-top: 12px; /* Add padding to ensure content starts below the fixed navbar */
   }
   
   .categories-scroll-1 {
@@ -105,7 +115,7 @@
     }
     
     .logo-1 {
-      max-width: 100px;
+      max-width: 80px;
     }
   
     .search-input-1 {

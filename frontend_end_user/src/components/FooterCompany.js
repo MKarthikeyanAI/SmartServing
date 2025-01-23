@@ -22,7 +22,7 @@ const FooterCompany = React.forwardRef((props, ref) => (
         <div className="contact-section">
           <h3>GET IN TOUCH</h3>
           <p>+91 7708307520</p>
-          <p>contact@smart-serve.com</p>
+          <p>smartserving.com@gmail.com</p>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@ const FooterCompany = React.forwardRef((props, ref) => (
       </a>
     </div>
     <div className="footer-bottom">
-      <p>&copy; 2025 smart-serve.com - All Rights Reserved.</p>
+      <p>&copy; 2025 smart-serving.com - All Rights Reserved.</p>
     </div>
   </footer>
 ));
