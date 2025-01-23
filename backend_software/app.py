@@ -71,51 +71,49 @@ def get_dashboard_data(restaurant_name):
 
 
 def print_receipt(order_data):
-
-
+    # Validate order data
     restaurant_name = order_data.get("restaurant_name")
     if not restaurant_name:
         return {"status": "error", "message": "Restaurant name not provided"}
-    
-    # Access the specific database for the restaurant
-    db = mongo.cx[restaurant_name]  # Access the specific database by name
-    
-    # Fetch printer details from the specific restaurant's database
-    printer_details = db.printerdetails.find_one({"restaurant_name": restaurant_name})
 
+    # Access the specific database for the restaurant
+    db = mongo.cx[restaurant_name]
+
+    # Fetch printer details
+    printer_details = db.printerdetails.find_one({"restaurant_name": restaurant_name})
     if not printer_details:
         return {"status": "error", "message": f"Printer details not found for restaurant: {restaurant_name}"}
 
-
-
     # Extract printer details
     LIBUSB_DLL_PATH = printer_details.get("path")
-    # Fetch printer details from the database (already done)
+    if not LIBUSB_DLL_PATH:
+        return {"status": "error", "message": "Printer DLL path not provided"}
+
     vendorid = printer_details.get("vendorid")
     productid = printer_details.get("productid")
 
-    # Convert hexadecimal strings to integer values with the '0x' prefix
-    idVendor = f"0x{vendorid}"  # Add '0x' to make it a hexadecimal representation
-    idProduct = f"0x{productid}"  # Add '0x' to make it a hexadecimal representation
-
-    # Debug: Print fetched details
-    print(f"Using printer details: {LIBUSB_DLL_PATH}, Vendor ID: {idVendor}, Product ID: {idProduct}")
-
-    backend = usb.backend.libusb1.get_backend(find_library=lambda x: LIBUSB_DLL_PATH)
-
-    # Find the USB printer device
-    device = usb.core.find(idVendor=idVendor, idProduct=idProduct, backend=backend)
-
-    if device is None:
-        return {"status": "error", "message": "Printer not found"}
+    if not vendorid or not productid:
+        return {"status": "error", "message": "Printer vendor ID or product ID not provided"}
 
     try:
+        # Convert vendor ID and product ID to integers
+        idVendor = int(vendorid, 16)  # Convert from hex string (e.g., "0x1234")
+        idProduct = int(productid, 16)
+
+        # Initialize the USB backend
+        backend = usb.backend.libusb1.get_backend(find_library=lambda x: LIBUSB_DLL_PATH)
+
+        # Find the USB printer device
+        device = usb.core.find(idVendor=idVendor, idProduct=idProduct, backend=backend)
+        if device is None:
+            return {"status": "error", "message": "Printer not found"}
+
         # Detach kernel driver if necessary
         try:
             if device.is_kernel_driver_active(0):
                 device.detach_kernel_driver(0)
         except (usb.core.USBError, NotImplementedError):
-            pass  # Ignore this error
+            pass
 
         # Set configuration
         device.set_configuration()
@@ -132,8 +130,6 @@ def print_receipt(order_data):
             b"-----------------------------\n" +
             b"Item                  Qty   Price\n"
         )
-
-        print(receipt_data)
 
         for item in order_data.get('order', []):
             name = item.get('name', 'N/A')
@@ -161,7 +157,9 @@ def print_receipt(order_data):
 
     except usb.core.USBError as e:
         return {"status": "error", "message": f"USB Error: {str(e)}"}
+
     finally:
+        # Release the device
         usb.util.dispose_resources(device)
 
 
