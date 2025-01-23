@@ -9,6 +9,12 @@ const Sidebar = ({ onTabChange, activeTab,newOrderNotification }) => {
         {/* <li className={activeTab === 'dashboard' ? 'active' : ''} onClick={() => onTabChange('dashboard')}>
           Dashboard
         </li> */}
+        <li
+          className={activeTab === 'dashboard' ? 'active' : ''}
+          onClick={() => onTabChange('dashboard')}
+        >
+          Dashboard
+        </li>
          <li
           className={`${
             activeTab === 'orders' ? 'active' : ''

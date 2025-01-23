@@ -39,6 +39,37 @@ ALIGN_LEFT = ESC + b'a\x00'  # Align left
 # app.register_blueprint(qr_code_routes, url_prefix='/api/qrcodes')
 
 
+@app.route('/api/dashboard/<restaurant_name>', methods=['GET'])
+def get_dashboard_data(restaurant_name):
+
+    # Access the specific database for the restaurant
+    db = mongo.cx[restaurant_name]  # Access the specific database by name
+    # Access the collection for orders of the specific restaurant
+    orders_collection = db.orders  # Assuming collection is named 'orders' inside restaurant database
+
+    # Fetch all orders
+    orders = list(orders_collection.find())
+
+    print("orders:")
+    print(orders)
+
+    # Calculate the total orders, pending, processing, and completed orders
+    
+    total_orders = len(orders)
+    print(total_orders)
+    pending_orders = len([order for order in orders if order['status'] == 'Pending'])
+    processing_orders = len([order for order in orders if order['status'] == 'Processing'])
+    completed_orders = len([order for order in orders if order['status'] == 'Food Delivered'])  # Or use 'Completed'
+
+
+    return jsonify({
+        'totalOrders': total_orders,
+        'pendingOrders': pending_orders,
+        'processingOrders': processing_orders,
+        'completedOrders': completed_orders,
+    })
+
+
 def print_receipt(order_data):
 
 

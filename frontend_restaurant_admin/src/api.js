@@ -4,6 +4,28 @@ import axios from 'axios';
 
 const API_URL = "https://smartserving.onrender.com";
 
+export const getDashboardData = async (restaurantName) => {
+  try {
+    const response = await axios.get(`${API_URL}/api/dashboard/${restaurantName}`);
+    console.log("Dashboard Data:", response.data);
+
+    return {
+      totalOrders: response.data.totalOrders,
+      pendingOrders: response.data.pendingOrders,
+      processingOrders: response.data.processingOrders,
+      completedOrders: response.data.completedOrders,
+    };
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error);
+    return {
+      totalOrders: 0,
+      pendingOrders: 0,
+      processingOrders: 0,
+      completedOrders: 0,
+    };
+  }
+};
+
 export const updateMenuItemStock = async (restaurantName, menuId, updates) => {
 
   console.log('Restaurant:', restaurantName, 'Menu ID:', menuId);

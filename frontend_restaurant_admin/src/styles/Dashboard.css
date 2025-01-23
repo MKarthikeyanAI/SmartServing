@@ -1,31 +1,36 @@
+/* src/styles/Dashboard.css */
 .dashboard {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   padding: 20px;
+  overflow: hidden;
   box-sizing: border-box;
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-  background-color: #f9f9f9;
 }
 
 .dashboard h2 {
-  margin: 0 0 20px 0;
   font-size: 24px;
-  color: #333;
-}
-
-.dashboard p {
-  margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #666;
-}
-
-/* Example styles for additional content */
-.dashboard .content-section {
   margin-bottom: 20px;
-  padding: 15px;
+}
+
+.dashboard-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.card {
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  text-align: center;
+}
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
 }

@@ -4,6 +4,7 @@ import Menu from '../components/Menu';
 import Orders from '../components/Orders';
 import '../styles/AdminPanel.css';
 import ProcessingOrders from '../components/ProcessingOrders'; 
+import Dashboard from "../components/Dashboard.js"
 
 const AdminPanel = ({ restaurantName }) => {
   const [activeTab, setActiveTab] = useState('orders');
@@ -30,6 +31,7 @@ const AdminPanel = ({ restaurantName }) => {
         newOrderNotification={newOrderNotification}
       />
       <div className="content">
+        {activeTab === 'dashboard' && <Dashboard restaurantName={restaurantName} />}
         {activeTab === 'menu' && <Menu restaurantName={restaurantName} />}
         {activeTab === 'orders' && (
           <Orders restaurantName={restaurantName} onNewOrder={handleNewOrder} />
