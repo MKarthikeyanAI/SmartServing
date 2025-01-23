@@ -52,9 +52,9 @@ export const deleteOrder = async (restaurantName, orderId) => {
 };
 
 
-export const printReceipt = async (order) => {
+export const printReceipt = async (order,restaurantName) => {
   console.log(order);
-  const response = await fetch(`${API_URL}/print-receipt`, {
+  const response = await fetch(`${API_URL}/${restaurantName}/print-receipt`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

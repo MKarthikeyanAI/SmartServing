@@ -16,7 +16,8 @@ const MenuSidebar = ({ order }) => {
 
   const handlePrint = async () => {
     try {
-      const response = await printReceipt(order);
+      const restaurantName = "KFC_Demo_Store"; 
+      const response = await printReceipt(order, restaurantName);
       console.log("Print response:", response);
       alert("Receipt sent to the printer!");
     } catch (error) {
