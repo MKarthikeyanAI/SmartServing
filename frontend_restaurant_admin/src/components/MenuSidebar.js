@@ -62,7 +62,7 @@ const MenuSidebar = ({ order }) => {
         <p>No items in this order.</p>
       )}
       <button className="print-button" onClick={handlePrint}>
-        Print Receipt
+        Print
       </button>
     </div>
   );
