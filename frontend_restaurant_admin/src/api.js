@@ -1,8 +1,8 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8000';
+// const API_URL = 'http://localhost:8000';
 // const API_URL = "https://sx935z96s4.execute-api.ap-south-1.amazonaws.com";
 
-// const API_URL = "https://smartserving.onrender.com";
+const API_URL = "https://smartserving.onrender.com";
 
 export const getDashboardData = async (restaurantName) => {
   try {
