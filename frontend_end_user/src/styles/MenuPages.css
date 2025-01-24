@@ -30,13 +30,13 @@
     gap: -50px;
   }
   .categories-container-1 {
-    overflow-x: auto;
-    border-top: 1px solid #ddd; /* Top border */
-    white-space: nowrap;
-    padding: 10px 0;
-    background-color: #f8f9fa;
-    border-bottom: 2px solid #ddd;
-    padding-top: 12px; /* Add padding to ensure content starts below the fixed navbar */
+     overflow-x: auto;
+  border-top: 1px solid #ddd; /* Top border */
+  white-space: nowrap;
+  padding: 10px 0;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #ddd;
+  padding-top: 12px; /* Add padding to ensure content starts below the fixed navbar */
   }
   
   .categories-scroll-1 {

@@ -105,7 +105,7 @@
 /* Responsiveness */
 @media (max-width: 768px) {
   .footer {
-    width: 420px;
+    width: 424px;
   }
   .footer-content {
       flex-direction: column;

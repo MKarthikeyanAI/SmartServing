@@ -48,7 +48,7 @@
 }
 
 .category-button.active{
-  background-color: #ff6347;
+  background-color: #ff6347 !important;
   color: white;
   font-weight: bold;
   border-color: #ff6347;
@@ -176,7 +176,7 @@
     text-decoration: none;
     color: #333;
     transition: all 0.3s ease; 
-    padding: 12px; 
+    padding: 10px; 
     border-radius: 10px;  
     background-color: #fff; 
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
