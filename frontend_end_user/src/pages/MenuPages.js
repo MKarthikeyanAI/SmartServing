@@ -217,7 +217,7 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
           ))}
         </div>
       </div>
-      <div className="menu-container">
+      <div className="menu-container-1">
         {filteredItems.map((item) => (
           <MenuItemCard
             key={item.unique_id}
