@@ -15,7 +15,6 @@ import { FaHome, FaUtensils, FaEnvelope } from "react-icons/fa";
 
 const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
   const { restaurantName, tableName } = useParams();
-
   const navigate = useNavigate();
   const footerRef = useRef(null);
 
@@ -32,6 +31,8 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  // New state for the floating menu panel
+  const [isFloatingMenuOpen, setFloatingMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -107,7 +108,8 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
     }
   };
 
-  const calculateTotal = () => cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const calculateTotal = () =>
+    cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
     <div className="menu-page" id="menu-page">
@@ -116,8 +118,7 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
           <img src={assets.logo} alt="Logo" className="logo-1" />
         </div>
         <div className="nav-links-21">
-        
-        <div className="search-container"> 
+          <div className="search-container"> 
             {!isSearchOpen && (
               <FiSearch
                 className="search-icon"
@@ -141,56 +142,50 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
               />
             )}
           </div>
-         {/* Home Icon */}
-         <Link
+          {/* Home Icon */}
+          <Link
             to="menu-page"
             smooth={true}
             duration={500}
             className="nav-link"
-            title="Home" // Tooltip for accessibility
+            title="Home"
           >
             <FaHome className="nav-icon" />
           </Link>
-        
           {/* Menu Icon */}
           <Link
             to="categories-container-1"
             smooth={true}
             duration={500}
             className="nav-link"
-            title="Menu" // Tooltip for accessibility
+            title="Menu"
           >
             <FaUtensils className="nav-icon" />
           </Link>
-        
           {/* Contact Icon */}
           <a
             href="#contact"
             onClick={(e) => {
-              e.preventDefault(); // Prevent default anchor behavior
+              e.preventDefault();
               navigateToContact();
             }}
             className="nav-link"
-            title="Contact Us" // Tooltip for accessibility
+            title="Contact Us"
           >
             <FaEnvelope className="nav-icon" />
           </a>
-            {/* My Orders Icon */}
-            <div className="nav-link" onClick={navigateToOrders} title="My Orders"> 
+          {/* My Orders Icon */}
+          <div className="nav-link" onClick={navigateToOrders} title="My Orders"> 
             <RiFileList2Line className="nav-icon" />
           </div>
-        
           {/* Go to Cart Icon */}
           <div className="nav-link" onClick={navigateToCart} title="Go to Cart">
             <RiShoppingCartLine className="nav-icon" />
           </div>
-        
           <div className="nav-link"> 
             <span>₹{calculateTotal().toFixed(2)}</span>
           </div>
-          
-          </div>
-        
+        </div>
         <div className="cart-summary-1">
           {modalOpen && (
             <ModalUserDetailslogin
@@ -198,12 +193,12 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
               onSubmit={handleModalSubmit}
             />
           )}
-           
         </div>
       </div>
       
       <LandingPage />
       
+      {/* Existing Categories Container (optional, you may hide this if using only the floating menu) */}
       <div className="categories-container-1" id="categories-container-1">
         <div className="categories-scroll">
           {categories.map((category) => (
@@ -217,6 +212,7 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
           ))}
         </div>
       </div>
+
       <div className="menu-container-1">
         {filteredItems.map((item) => (
           <MenuItemCard
@@ -229,7 +225,41 @@ const MenuPages = ({ addToCart, cart, incrementItem, decrementItem }) => {
           />
         ))}
       </div>
+
       <Footer ref={footerRef} />
+
+      {/* --- Floating Menu Icon at Bottom Right --- */}
+      <div
+        className="floating-menu-icon"
+        onClick={() => setFloatingMenuOpen(!isFloatingMenuOpen)}
+        title="Filter Categories"
+      >
+        <FaUtensils />
+      </div>
+
+      {/* --- Floating Menu Panel --- */}
+      {isFloatingMenuOpen && (
+        <div className="floating-menu-content">
+          <div className="floating-menu-header">
+            <h3>Categories</h3>
+            <button onClick={() => setFloatingMenuOpen(false)}>Close</button>
+          </div>
+          <div className="floating-menu-categories">
+            {categories.map((category) => (
+              <button
+                key={category}
+                className={`floating-category-button ${category === activeCategory ? "active" : ""}`}
+                onClick={() => {
+                  handleCategoryClick(category);
+                  setFloatingMenuOpen(false);
+                }}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

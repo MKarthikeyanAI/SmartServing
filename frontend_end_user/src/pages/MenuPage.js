@@ -166,7 +166,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
     smooth={true}
     duration={500}
     className="nav-link"
-    title="Menu" // Tooltip for accessibility
+    title="Menu" 
   >
     <FaUtensils className="nav-icon" />
   </Link>
@@ -236,7 +236,7 @@ const MenuPage = ({ addToCart, cart, incrementItem, decrementItem }) => {
             />
           ))}
         </div>
-        <Footer ref={footerRef} /> {/* Attach the ref to the Footer component */}
+        <Footer ref={footerRef} /> 
       </div>
   );
 };

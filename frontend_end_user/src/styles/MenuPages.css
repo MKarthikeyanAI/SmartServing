@@ -4,6 +4,81 @@
     font-family: Arial, sans-serif;
   }
   
+  /* Floating Menu Icon */
+.floating-menu-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff; /* Adjust background */
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  padding: 18px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 1000;
+  transition: background-color 0.3s;
+}
+
+.floating-menu-icon:hover {
+  background-color: #f0f0f0;
+}
+
+/* Floating Menu Panel */
+.floating-menu-content {
+  position: fixed;
+  bottom: 80px; /* Adjust to be above the floating icon */
+  right: 20px;
+  width: 250px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  padding: 16px;
+}
+
+.floating-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.floating-menu-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.floating-menu-header button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.floating-menu-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.floating-category-button {
+  flex: 1 1 45%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.floating-category-button.active {
+  background-color: #e0e0e0;
+  border-color: #bbb;
+}
+
+
   .navbar-1 {
     display: flex;
     align-items: center;
